@@ -1,4 +1,14 @@
+# ==============================================================================
+# ZM Printing & Design Ltd. — Robots.txt
+# Official Website: https://zmprintingbd.com/
+# Production Plant: Ashulia, Savar, Dhaka, Bangladesh
+# ==============================================================================
+
 User-agent: *
 Allow: /
+Allow: /images/
+Allow: /assets/
+Allow: /favicon.svg
 
+# Sitemaps
 Sitemap: https://zmprintingbd.com/sitemap.xml

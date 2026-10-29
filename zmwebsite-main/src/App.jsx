@@ -1,31 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import DesktopSideRails from './components/DesktopSideRails';
 import { useScrollReveal } from './utils/useScrollReveal';
-// Pages
-import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
-import ProductsPage from './pages/ProductsPage';
-import ProductDetailPage from './pages/ProductDetailPage';
-import CapabilitiesPage from './pages/CapabilitiesPage';
-import QualityPage from './pages/QualityPage';
-import SustainabilityPage from './pages/SustainabilityPage';
-import CertificationsPage from './pages/CertificationsPage';
-import ClientsPage from './pages/ClientsPage';
-import FactoryPage from './pages/FactoryPage';
-import NewsPage from './pages/NewsPage';
-import ContactPage from './pages/ContactPage';
-import RequestQuotePage from './pages/RequestQuotePage';
-import GalleryPage from './pages/GalleryPage';
-import ProfilePage from './pages/ProfilePage';
-import SectionPage from './pages/SectionPage';
-import SectionDetailPage from './pages/SectionDetailPage';
-import { PrivacyPolicyPage, TermsPage } from './pages/LegalPages';
+import { applySEO } from './utils/seoHelper';
 
-import { companyInfo } from './data/company';
-import { products } from './data/products';
-import { factorySectionsData } from './data/factorySections';
+// Code-split pages for high performance and reduced initial JS bundle size
+const HomePage = lazy(() => import('./pages/HomePage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ProductsPage = lazy(() => import('./pages/ProductsPage'));
+const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
+const CapabilitiesPage = lazy(() => import('./pages/CapabilitiesPage'));
+const QualityPage = lazy(() => import('./pages/QualityPage'));
+const SustainabilityPage = lazy(() => import('./pages/SustainabilityPage'));
+const CertificationsPage = lazy(() => import('./pages/CertificationsPage'));
+const ClientsPage = lazy(() => import('./pages/ClientsPage'));
+const FactoryPage = lazy(() => import('./pages/FactoryPage'));
+const NewsPage = lazy(() => import('./pages/NewsPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const RequestQuotePage = lazy(() => import('./pages/RequestQuotePage'));
+const GalleryPage = lazy(() => import('./pages/GalleryPage'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage'));
+const SectionPage = lazy(() => import('./pages/SectionPage'));
+const SectionDetailPage = lazy(() => import('./pages/SectionDetailPage'));
+const PrivacyPolicyPage = lazy(() => import('./pages/LegalPages').then(m => ({ default: m.PrivacyPolicyPage })));
+const TermsPage = lazy(() => import('./pages/LegalPages').then(m => ({ default: m.TermsPage })));
+
+function RouteLoadingFallback() {
+  return (
+    <div 
+      style={{ 
+        minHeight: '65vh', 
+        display: 'flex', 
+        flexDirection: 'column',
+        alignItems: 'center', 
+        justifyContent: 'center',
+        gap: '16px'
+      }}
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <div 
+        style={{
+          width: '40px',
+          height: '40px',
+          border: '3px solid rgba(15, 90, 40, 0.15)',
+          borderTopColor: '#0f5a28',
+          borderRadius: '50%',
+          animation: 'routeSpin 0.75s linear infinite'
+        }}
+      />
+      <span style={{ fontSize: '0.875rem', color: 'var(--color-text-muted, #64748b)', fontWeight: 500 }}>
+        Loading content...
+      </span>
+      <style>{`
+        @keyframes routeSpin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
+    </div>
+  );
+}
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -55,114 +90,9 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Technical SEO Title, Meta & Structured Data Injection
+  // Real-time Technical SEO Title, Canonical, Social Meta & JSON-LD Injection
   useEffect(() => {
-    let title = "ZM Printing & Design Ltd. | Precision Apparel Trims & Manufacturing Bangladesh";
-    let desc = "Leading export-standard garment accessories, screen printing, sublimation, rubber patches, and NXP sonic welding manufacturer in Bangladesh since 2013.";
-
-    if (currentPath === '/') {
-      title = "ZM Printing & Design Ltd. | Top Garment Screen & Digital Printing in Bangladesh";
-    } else if (currentPath === '/about') {
-      title = "About Us | ZM Printing & Design Ltd. — 13+ Years Manufacturing Pedigree";
-      desc = "Established in 2013 in Ashulia, Dhaka, ZM Printing operates modern export-standard manufacturing facilities serving global fashion brands.";
-    } else if (currentPath === '/products') {
-      title = "Product Solutions | Screen Printing, Sublimation & Sonic Welds | ZM Printing";
-      desc = "Explore our verified apparel trims range: Silk screen printing, continuous dye sublimation, 3D liquid silicone badges, and ultrasonic sonic welds.";
-    } else if (currentPath.startsWith('/products/')) {
-      const slug = currentPath.replace('/products/', '');
-      const prod = products.find(p => p.slug === slug);
-      if (prod) {
-        title = `${prod.name} | Technical Specs & Manufacturing | ZM Printing`;
-        desc = prod.shortDesc;
-      }
-    } else if (currentPath === '/capabilities') {
-      title = "Manufacturing Capabilities & Plant Setup | ZM Printing Savar Complex";
-      desc = "Our Unit 01 Ashulia facility operates automated screen carousels, EPSON dye sublimation lines, and high-frequency ultrasonic welding stations.";
-    } else if (currentPath === '/quality') {
-      title = "Quality Control & In-House Testing Lab | ZM Printing Savar";
-      desc = "Four-stage quality assurance gate with X-Rite spectrophotometers, AATCC 61 wash fastness testing, and AQL 1.5 pre-shipment audits.";
-    } else if (currentPath === '/sustainability') {
-      title = "Sustainability & Clean Chemistry | ZM Printing Environmental Charter";
-      desc = "Committed to water-based printing inks, phthalate-free compounds, waste minimization, and verified worker safety in Savar, Bangladesh.";
-    } else if (currentPath === '/certifications') {
-      title = "Quality & Compliance Framework | ZM Printing & Design Ltd.";
-      desc = "Institutional compliance standards and third-party laboratory verification for export garment accessories.";
-    } else if (currentPath === '/clients') {
-      title = "Clients & Brand Partnerships | ZM Printing Global Reach";
-      desc = "Trusted by international apparel brands, buying houses, and leading Bangladesh garment manufacturers.";
-    } else if (currentPath === '/factory') {
-      title = "Factory Tour & Facility Details | ZM Printing Unit 01 Ashulia";
-      desc = "Take a virtual tour of our 3 specialized manufacturing floors in South Gazirchat, Ashulia, Savar.";
-    } else if (currentPath === '/section' || currentPath === '/sections') {
-      title = "Factory Sections & Production Floors Directory | ZM Printing & Design Ltd.";
-      desc = "Explore our 30,000 SQFT 4-floor production facilities: Screen Printing, Sublimation, DTF, Silicon badges, Sonic & Ultrasonic welding, QC Lab, and Worker Welfare centers.";
-    } else if (currentPath.startsWith('/section/')) {
-      const slug = currentPath.replace('/section/', '');
-      const sec = factorySectionsData.find(s => s.slug === slug);
-      if (sec) {
-        title = `${sec.sectionTitle} | ZM Printing Manufacturing Facility`;
-        desc = sec.summary;
-      }
-    } else if (currentPath === '/news' || currentPath.startsWith('/news/')) {
-      title = "News & Technical Manufacturing Insights | ZM Printing";
-      desc = "Technical guides on liquid silicone versus PVC, ultrasonic welding tolerances, and export printing compliance.";
-    } else if (currentPath === '/contact') {
-      title = "Contact Us & Factory Addresses | ZM Printing & Design Ltd.";
-      desc = "Connect with our export merchandising desk in Turag or our Unit 01 manufacturing plant in Ashulia, Savar, Dhaka.";
-    } else if (currentPath === '/request-a-quote') {
-      title = "Request a Quote & Physical Strike-Off Sample | ZM Printing RFQ";
-      desc = "Submit your technical pack or artwork vectors for rapid factory pricing and 48-hour prototype sampling.";
-    }
-
-    document.title = title;
-    
-    // Update Meta Description
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute('content', desc);
-    }
-
-    // Dynamic JSON-LD Structured Data
-    let schemaScript = document.getElementById('json-ld-schema');
-    if (!schemaScript) {
-      schemaScript = document.createElement('script');
-      schemaScript.id = 'json-ld-schema';
-      schemaScript.type = 'application/ld+json';
-      document.head.appendChild(schemaScript);
-    }
-
-    const structuredData = {
-      "@context": "https://schema.org",
-      "@type": ["Organization", "LocalBusiness", "ManufacturingBusiness"],
-      "name": companyInfo.name,
-      "legalName": companyInfo.legalName,
-      "url": "https://zmprintingbd.com/",
-      "logo": "https://zmprintingbd.com/images/logo/zm-favicon.png",
-      "foundingDate": "2013",
-      "description": companyInfo.aboutSummary,
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Ariarar Mor, South Gazirchat, Baipail",
-        "addressLocality": "Ashulia, Savar",
-        "addressRegion": "Dhaka",
-        "postalCode": "1349",
-        "addressCountry": "BD"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 23.9215,
-        "longitude": 90.2782
-      },
-      "telephone": companyInfo.contact.phones[0]?.raw || "+8801713066597",
-      "email": companyInfo.contact.emails[0]?.address || "info@zmprintingbd.com",
-      "priceRange": "$$",
-      "currenciesAccepted": "USD, EUR, BDT",
-      "paymentAccepted": "L/C, TT, Wire Transfer",
-      "areaServed": ["Bangladesh", "European Union", "United States", "United Kingdom", "Canada"]
-    };
-
-    schemaScript.textContent = JSON.stringify(structuredData);
-
+    applySEO(currentPath);
   }, [currentPath]);
 
   // Route Dispatcher
@@ -212,7 +142,7 @@ export default function App() {
       return <ProfilePage navigate={navigate} />;
     }
     if (currentPath === '/blog' || currentPath === '/news' || currentPath.startsWith('/news/') || currentPath.startsWith('/blog/')) {
-      return <NewsPage navigate={navigate} />;
+      return <NewsPage navigate={navigate} currentPath={currentPath} />;
     }
     if (currentPath === '/contact') {
       return <ContactPage navigate={navigate} />;
@@ -255,9 +185,11 @@ export default function App() {
       {/* Global Sticky Header */}
       <Header currentPath={currentPath} navigate={navigate} />
 
-      {/* Main Page Area */}
+      {/* Main Page Area with Dynamic Code-Splitting Suspense */}
       <main id="main-content" className="main-content-wrapper">
-        {renderRoute()}
+        <Suspense fallback={<RouteLoadingFallback />}>
+          {renderRoute()}
+        </Suspense>
       </main>
 
       {/* Global Enterprise Footer */}
