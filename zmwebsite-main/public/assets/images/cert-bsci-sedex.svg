@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" rx="20" fill="#ffffff"/>
+  <rect x="2" y="2" width="196" height="196" rx="18" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+  
+  <!-- amfori brand top -->
+  <g transform="translate(24, 24)">
+    <text x="0" y="22" fill="#1e3a8a" font-size="18" font-weight="900" font-family="'Inter', system-ui, sans-serif" letter-spacing="-0.5">amfori</text>
+    <circle cx="78" cy="15" r="9" fill="none" stroke="#2563eb" stroke-width="2.2" />
+    <circle cx="78" cy="15" r="5" fill="none" stroke="#3b82f6" stroke-width="1.8" />
+    <circle cx="78" cy="15" r="2.2" fill="#1d4ed8" />
+    <text x="0" y="36" fill="#64748b" font-size="8" font-weight="600" font-family="'Inter', system-ui, sans-serif">Trade with purpose</text>
+  </g>
+
+  <!-- Big BSCI text -->
+  <text x="100" y="104" fill="#0284c7" font-size="36" font-weight="900" text-anchor="middle" font-family="'Inter', system-ui, sans-serif" letter-spacing="1">BSCI</text>
+
+  <!-- Divider Line -->
+  <line x1="30" y1="120" x2="170" y2="120" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- SEDEX SMETA branding -->
+  <g transform="translate(100, 142)">
+    <text x="0" y="0" fill="#0f172a" font-size="13" font-weight="900" text-anchor="middle" font-family="'Inter', system-ui, sans-serif" letter-spacing="0.5">SEDEX SMETA</text>
+  </g>
+
+  <!-- Badge Pill -->
+  <rect x="36" y="158" width="128" height="22" rx="11" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="100" y="173" fill="#1d4ed8" font-size="8.5" font-weight="800" text-anchor="middle" font-family="'Inter', system-ui, sans-serif">4-PILLAR AUDITED</text>
+</svg>

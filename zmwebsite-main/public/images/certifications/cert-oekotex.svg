@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" rx="20" fill="#ffffff"/>
+  <rect x="2" y="2" width="196" height="196" rx="18" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+  
+  <!-- Outer Decorative Ring -->
+  <circle cx="100" cy="72" r="54" fill="none" stroke="#e0f2fe" stroke-width="3"/>
+  
+  <!-- Oeko-Tex Shield / Arc -->
+  <path d="M 64 42 Q 100 34 136 42 C 136 84 130 106 100 118 C 70 106 64 84 64 42 Z" fill="#008c95"/>
+  <path d="M 70 48 Q 100 42 130 48 C 130 80 125 98 100 109 C 75 98 70 80 70 48 Z" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-opacity="0.4"/>
+  
+  <!-- Text Inside Shield -->
+  <text x="100" y="68" fill="#ffffff" font-size="12" font-weight="900" text-anchor="middle" font-family="'Inter', system-ui, sans-serif" letter-spacing="0.5">OEKO</text>
+  <text x="100" y="82" fill="#ffffff" font-size="12" font-weight="900" text-anchor="middle" font-family="'Inter', system-ui, sans-serif" letter-spacing="0.5">TEX®</text>
+  <circle cx="100" cy="94" r="3.5" fill="#a7f3d0"/>
+
+  <!-- Standard 100 Text -->
+  <text x="100" y="142" fill="#0f172a" font-size="14" font-weight="900" text-anchor="middle" font-family="'Inter', system-ui, sans-serif" letter-spacing="0.8">STANDARD 100</text>
+  
+  <!-- Confidence in Textiles -->
+  <text x="100" y="158" fill="#008c95" font-size="8.5" font-weight="700" text-anchor="middle" font-family="'Inter', system-ui, sans-serif" letter-spacing="0.5">CONFIDENCE IN TEXTILES</text>
+  
+  <!-- Badge Pill -->
+  <rect x="36" y="169" width="128" height="19" rx="9.5" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/>
+  <text x="100" y="182" fill="#15803d" font-size="8" font-weight="800" text-anchor="middle" font-family="'Inter', system-ui, sans-serif">CLASS I • INFANT SAFE</text>
+</svg>

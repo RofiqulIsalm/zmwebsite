@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" rx="20" fill="#ffffff"/>
+  <rect x="2" y="2" width="196" height="196" rx="18" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+  
+  <!-- Outer Cog/Seal Circle -->
+  <circle cx="100" cy="82" r="54" fill="#0f172a"/>
+  <circle cx="100" cy="82" r="50" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 2"/>
+  <circle cx="100" cy="82" r="44" fill="#1e293b"/>
+
+  <!-- Checkmark icon -->
+  <circle cx="100" cy="56" r="12" fill="#10b981"/>
+  <path d="M 94 56 L 98 60 L 107 51" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- AQL 1.0 Text -->
+  <text x="100" y="86" fill="#fbbf24" font-size="20" font-weight="900" text-anchor="middle" font-family="'Inter', system-ui, sans-serif" letter-spacing="1">AQL 1.0</text>
+  <text x="100" y="102" fill="#94a3b8" font-size="8.5" font-weight="700" text-anchor="middle" font-family="'Inter', system-ui, sans-serif" letter-spacing="1.2">STRICT AUDIT</text>
+
+  <!-- Stars -->
+  <text x="100" y="117" fill="#fbbf24" font-size="9" text-anchor="middle">★ ★ ★ ★ ★</text>
+
+  <!-- Subtitle -->
+  <text x="100" y="152" fill="#0f172a" font-size="12" font-weight="900" text-anchor="middle" font-family="'Inter', system-ui, sans-serif" letter-spacing="0.5">PRE-SHIPMENT GATE</text>
+
+  <!-- Pill Badge -->
+  <rect x="36" y="164" width="128" height="22" rx="11" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+  <text x="100" y="179" fill="#b45309" font-size="8.5" font-weight="800" text-anchor="middle" font-family="'Inter', system-ui, sans-serif">100% QUALITY PASSED</text>
+</svg>

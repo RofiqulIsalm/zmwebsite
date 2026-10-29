@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <rect width="200" height="200" rx="20" fill="#ffffff"/>
+  <rect x="2" y="2" width="196" height="196" rx="18" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+  
+  <!-- FSC Green Emblem -->
+  <g transform="translate(40, 20)">
+    <rect x="0" y="0" width="120" height="110" rx="10" fill="#006738"/>
+    
+    <!-- Tree silhouette and Checkmark -->
+    <path d="M 32 54 C 38 44 44 34 42 22 C 40 22 36 26 34 28 C 30 16 42 6 52 6 C 55 12 54 18 52 24 C 58 18 64 14 68 18 C 64 24 60 30 58 38 C 64 32 70 28 74 32 C 70 40 64 46 60 54 Z" fill="#ffffff" />
+    <path d="M 38 54 L 48 64 L 68 36" fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- FSC text -->
+    <text x="60" y="88" fill="#ffffff" font-size="20" font-weight="900" text-anchor="middle" font-family="'Inter', system-ui, sans-serif" letter-spacing="2">FSC</text>
+    <text x="60" y="100" fill="#ffffff" font-size="6.5" font-weight="600" text-anchor="middle" font-family="'Inter', system-ui, sans-serif">www.fsc.org</text>
+  </g>
+
+  <!-- Title under badge -->
+  <text x="100" y="152" fill="#0f172a" font-size="12" font-weight="900" text-anchor="middle" font-family="'Inter', system-ui, sans-serif" letter-spacing="0.5">FOREST STEWARDSHIP</text>
+
+  <!-- Pill Badge -->
+  <rect x="36" y="164" width="128" height="22" rx="11" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/>
+  <text x="100" y="179" fill="#15803d" font-size="8.5" font-weight="800" text-anchor="middle" font-family="'Inter', system-ui, sans-serif">100% RECYCLED PAPER</text>
+</svg>

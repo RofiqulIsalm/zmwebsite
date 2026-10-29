@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+*.log
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+pdf_extracted_raw.txt
+scratch_pdf_text.txt

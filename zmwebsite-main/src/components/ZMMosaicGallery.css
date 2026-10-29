@@ -1,0 +1,482 @@
+/* ==========================================================================
+   ZM DYNAMIC COLLAGE GALLERY - SINGLE-SCREEN TEMPLATE-BASED LAYOUT
+   Direct implementation of user's reference grid templates:
+   - Fits 100% within a single screen view (zero page scrolling needed)
+   - Automatically adapts grid layout to photo count (1, 2, 3, 5, 6, 7, 8, 10, 12, etc.)
+   - Clean, elegant, no extraneous toolbars or footnotes
+   ========================================================================== */
+
+.zm-collage-showcase-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+/* Main Collage Stage Box: Strictly bounded height to prevent any vertical page scrolling */
+.zm-collage-box {
+  width: 100%;
+  height: clamp(420px, 48vh, 520px);
+  max-height: 520px;
+  display: grid;
+  gap: 9px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.04);
+  padding: 8px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="dark"] .zm-collage-box {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Base Photo Tile with Rich Smooth Animations */
+.zm-collage-tile {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0f172a;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  outline: none;
+  animation: zmTileEntrance 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--stagger-delay, 0s);
+  transition: 
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+    border-color 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+@keyframes zmTileEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Diagonal Shimmer / Gloss Light Sweep on Hover */
+.zm-collage-tile::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 3;
+}
+
+.zm-collage-tile:hover::after {
+  opacity: 1;
+  transform: rotate(25deg) translate(380%, 0);
+}
+
+.zm-collage-tile:hover,
+.zm-collage-tile:focus-visible {
+  transform: translateY(-3px) scale(1.02);
+  z-index: 5;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.38), 0 0 0 2px #10b981;
+  border-color: #10b981;
+}
+
+.zm-collage-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.zm-collage-tile:hover .zm-collage-img {
+  transform: scale(1.07);
+}
+
+/* Hover Overlay Caption with Smooth Slide-Up Reveal */
+.zm-collage-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.94) 0%, rgba(15, 23, 42, 0.3) 55%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0.85rem;
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.zm-collage-tile:hover .zm-collage-overlay {
+  opacity: 1;
+}
+
+.zm-collage-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  max-width: 82%;
+  transform: translateY(8px);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.zm-collage-tile:hover .zm-collage-caption {
+  transform: translateY(0);
+}
+
+.zm-collage-category {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: #34d399;
+}
+
+.zm-collage-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+
+.zm-collage-zoom-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  backdrop-filter: blur(6px);
+  transform: scale(0.85);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+}
+
+.zm-collage-tile:hover .zm-collage-zoom-icon {
+  transform: scale(1);
+  background: #10b981;
+}
+
+/* ==========================================================================
+   EXACT GRID TEMPLATES (Matching user's reference diagram)
+   ========================================================================== */
+
+/* 1 Photo: Full width */
+.zm-collage-box.layout-1 {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+/* 2 Photos: 2 columns */
+.zm-collage-box.layout-2 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+/* 3 Photos: Template 2 (Left 1 big, right 2 stacked) */
+.zm-collage-box.layout-3 {
+  grid-template-columns: 1.25fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+.zm-collage-box.layout-3 .tile-1 { grid-column: 1 / 2; grid-row: 1 / 3; }
+.zm-collage-box.layout-3 .tile-2 { grid-column: 2 / 3; grid-row: 1 / 2; }
+.zm-collage-box.layout-3 .tile-3 { grid-column: 2 / 3; grid-row: 2 / 3; }
+
+/* 4 Photos: 2x2 grid */
+.zm-collage-box.layout-4 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+/* 5 Photos: Template 5 (Top 2 wide, Bottom 3) */
+.zm-collage-box.layout-5 {
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1.1fr 1fr;
+}
+.zm-collage-box.layout-5 .tile-1 { grid-column: 1 / 4; grid-row: 1 / 2; }
+.zm-collage-box.layout-5 .tile-2 { grid-column: 4 / 7; grid-row: 1 / 2; }
+.zm-collage-box.layout-5 .tile-3 { grid-column: 1 / 3; grid-row: 2 / 3; }
+.zm-collage-box.layout-5 .tile-4 { grid-column: 3 / 5; grid-row: 2 / 3; }
+.zm-collage-box.layout-5 .tile-5 { grid-column: 5 / 7; grid-row: 2 / 3; }
+
+/* 6 Photos: Template 6 (Top-left 2x2 big, top-right 2 stacked, bottom 3) */
+.zm-collage-box.layout-6 {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+.zm-collage-box.layout-6 .tile-1 { grid-column: 1 / 3; grid-row: 1 / 3; }
+.zm-collage-box.layout-6 .tile-2 { grid-column: 3 / 4; grid-row: 1 / 2; }
+.zm-collage-box.layout-6 .tile-3 { grid-column: 3 / 4; grid-row: 2 / 3; }
+.zm-collage-box.layout-6 .tile-4 { grid-column: 1 / 2; grid-row: 3 / 4; }
+.zm-collage-box.layout-6 .tile-5 { grid-column: 2 / 3; grid-row: 3 / 4; }
+.zm-collage-box.layout-6 .tile-6 { grid-column: 3 / 4; grid-row: 3 / 4; }
+
+/* 7 Photos: Template 7/8 (Left big, right top square, right 2 tall, bottom 3) */
+.zm-collage-box.layout-7 {
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+.zm-collage-box.layout-7 .tile-1 { grid-column: 1 / 4; grid-row: 1 / 4; }
+.zm-collage-box.layout-7 .tile-2 { grid-column: 4 / 6; grid-row: 1 / 3; }
+.zm-collage-box.layout-7 .tile-3 { grid-column: 6 / 7; grid-row: 1 / 2; }
+.zm-collage-box.layout-7 .tile-4 { grid-column: 6 / 7; grid-row: 2 / 3; }
+.zm-collage-box.layout-7 .tile-5 { grid-column: 4 / 5; grid-row: 3 / 4; }
+.zm-collage-box.layout-7 .tile-6 { grid-column: 5 / 6; grid-row: 3 / 4; }
+.zm-collage-box.layout-7 .tile-7 { grid-column: 6 / 7; grid-row: 3 / 4; }
+
+/* 8 Photos: Template 8 */
+.zm-collage-box.layout-8 {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+.zm-collage-box.layout-8 .tile-1 { grid-column: 1 / 3; grid-row: 1 / 3; }
+.zm-collage-box.layout-8 .tile-2 { grid-column: 3 / 4; grid-row: 1 / 2; }
+.zm-collage-box.layout-8 .tile-3 { grid-column: 4 / 5; grid-row: 1 / 2; }
+.zm-collage-box.layout-8 .tile-4 { grid-column: 3 / 4; grid-row: 2 / 3; }
+.zm-collage-box.layout-8 .tile-5 { grid-column: 4 / 5; grid-row: 2 / 3; }
+.zm-collage-box.layout-8 .tile-6 { grid-column: 1 / 2; grid-row: 3 / 4; }
+.zm-collage-box.layout-8 .tile-7 { grid-column: 2 / 3; grid-row: 3 / 4; }
+.zm-collage-box.layout-8 .tile-8 { grid-column: 3 / 5; grid-row: 3 / 4; }
+
+/* 9 Photos: 3x3 Equal Grid */
+.zm-collage-box.layout-9 {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+/* 10 Photos: Template 9 (Top row 4, Middle row 2 wide, Bottom row 4) */
+.zm-collage-box.layout-10 {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 1.15fr 1fr;
+}
+.zm-collage-box.layout-10 .tile-1 { grid-column: 1 / 2; grid-row: 1 / 2; }
+.zm-collage-box.layout-10 .tile-2 { grid-column: 2 / 3; grid-row: 1 / 2; }
+.zm-collage-box.layout-10 .tile-3 { grid-column: 3 / 4; grid-row: 1 / 2; }
+.zm-collage-box.layout-10 .tile-4 { grid-column: 4 / 5; grid-row: 1 / 2; }
+.zm-collage-box.layout-10 .tile-5 { grid-column: 1 / 3; grid-row: 2 / 3; }
+.zm-collage-box.layout-10 .tile-6 { grid-column: 3 / 5; grid-row: 2 / 3; }
+.zm-collage-box.layout-10 .tile-7 { grid-column: 1 / 2; grid-row: 3 / 4; }
+.zm-collage-box.layout-10 .tile-8 { grid-column: 2 / 3; grid-row: 3 / 4; }
+.zm-collage-box.layout-10 .tile-9 { grid-column: 3 / 4; grid-row: 3 / 4; }
+.zm-collage-box.layout-10 .tile-10 { grid-column: 4 / 5; grid-row: 3 / 4; }
+
+/* 12 Photos: 4 cols x 3 rows */
+.zm-collage-box.layout-12 {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+/* 16 Photos: 4 cols x 4 rows */
+.zm-collage-box.layout-16 {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+
+/* 17+ Photos: Dense Micro-Grid */
+.zm-collage-box.layout-dense {
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 6px;
+}
+.zm-collage-box.layout-dense .zm-collage-tile {
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   FULLSCREEN HIGH-RES LIGHTBOX MODAL
+   ========================================================================== */
+.zm-lightbox-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(10, 15, 29, 0.94);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: zmFadeIn 0.2s ease-out;
+}
+
+@keyframes zmFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.zm-lightbox-panel {
+  width: 100%;
+  max-width: 1000px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8);
+  position: relative;
+  animation: zmPanelZoom 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes zmPanelZoom {
+  from {
+    opacity: 0;
+    transform: scale(0.93) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.zm-lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.zm-lightbox-close:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  transform: rotate(90deg);
+}
+
+.zm-lightbox-view {
+  position: relative;
+  flex: 1;
+  min-height: 360px;
+  max-height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #020617;
+  overflow: hidden;
+}
+
+.zm-lightbox-img {
+  max-width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+}
+
+.zm-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.zm-lightbox-nav:hover {
+  background: #10b981;
+  border-color: #10b981;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.zm-lightbox-nav.prev {
+  left: 1rem;
+}
+
+.zm-lightbox-nav.next {
+  right: 1rem;
+}
+
+.zm-lightbox-footer {
+  padding: 1.1rem 1.5rem;
+  background: #0f172a;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lightbox-cat {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #10b981;
+}
+
+.lightbox-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0.15rem 0 0.1rem;
+}
+
+.lightbox-sub {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.lightbox-counter {
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.35rem 0.8rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  color: #e2e8f0;
+}
+
+/* ==========================================================================
+   RESPONSIVE ADJUSTMENTS (Tablet & Mobile)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .zm-collage-box {
+    height: auto;
+    max-height: none;
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: auto !important;
+    gap: 8px;
+  }
+
+  .zm-collage-tile {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+    height: 180px;
+  }
+}

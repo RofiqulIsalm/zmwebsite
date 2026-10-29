@@ -1,0 +1,710 @@
+/* ==========================================================================
+   EXECUTIVE MANAGEMENT TEAM - COMPLETE HIERARCHICAL ORCHESTRATION
+   Features:
+   - 100% Mathematical SVG Routing directly into Dead Center of ALL Cards
+   - 3-Tier Sequential Scroll Reveal matching User's 3 Yellow-Circled Sections
+   - Ultra-Smooth Fiber-Optic Continuous Laser Beams across ALL lines
+   - Zero misaligned HTML borders or choppy dashes
+   - 108px Crystal-Clear Executive Portraits with Zoom on Hover
+   ========================================================================== */
+
+.zm-exec-tree-root {
+  width: 100%;
+  position: relative;
+  margin: 1.5rem 0 1rem;
+}
+
+.zm-exec-tree-stage {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 1rem 0.5rem 2.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(16, 185, 129, 0.4) transparent;
+}
+
+.zm-exec-tree-stage::-webkit-scrollbar {
+  height: 6px;
+}
+
+.zm-exec-tree-stage::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.3);
+  border-radius: 999px;
+}
+
+.zm-exec-tree-canvas {
+  min-width: 980px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* ==========================================================================
+   3-TIER SEQUENTIAL SCROLL REVEAL (Yellow Line Sections 1 -> 2 -> 3)
+   ========================================================================== */
+
+/* Base transition for all revealable tiers */
+.cluster-top,
+.exec-svg-cables-overlay,
+.trunk-stem-anchor,
+.cluster-header-pill,
+.exec-cards-deck {
+  transition: 
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.65s ease;
+  will-change: opacity, filter;
+}
+
+/* Tier Hidden States */
+.cluster-top.tier-hidden,
+.exec-svg-cables-overlay.tier-hidden,
+.trunk-stem-anchor.tier-hidden,
+.cluster-header-pill.tier-hidden,
+.exec-cards-deck.tier-hidden {
+  opacity: 0;
+  filter: blur(2px);
+}
+
+/* Tier Visible States */
+.cluster-top.tier-visible,
+.exec-svg-cables-overlay.tier-visible,
+.trunk-stem-anchor.tier-visible,
+.cluster-header-pill.tier-visible,
+.exec-cards-deck.tier-visible {
+  opacity: 1;
+  filter: blur(0px);
+}
+
+/* ==========================================================================
+   DYNAMIC SVG CABLES OVERLAY (100% Dead-Center on Pills & Cards)
+   ========================================================================== */
+.exec-svg-cables-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 3;
+  overflow: visible;
+}
+
+.cable-glow-blue {
+  filter: drop-shadow(0 0 5px rgba(2, 132, 199, 0.5));
+}
+
+.cable-glow-green {
+  filter: drop-shadow(0 0 5px rgba(16, 185, 129, 0.5));
+}
+
+/* Connector Terminal Dots (Static Clean Connectors) */
+.cable-dot-blue {
+  filter: drop-shadow(0 0 4px rgba(2, 132, 199, 0.6));
+}
+
+.cable-dot-green {
+  filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.6));
+}
+
+/* ==========================================================================
+   CLUSTER HEADER PILLS
+   ========================================================================== */
+.cluster-header-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.52rem 1.6rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 2.2rem; /* Comfortable clearance for smooth SVG branch arches */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 5;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cluster-header-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.pill-icon {
+  flex-shrink: 0;
+}
+
+.cluster-header-pill.pill-gold {
+  background: #18181b;
+  color: #fbbf24;
+  border: 1.5px solid rgba(251, 191, 36, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1.15rem;
+}
+
+[data-theme="dark"] .cluster-header-pill.pill-gold {
+  background: #0f172a;
+  border-color: rgba(251, 191, 36, 0.5);
+}
+
+.cluster-header-pill.pill-blue {
+  background: #0284c7;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 16px rgba(2, 132, 199, 0.3);
+}
+
+[data-theme="dark"] .cluster-header-pill.pill-blue {
+  background: #0369a1;
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.cluster-header-pill.pill-emerald {
+  background: #059669;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.3);
+}
+
+[data-theme="dark"] .cluster-header-pill.pill-emerald {
+  background: #047857;
+  border-color: rgba(52, 211, 153, 0.4);
+}
+
+/* ==========================================================================
+   1ST TIER: MD & CHAIRMAN (TOP CENTER)
+   ========================================================================== */
+.exec-cluster-section.cluster-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  z-index: 4;
+}
+
+.exec-cards-deck {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  position: relative;
+}
+
+.exec-cards-deck.deck-two {
+  width: 100%;
+}
+
+.exec-cards-deck.deck-single {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Vertical Spacer between Top Tier and Lower Divisions */
+.cable-vertical-gap {
+  height: 48px;
+  width: 100%;
+}
+
+/* ==========================================================================
+   2ND & 3RD TIERS: LOWER DIVISIONS GRID
+   ========================================================================== */
+.exec-lower-tiers-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.35fr 0.95fr;
+  gap: 3rem;
+  align-items: flex-start;
+  position: relative;
+  z-index: 4;
+}
+
+.exec-division-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* ==========================================================================
+   LARGE, CRISP, BEAUTIFUL PROFILE CARDS
+   ========================================================================== */
+.exec-profile-card {
+  flex: 1;
+  min-width: 300px;
+  max-width: 355px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1.5px solid #e2e8f0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.exec-profile-card:focus-visible {
+  outline: 3px solid #10b981;
+  outline-offset: 3px;
+}
+
+/* Glass Gloss Shimmer Sweep across card on Hover */
+.exec-profile-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -80%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.16) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10;
+}
+
+.exec-profile-card:hover::after {
+  opacity: 1;
+  transform: rotate(25deg) translate(360%, 0);
+}
+
+[data-theme="dark"] .exec-profile-card {
+  background: #0f172a;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.45);
+}
+
+.exec-profile-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.12);
+}
+
+.exec-profile-card.card-gold:hover {
+  transform: translateY(-7px);
+  border-color: #fbbf24;
+  box-shadow: 0 20px 42px rgba(217, 119, 6, 0.18), 0 0 0 1px rgba(251, 191, 36, 0.35);
+}
+
+.exec-profile-card.card-blue:hover {
+  transform: translateY(-7px);
+  border-color: #38bdf8;
+  box-shadow: 0 20px 42px rgba(2, 132, 199, 0.2), 0 0 0 1px rgba(56, 189, 248, 0.35);
+}
+
+.exec-profile-card.card-emerald:hover {
+  transform: translateY(-7px);
+  border-color: #34d399;
+  box-shadow: 0 20px 42px rgba(16, 185, 129, 0.2), 0 0 0 1px rgba(52, 211, 153, 0.35);
+}
+
+/* Top Accent Bars */
+.card-top-accent {
+  height: 4.5px;
+  width: 100%;
+}
+
+.accent-gold {
+  background: linear-gradient(90deg, #d97706 0%, #fbbf24 50%, #d97706 100%);
+}
+
+.accent-blue {
+  background: linear-gradient(90deg, #0284c7 0%, #38bdf8 50%, #0284c7 100%);
+}
+
+.accent-emerald {
+  background: linear-gradient(90deg, #059669 0%, #34d399 50%, #059669 100%);
+}
+
+/* Card Inner Content */
+.card-inner-box {
+  padding: 1.6rem 1.35rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+/* ==========================================================================
+   LARGE, PREMIUM EXECUTIVE PROFILE PHOTOS
+   ========================================================================== */
+.card-avatar-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.15rem;
+}
+
+.avatar-frame {
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4.5px;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+/* 1st Tier (MD & Chairman): 146px Prestige Size */
+.avatar-frame.frame-gold,
+.avatar-frame.frame-top {
+  width: 146px;
+  height: 146px;
+  background: linear-gradient(145deg, #d97706 0%, #fbbf24 45%, #f59e0b 70%, #b45309 100%);
+  box-shadow: 
+    0 12px 30px -4px rgba(217, 119, 6, 0.32),
+    0 0 0 5px rgba(254, 243, 199, 0.85),
+    0 0 0 7px rgba(245, 158, 11, 0.2);
+}
+
+[data-theme="dark"] .avatar-frame.frame-gold,
+[data-theme="dark"] .avatar-frame.frame-top {
+  box-shadow: 
+    0 14px 34px -4px rgba(217, 119, 6, 0.45),
+    0 0 0 5px rgba(30, 41, 59, 0.9),
+    0 0 0 7px rgba(245, 158, 11, 0.35);
+}
+
+/* 2nd Tier (Directors): 140px Large Size */
+.avatar-frame.frame-blue {
+  width: 140px;
+  height: 140px;
+  background: linear-gradient(145deg, #0284c7 0%, #38bdf8 45%, #0ea5e9 70%, #0369a1 100%);
+  box-shadow: 
+    0 12px 30px -4px rgba(2, 132, 199, 0.32),
+    0 0 0 5px rgba(224, 242, 254, 0.85),
+    0 0 0 7px rgba(56, 189, 248, 0.2);
+}
+
+[data-theme="dark"] .avatar-frame.frame-blue {
+  box-shadow: 
+    0 14px 34px -4px rgba(2, 132, 199, 0.45),
+    0 0 0 5px rgba(30, 41, 59, 0.9),
+    0 0 0 7px rgba(56, 189, 248, 0.35);
+}
+
+/* 3rd Tier (General Manager): 140px Large Size */
+.avatar-frame.frame-emerald {
+  width: 140px;
+  height: 140px;
+  background: linear-gradient(145deg, #059669 0%, #34d399 45%, #10b981 70%, #047857 100%);
+  box-shadow: 
+    0 12px 30px -4px rgba(16, 185, 129, 0.32),
+    0 0 0 5px rgba(209, 250, 229, 0.85),
+    0 0 0 7px rgba(52, 211, 153, 0.2);
+}
+
+[data-theme="dark"] .avatar-frame.frame-emerald {
+  box-shadow: 
+    0 14px 34px -4px rgba(16, 185, 129, 0.45),
+    0 0 0 5px rgba(30, 41, 59, 0.9),
+    0 0 0 7px rgba(52, 211, 153, 0.35);
+}
+
+/* Luxury Hover Lift & Bloom */
+.exec-profile-card:hover .avatar-frame.frame-gold {
+  transform: translateY(-3px) scale(1.035);
+  box-shadow: 
+    0 18px 40px -4px rgba(217, 119, 6, 0.45),
+    0 0 0 6px rgba(254, 243, 199, 0.95),
+    0 0 0 10px rgba(245, 158, 11, 0.3);
+}
+
+.exec-profile-card:hover .avatar-frame.frame-blue {
+  transform: translateY(-3px) scale(1.035);
+  box-shadow: 
+    0 18px 40px -4px rgba(2, 132, 199, 0.45),
+    0 0 0 6px rgba(224, 242, 254, 0.95),
+    0 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+.exec-profile-card:hover .avatar-frame.frame-emerald {
+  transform: translateY(-3px) scale(1.035);
+  box-shadow: 
+    0 18px 40px -4px rgba(16, 185, 129, 0.45),
+    0 0 0 6px rgba(209, 250, 229, 0.95),
+    0 0 0 10px rgba(52, 211, 153, 0.3);
+}
+
+/* Crystal-Clear Portrait Image Inside */
+.avatar-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3.5px solid #ffffff;
+  display: block;
+  background: #ffffff;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] .avatar-photo {
+  border-color: #0f172a;
+  background: #0f172a;
+}
+
+.exec-profile-card:hover .avatar-photo {
+  transform: scale(1.06);
+}
+
+/* Individual Face Framing Offsets for Precision Portrait Presentation */
+.avatar-photo.avatar-md {
+  object-position: 50% 12%;
+}
+
+.avatar-photo.avatar-chairman {
+  object-position: 50% 10%;
+}
+
+.avatar-photo.avatar-dir-ops {
+  object-position: 50% 14%;
+}
+
+.avatar-photo.avatar-dir-tech {
+  object-position: 50% 6%;
+}
+
+.avatar-photo.avatar-gm {
+  object-position: 50% 9%;
+}
+
+/* Tag Pill below avatar */
+.avatar-tag-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.32rem 0.95rem;
+  border-radius: 999px;
+  margin-top: -0.92rem;
+  position: relative;
+  z-index: 3;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.exec-profile-card:hover .avatar-tag-badge {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+}
+
+.badge-gold {
+  background: #fffbeb;
+  color: #92400e;
+  border: 1.5px solid #fcd34d;
+}
+
+[data-theme="dark"] .badge-gold {
+  background: rgba(40, 30, 15, 0.85);
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.5);
+}
+
+.badge-blue {
+  background: #f0f9ff;
+  color: #0369a1;
+  border: 1.5px solid #7dd3fc;
+}
+
+[data-theme="dark"] .badge-blue {
+  background: rgba(12, 38, 60, 0.85);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.5);
+}
+
+.badge-emerald {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1.5px solid #6ee7b7;
+}
+
+[data-theme="dark"] .badge-emerald {
+  background: rgba(10, 42, 32, 0.85);
+  color: #34d399;
+  border-color: rgba(52, 211, 153, 0.5);
+}
+
+/* Card Text Body */
+.card-text-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.leader-name {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.25rem;
+  line-height: 1.25;
+}
+
+[data-theme="dark"] .leader-name {
+  color: #f8fafc;
+}
+
+.leader-role {
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+  letter-spacing: -0.01em;
+}
+
+.role-gold {
+  color: #b45309;
+}
+
+[data-theme="dark"] .role-gold {
+  color: #fbbf24;
+}
+
+.role-blue {
+  color: #0284c7;
+}
+
+[data-theme="dark"] .role-blue {
+  color: #38bdf8;
+}
+
+.role-emerald {
+  color: #059669;
+}
+
+[data-theme="dark"] .role-emerald {
+  color: #34d399;
+}
+
+.leader-desc {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #64748b;
+  margin: 0;
+  text-align: center;
+}
+
+[data-theme="dark"] .leader-desc {
+  color: #94a3b8;
+}
+
+/* Card Bottom Corporate Badge */
+.card-bottom-bar {
+  width: 100%;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #e2e8f0;
+  display: flex;
+  justify-content: center;
+}
+
+[data-theme="dark"] .card-bottom-bar {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.corp-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+[data-theme="dark"] .corp-label {
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   INTERACTIVE CLICK HINT PILL (LEADERSHIP VISION TRIGGER)
+   ========================================================================== */
+.card-click-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.38rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.73rem;
+  font-weight: 750;
+  letter-spacing: 0.03em;
+  margin-top: 0.85rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.pill-gold-soft {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.exec-profile-card.card-gold:hover .pill-gold-soft {
+  background: #d97706;
+  color: #ffffff;
+  border-color: #d97706;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+}
+
+.pill-blue-soft {
+  background: #f0f9ff;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+.exec-profile-card.card-blue:hover .pill-blue-soft {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+}
+
+.pill-emerald-soft {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.exec-profile-card.card-emerald:hover .pill-emerald-soft {
+  background: #059669;
+  color: #ffffff;
+  border-color: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
+}
+
+[data-theme="dark"] .pill-gold-soft {
+  background: rgba(40, 30, 15, 0.9);
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.4);
+}
+
+[data-theme="dark"] .pill-blue-soft {
+  background: rgba(12, 38, 60, 0.9);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+[data-theme="dark"] .pill-emerald-soft {
+  background: rgba(10, 42, 32, 0.9);
+  color: #34d399;
+  border-color: rgba(52, 211, 153, 0.4);
+}
+
