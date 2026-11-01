@@ -5,66 +5,82 @@ const showcaseItems = [
   {
     id: 'SCREEN PRINTING',
     slug: 'screen-printing',
+    sectionSlug: 'screen-printing',
+    sectionTitle: 'Silk Screen Printing Section',
     title: 'SCREEN PRINTING',
     category: 'SCREEN PRINTING',
     group: 'SCREEN PRINTING',
-    image: '/images/products/Screen-Printing-for-Custom-Apparel.jpg',
+    image: '/images/home/card-screen-printing.jpg',
   },
   {
     id: 'SUBLIMATION PRINTING',
     slug: 'sublimation-printing',
+    sectionSlug: 'sublimation',
+    sectionTitle: 'Continuous Sublimation Printing Section',
     title: 'SUBLIMATION PRINTING',
     category: 'SUBLIMATION PRINTING',
     group: 'SUBLIMATION PRINTING',
-    image: '/images/Productlist/SUBLIMATION.jpeg',
+    image: '/images/home/card-sublimation.jpg',
   },
   {
     id: 'DTF STICKER',
     slug: 'dtf-sticker',
+    sectionSlug: 'dtf-section',
+    sectionTitle: 'DTF (Direct to Film) Printing Section',
     title: 'DTF STICKER',
     category: 'DTF STICKER',
     group: 'DTF STICKER',
-    image: '/images/Productlist/dtf print.jpg',
+    image: '/images/home/card-dtf-sticker.jpg',
   },
   {
     id: 'UV PRINTING',
     slug: 'uv-printing',
+    sectionSlug: 'uv-digital',
+    sectionTitle: 'Industrial UV Digital Flatbed Section',
     title: 'UV PRINTING',
     category: 'UV PRINTING',
     group: 'UV PRINTING',
-    image: '/images/Productlist/uv print.jpg',
+    image: '/images/home/card-uv-printing.jpg',
   },
   {
     id: 'VINYL STICKER',
     slug: 'vinyl-sticker',
+    sectionSlug: 'heat-transfer',
+    sectionTitle: 'Heat Transfer & Thermal Press Section',
     title: 'VINYL STICKER',
     category: 'VINYL STICKER',
     group: 'VINYL STICKER',
-    image: '/images/Productlist/vinyl print.jpg',
+    image: '/images/home/card-vinyl-sticker.jpg',
   },
   {
     id: 'SILICON TRANSFER',
     slug: 'silicon-transfer',
+    sectionSlug: 'silicon-floor',
+    sectionTitle: '3D Liquid Silicon & Rubber Patch Section',
     title: 'SILICON TRANSFER',
     category: 'SILICON TRANSFER',
     group: 'SILICON TRANSFER',
-    image: '/images/Productlist/silicon transfer.jpg',
+    image: '/images/home/card-silicon-transfer.jpg',
   },
   {
     id: 'SILICON BADGE',
     slug: 'silicon-badge',
+    sectionSlug: 'silicon-floor',
+    sectionTitle: '3D Liquid Silicon & Rubber Patch Section',
     title: 'SILICON BADGE',
     category: 'SILICON BADGE',
     group: 'SILICON BADGE',
-    image: '/images/Productlist/silicon badge.jpg',
+    image: '/images/home/card-silicon-badge.jpg',
   },
   {
     id: 'PVC BADGE',
     slug: 'pvc-badge',
+    sectionSlug: 'sonic-welding',
+    sectionTitle: 'Sonic Transfer & NXP Ultrasonic Welding Section',
     title: 'PVC BADGE',
     category: 'PVC BADGE',
     group: 'PVC BADGE',
-    image: '/images/Productlist/pvc patch.jpg',
+    image: '/images/home/card-pvc-badge.jpg',
   }
 ];
 
@@ -95,8 +111,9 @@ export default function EngineeredProductsSection({ navigate }) {
     ? showcaseItems
     : showcaseItems.filter(item => item.group === activeFilter);
 
-  const handleCardClick = (slug) => {
-    navigate(`/products/${slug}`);
+  const handleCardClick = (sectionSlug, e) => {
+    if (e) e.preventDefault();
+    navigate(`/section/${sectionSlug}`);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -168,34 +185,41 @@ export default function EngineeredProductsSection({ navigate }) {
               >
                 <article
                   className={`showcase-product-card ${hoveredId === item.id ? 'is-hovered' : ''}`}
-                  onClick={() => handleCardClick(item.slug)}
+                  onClick={(e) => handleCardClick(item.sectionSlug, e)}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') handleCardClick(item.slug);
+                    if (e.key === 'Enter' || e.key === ' ') handleCardClick(item.sectionSlug, e);
                   }}
-                  aria-label={`View ${item.title} specifications`}
+                  aria-label={`Explore ${item.title} at ${item.sectionTitle} Factory Floor`}
                 >
                   {/* Subtle top indicator on hover */}
                   <div className="card-hover-specs-tag" aria-hidden="true">
-                    <span>{item.specs}</span>
+                    <span>{item.sectionTitle}</span>
                   </div>
 
                   {/* Artwork Image Frame (3 Circles Composition) */}
                   <div className="card-image-canvas">
                     <img
                       src={item.image}
-                      alt={`${item.title} - Apparel Trims and Packaging Solution`}
+                      alt={`${item.title} - ${item.sectionTitle}`}
                       className="canvas-image"
                       loading="lazy"
-                      onError={(e) => { e.currentTarget.src = '/assets/images/prod_21.png'; }}
+                      onError={(e) => { e.currentTarget.src = '/images/home/card-screen-printing.jpg'; }}
                     />
                     {/* Soft glowing ambient ring */}
                     <div className="ambient-glow" aria-hidden="true" />
                   </div>
 
                   {/* Bottom Solid Green Button / Bar */}
-                  <div className="card-action-bar">
+                  <div 
+                    className="card-action-bar"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCardClick(item.sectionSlug, e);
+                    }}
+                    title={`Click to view ${item.sectionTitle}`}
+                  >
                     <span className="card-product-title">{item.title}</span>
                     <span className="card-arrow-wrap">
                       <ArrowRight size={17} strokeWidth={2.5} className="action-arrow" />

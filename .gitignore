@@ -8,3 +8,4 @@ dist-ssr
 .DS_Store
 pdf_extracted_raw.txt
 scratch_pdf_text.txt
+*.zip

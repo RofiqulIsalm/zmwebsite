@@ -12,7 +12,9 @@ import {
   Clock,
   ArrowRight,
   ShieldCheck,
-  Sparkles
+  Sparkles,
+  Copy,
+  Check
 } from 'lucide-react';
 
 export default function ContactPage() {
@@ -29,9 +31,22 @@ export default function ContactPage() {
     error: null
   });
 
+  const [copied, setCopied] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleCopy = () => {
+    const textToCopy = `Inquiry for ZM Printing (info@zmprintingbd.com):
+Name: ${formData.name}
+Email: ${formData.email}
+WhatsApp/Phone: ${formData.whatsapp}
+Message: ${formData.message || 'Please contact me regarding your product catalog and custom factory pricing.'}`;
+    navigator.clipboard.writeText(textToCopy);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   const handleSubmit = (e) => {
@@ -46,9 +61,32 @@ export default function ContactPage() {
     }
 
     setStatus({ submitting: true, submitted: false, error: null });
+
+    const mailSubject = `New Garment Trims Inquiry - ${formData.name}`;
+    const mailBody = `Official Inquiry for ZM Printing & Design Ltd.
+
+Buyer / Inquirer Details:
+- Name: ${formData.name}
+- Email: ${formData.email}
+- WhatsApp / Phone: ${formData.whatsapp}
+
+Message & Requirements:
+${formData.message || 'Please contact me regarding your product catalog, strike-offs, and pricing.'}
+
+---
+Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
+
+    const mailtoUrl = `mailto:info@zmprintingbd.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+
+    try {
+      window.location.href = mailtoUrl;
+    } catch (err) {
+      console.log('Mail client triggered');
+    }
+
     setTimeout(() => {
       setStatus({ submitting: false, submitted: true, error: null });
-    }, 600);
+    }, 400);
   };
 
   return (
@@ -201,12 +239,42 @@ export default function ContactPage() {
               {status.submitted ? (
                 <div className="form-success-box">
                   <div className="success-icon-pulse">
-                    <CheckCircle2 size={52} className="text-emerald" />
+                    <CheckCircle2 size={48} className="text-emerald" />
                   </div>
-                  <h3 className="success-head">Message Sent Successfully!</h3>
+                  <h3 className="success-head">Inquiry Prepared for info@zmprintingbd.com!</h3>
                   <p className="success-sub">
-                    Thank you, <strong>{formData.name}</strong>. We received your inquiry and our merchandising team will reply to you via WhatsApp or Email promptly.
+                    Thank you, <strong>{formData.name}</strong>. Your message has been prepared for our official commercial desk (<strong>info@zmprintingbd.com</strong>).
                   </p>
+
+                  <div className="success-actions-cluster">
+                    <a 
+                      href={`mailto:info@zmprintingbd.com?subject=${encodeURIComponent(`New Garment Trims Inquiry - ${formData.name}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nWhatsApp/Phone: ${formData.whatsapp}\n\nMessage:\n${formData.message || 'Please send me details about your products and factory sampling.'}`)}`}
+                      className="btn-success-action btn-email-direct"
+                    >
+                      <Mail size={16} />
+                      <span>Open in Mail App (info@zmprintingbd.com)</span>
+                    </a>
+
+                    <a 
+                      href={`https://wa.me/8801818724417?text=${encodeURIComponent(`Hello ZM Printing,\nName: ${formData.name}\nEmail: ${formData.email}\nWhatsApp: ${formData.whatsapp}\nInquiry: ${formData.message || 'Please provide details on your product range and factory pricing.'}`)}`}
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="btn-success-action btn-wa-direct"
+                    >
+                      <MessageSquare size={16} />
+                      <span>Send via WhatsApp (+880 1818-724417)</span>
+                    </a>
+
+                    <button 
+                      type="button" 
+                      onClick={handleCopy}
+                      className="btn-success-action btn-copy-direct"
+                    >
+                      {copied ? <Check size={16} className="text-emerald" /> : <Copy size={16} />}
+                      <span>{copied ? 'Copied to Clipboard!' : 'Copy Inquiry Text'}</span>
+                    </button>
+                  </div>
+
                   <button 
                     type="button" 
                     className="btn-send-again"
@@ -1246,8 +1314,66 @@ export default function ContactPage() {
           font-size: 0.875rem;
           color: #64748b;
           line-height: 1.6;
-          margin-bottom: 1.75rem;
+          margin-bottom: 1.5rem;
+          max-width: 420px;
+        }
+
+        .success-actions-cluster {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          width: 100%;
           max-width: 380px;
+          margin-bottom: 1.75rem;
+        }
+
+        .btn-success-action {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.65rem;
+          padding: 0.8rem 1.25rem;
+          border-radius: 10px;
+          font-size: 0.875rem;
+          font-weight: 600;
+          text-decoration: none;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .btn-email-direct {
+          background: #0f5a28;
+          color: #ffffff;
+          border: 1px solid #0f5a28;
+        }
+
+        .btn-email-direct:hover {
+          background: #167a38;
+          color: #ffffff;
+          transform: translateY(-1px);
+        }
+
+        .btn-wa-direct {
+          background: #059669;
+          color: #ffffff;
+          border: 1px solid #059669;
+        }
+
+        .btn-wa-direct:hover {
+          background: #047857;
+          color: #ffffff;
+          transform: translateY(-1px);
+        }
+
+        .btn-copy-direct {
+          background: #f8fafc;
+          color: #1e293b;
+          border: 1px solid #cbd5e1;
+        }
+
+        .btn-copy-direct:hover {
+          background: #f1f5f9;
+          border-color: #94a3b8;
         }
 
         .btn-send-again {

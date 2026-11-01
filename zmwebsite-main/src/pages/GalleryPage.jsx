@@ -20,175 +20,524 @@ import {
 } from 'lucide-react';
 
 const galleryPhotos = [
+  // --- FACTORY FLOORS & MACHINERY ---
   {
     id: 1,
-    category: 'production',
-    categoryLabel: 'Production Complex',
-    title: 'Unit 01 Main Manufacturing Complex',
-    subtitle: 'Modern 45,000 sq.ft apparel trims facility in South Gazirchat, Ashulia.',
-    equipment: 'Ashulia Plant Floor • 3 Specialized Levels',
-    src: '/assets/images/hero_factory_bg.jpg',
-    tag: 'Facility Hub'
+    category: 'floors',
+    categoryLabel: 'Factory Floors',
+    title: '534-Foot Long Silk Screen Printing Tables',
+    subtitle: '6 Continuous manual and semi-automated glass-top printing tables with curing tunnels.',
+    equipment: 'Ashulia Complex • Level 01 Printing Hall',
+    src: '/images/gallery/printing-floor-1.jpg',
+    tag: 'Screen Printing'
   },
   {
     id: 2,
-    category: 'printing',
-    categoryLabel: 'Printing Lines',
-    title: 'M&R Automated Rotary Screen Carousels',
-    subtitle: 'High-speed multi-color textile printing with pneumatic squeegees.',
-    equipment: 'M&R 12-Color Carousel • 18,000 Pcs/Day',
-    src: '/assets/images/slider_7.jpg',
-    tag: 'Automated Line'
+    category: 'floors',
+    categoryLabel: 'Factory Floors',
+    title: 'Precision Screen Registration & Belt Curing Line',
+    subtitle: 'Dual-belt infrared curing conveyor tunnels and 25 fast-action spot flash units.',
+    equipment: 'Continuous Infrared Curing Conveyors',
+    src: '/images/gallery/printing-floor-2.jpg',
+    tag: 'Curing Line'
   },
   {
     id: 3,
-    category: 'lab',
-    categoryLabel: 'QA Laboratory',
-    title: 'X-Rite Spectrophotometer & Testing Lab',
-    subtitle: 'Delta E < 0.8 color variance measurement & AATCC 61 wash fastness testing.',
-    equipment: 'X-Rite Exact & Roaches Wash Gate',
-    src: '/assets/images/quality_lab_testing.jpg',
-    tag: 'In-House Lab'
+    category: 'floors',
+    categoryLabel: 'Factory Floors',
+    title: 'Continuous Dye Sublimation Printing Floor',
+    subtitle: '9 Industrial roll-to-roll and cut-panel sublimation printers producing 550,000 pcs/month.',
+    equipment: 'Epson Micro-Piezo Industrial Printers',
+    src: '/images/gallery/sublimation-dtf-1.jpg',
+    tag: 'Sublimation Floor'
   },
   {
     id: 4,
-    category: 'eco',
-    categoryLabel: 'Sustainable Facility',
-    title: 'Zero-Discharge Clean Chemistry Floor',
-    subtitle: 'Non-toxic, water-based printing inks adhering to ZDHC Level 3 standards.',
-    equipment: 'Closed-Loop Wastewater Treatment',
-    src: '/assets/images/sustainability_production.jpg',
-    tag: 'Green Plant'
+    category: 'floors',
+    categoryLabel: 'Factory Floors',
+    title: 'Roll Calender Heat Transfer & Sublimation Fusing',
+    subtitle: 'Continuous rotary calender fusing unit for activewear, jersey panels, and elastic tapes.',
+    equipment: 'Thermal Oil-Drum Continuous Calender',
+    src: '/images/gallery/sublimation-dtf-2.jpg',
+    tag: 'Thermal Calender'
   },
   {
     id: 5,
-    category: 'production',
-    categoryLabel: 'Craftsmanship',
-    title: 'Skilled Quality Inspection & Assembly',
-    subtitle: 'Experienced apparel accessory technicians executing 100% manual QA gates.',
-    equipment: 'Dedicated Trims Finishing Station',
-    src: '/assets/images/about_workers_team.jpg',
-    tag: 'Workforce'
+    category: 'floors',
+    categoryLabel: 'Factory Floors',
+    title: 'Industrial DTF (Direct to Film) Transfer Cell',
+    subtitle: 'Dual-head automated powder shaker and infrared baking tunnel producing elastic stickers.',
+    equipment: 'Automated Powder Shaker & In-Line Oven',
+    src: '/images/gallery/sublimation-dtf-3.jpg',
+    tag: 'DTF Transfer'
   },
   {
     id: 6,
-    category: 'trims',
-    categoryLabel: 'Finished Trims',
-    title: '3D High-Density Liquid Silicone Badges',
-    subtitle: 'Ultra-sharp micro-embossed liquid silicone patches with soft-touch feel.',
-    equipment: 'Multi-Cavity CNC Steel Tooling',
-    src: '/assets/images/prod_16.png',
-    tag: '3D Silicone'
+    category: 'floors',
+    categoryLabel: 'Factory Floors',
+    title: '3D Liquid Silicone Molding & Injection Cell',
+    subtitle: 'Computerized vacuum degassing chambers and high-tonnage hydraulic shaping presses.',
+    equipment: 'Vacuum Degassing & Micro-Dispensing Presses',
+    src: '/images/gallery/silicon-floor-1.jpg',
+    tag: 'Silicone Molding'
   },
   {
     id: 7,
-    category: 'printing',
-    categoryLabel: 'Sublimation',
-    title: 'EPSON Continuous Roll-to-Roll Sublimation',
-    subtitle: '300+ DPI photographic dye transfer on activewear and sportswear ribbing.',
-    equipment: 'EPSON SureColor F-Series & Rotary Calendar',
-    src: '/assets/images/cat_15.png',
-    tag: 'Sublimation'
+    category: 'floors',
+    categoryLabel: 'Factory Floors',
+    title: 'Silicone Vulcanizing & Thermal Curing Bay',
+    subtitle: 'Multi-cavity steel mold curing producing soft-touch heat transfers and zipper pullers.',
+    equipment: 'Hydraulic Compression Curing Bay',
+    src: '/images/gallery/silicon-floor-2.jpg',
+    tag: 'Vulcanizing'
   },
   {
     id: 8,
-    category: 'trims',
-    categoryLabel: 'Sonic Welds',
-    title: 'High-Frequency NXP Ultrasonic Welding',
-    subtitle: 'Hermetic watertight ultrasonic welds for technical outerwear and denim.',
-    equipment: '15kW Ultrasonic Generator Stations',
-    src: '/assets/images/cat_16.png',
+    category: 'floors',
+    categoryLabel: 'Factory Floors',
+    title: 'NXP Ultrasonic 15kW Welding Department',
+    subtitle: '8 High-frequency 15kW acoustic welders creating watertight hermetic seams and 3D angle welds.',
+    equipment: '08 NXP Heavy-Duty Ultrasonic Horn Stations',
+    src: '/images/gallery/sonic-transfer-1.jpg',
     tag: 'NXP Sonic'
   },
   {
     id: 9,
-    category: 'trims',
-    categoryLabel: 'Finished Trims',
-    title: 'Micro-Injected Rubber & PVC Badges',
-    subtitle: 'Vibrant multi-color dimensional branding patches with stitch groove channels.',
-    equipment: 'Automated Micro-Dispensing Robotic Heads',
-    src: '/assets/images/prod_12.png',
-    tag: 'Rubber Trims'
+    category: 'floors',
+    categoryLabel: 'Factory Floors',
+    title: 'High-Frequency Sonic Seam & TPU Fusing Line',
+    subtitle: 'Watertight hermetic bonding for technical outerwear, sportswear badges, and PVC emblems.',
+    equipment: 'Acoustic 20kHz - 35kHz Molecular Fusing',
+    src: '/images/gallery/sonic-transfer-2.jpg',
+    tag: 'TPU Fusing'
   },
+
+  // --- PRODUCTION IN ACTION (REAL CAMERA RAW SHOTS) ---
   {
     id: 10,
-    category: 'trims',
-    categoryLabel: 'Finished Trims',
-    title: 'Tagless Thermal Neck Heat Transfers',
-    subtitle: 'Skin-safe, ultra-stretchable water-based neck labels certified OEKO-TEX Class I.',
-    equipment: 'Automated Flatbed Transfer Presses',
-    src: '/assets/images/prod_10.png',
-    tag: 'Tagless'
+    category: 'action',
+    categoryLabel: 'Production in Action',
+    title: 'Artisan Screen Printing Registration on Apparel Knits',
+    subtitle: 'Manual micro-registration alignment ensuring zero misprint on multi-pass export apparel.',
+    equipment: 'Glass-Top Screen Printing Bed',
+    src: '/images/gallery/0Y3A8333.jpg',
+    tag: 'Handcraft'
   },
   {
     id: 11,
-    category: 'printing',
-    categoryLabel: 'Printing Lines',
-    title: 'Specialty Screen Printing & Glitter Beds',
-    subtitle: 'Plastisol, high-density puff, reflective, and metallic foil finishes.',
-    equipment: 'Precision Manual Long-Table Print Units',
-    src: '/assets/images/slider_6.jpg',
-    tag: 'Silk Screen'
+    category: 'action',
+    categoryLabel: 'Production in Action',
+    title: 'Screen Printing Line Technicians at Work',
+    subtitle: 'Experienced apparel artisans applying high-density plastisol and eco water-based inks.',
+    equipment: 'Ashulia Plant Floor Level 01',
+    src: '/images/gallery/0Y3A8586.jpg',
+    tag: 'Printing Team'
   },
   {
     id: 12,
-    category: 'production',
-    categoryLabel: 'Production Complex',
-    title: 'Infrared Tunnel Curing & Drying Conveyors',
-    subtitle: 'Even thermal distribution guaranteeing wash fastness across 50+ wash cycles.',
-    equipment: 'Computerized Multi-Zone Heat Tunnels',
-    src: '/assets/images/slider_8.jpg',
-    tag: 'Curing Unit'
+    category: 'action',
+    categoryLabel: 'Production in Action',
+    title: 'Multi-Color Screen Printing Squeegee Stroke Execution',
+    subtitle: 'Calibrated pneumatic and hand pressure ensuring uniform ink penetration into knit fibers.',
+    equipment: 'Export Garment Print Station',
+    src: '/images/gallery/0Y3A8631.jpg',
+    tag: 'Precision Stroke'
   },
   {
     id: 13,
-    category: 'lab',
-    categoryLabel: 'QA Laboratory',
-    title: 'Optical Micro-Inspection & Tensile Testing',
-    subtitle: 'Precision tensile strength pull gauges and dimensional caliper verification.',
-    equipment: 'Calibrated Tensile Pull Gauge & Magnifiers',
-    src: '/assets/images/prod_24.jpg',
-    tag: 'Optical QC'
+    category: 'action',
+    categoryLabel: 'Production in Action',
+    title: 'Apparel Panel Quality Check on Long Table Line',
+    subtitle: '100% in-line inspection monitoring color depth, sharp edges, and zero bleeding.',
+    equipment: 'In-Line QC Gate',
+    src: '/images/gallery/0Y3A8674.jpg',
+    tag: 'In-Line QC'
   },
   {
     id: 14,
-    category: 'eco',
-    categoryLabel: 'Sustainable Facility',
-    title: 'Energy-Efficient Green Building Plant',
-    subtitle: 'Natural daylit manufacturing floor designed with low-carbon HVAC.',
-    equipment: 'Unit 02 Expansion Hall',
-    src: '/assets/images/news_leed_platinum.jpg',
-    tag: 'Eco Hall'
+    category: 'action',
+    categoryLabel: 'Production in Action',
+    title: 'Screen Developing & Mesh Washing Reclaim Station',
+    subtitle: 'High-pressure water reclaim unit removing residual emulsion with zero environmental toxicity.',
+    equipment: 'Automated Screen Washing Unit',
+    src: '/images/gallery/0Y3A8679.jpg',
+    tag: 'Screen Wash'
   },
   {
     id: 15,
-    category: 'trims',
-    categoryLabel: 'Finished Trims',
-    title: 'EN ISO 20471 Reflective Safety Transfers',
-    subtitle: 'High-candlepower glass bead reflective films for industrial and sportswear.',
-    equipment: 'Laser Plotter & Heat Seal Laminator',
-    src: '/assets/images/prod_11.png',
-    tag: 'Reflective'
+    category: 'action',
+    categoryLabel: 'Production in Action',
+    title: 'Specialty Foil & High-Density Layer Inspection',
+    subtitle: 'Verifying tactile 3D relief height, elastic stretch, and surface smoothness.',
+    equipment: 'Finishing Inspection Table',
+    src: '/images/gallery/0Y3A8697.jpg',
+    tag: 'Finishing Check'
   },
   {
     id: 16,
-    category: 'trims',
-    categoryLabel: 'Finished Trims',
-    title: 'Ergonomic Molded Silicone Zipper Pullers',
-    subtitle: 'Non-slip textured corded zipper pullers designed for high-performance apparel.',
-    equipment: 'Vulcanizing Compression Mold Presses',
-    src: '/assets/images/prod_22.png',
-    tag: 'Pullers'
+    category: 'action',
+    categoryLabel: 'Production in Action',
+    title: 'Dedicated Women Specialists on Printing Floor',
+    subtitle: 'Empowering skilled women artisans across high-precision textile printing and badge molding.',
+    equipment: 'Level 01 Printing Section',
+    src: '/images/gallery/0Y3A8819.jpg',
+    tag: 'Women Empowerment'
+  },
+  {
+    id: 17,
+    category: 'action',
+    categoryLabel: 'Production in Action',
+    title: 'Flash Curing & Garment Temperature Monitoring',
+    subtitle: 'Using infrared laser pyrometers to guarantee optimal polymerization temperature.',
+    equipment: 'Spot Flash Infrared Dryer',
+    src: '/images/gallery/0Y3A8848.jpg',
+    tag: 'Thermal Cure'
+  },
+  {
+    id: 18,
+    category: 'action',
+    categoryLabel: 'Production in Action',
+    title: 'Screen Printing Team Crafting Bulk Export Orders',
+    subtitle: 'Producing over 35,000 garment impressions daily under strict export protocols.',
+    equipment: 'Main Production Wing',
+    src: '/images/gallery/0Y3A8867.jpg',
+    tag: 'High-Volume'
+  },
+  {
+    id: 19,
+    category: 'action',
+    categoryLabel: 'Production in Action',
+    title: 'Apparel Print Quality Verification & Trims Inspection',
+    subtitle: 'Final inspection ensuring delta E color matching against Pantone physical swatches.',
+    equipment: 'AQL 1.5 Quality Gate',
+    src: '/images/gallery/0Y3A8889.jpg',
+    tag: 'Final QC'
+  },
+
+  // --- PRE-PRESS, LABS & STORAGE ---
+  {
+    id: 20,
+    category: 'labs',
+    categoryLabel: 'Technical Labs',
+    title: 'Automated Ink Mixing & Pantone Formulation Lab',
+    subtitle: 'Computerized dispensing station for water-based, plastisol, and silicone inks with Delta E < 0.8 accuracy.',
+    equipment: 'Pantone Master Formulation Station',
+    src: '/images/gallery/color-room-1.jpg',
+    tag: 'Color Lab'
+  },
+  {
+    id: 21,
+    category: 'labs',
+    categoryLabel: 'Technical Labs',
+    title: 'Spectrophotometer Color Testing & Ink Storage',
+    subtitle: 'Standardized D65 lighting booths and chemical test vessels adhering to ZDHC Level 3 protocols.',
+    equipment: 'Controlled Chemical Dispensary',
+    src: '/images/gallery/color-room-2.jpg',
+    tag: 'Color Testing'
+  },
+  {
+    id: 22,
+    category: 'labs',
+    categoryLabel: 'Technical Labs',
+    title: 'Precision Screen Expose & Stencil Darkroom',
+    subtitle: 'High-vacuum UV stencil exposure unit and precision pneumatic screen tension meters.',
+    equipment: 'UV Vacuum Stencil Exposure Unit',
+    src: '/images/gallery/expose-room.jpg',
+    tag: 'Darkroom'
+  },
+  {
+    id: 23,
+    category: 'labs',
+    categoryLabel: 'Technical Labs',
+    title: 'Digital Art Vectorization & 3D CNC Tooling Studio',
+    subtitle: 'High-spec CAD workstations executing buyer artwork separation, color trapping, and mold CAM.',
+    equipment: 'CAD/CAM Vector Art Studio',
+    src: '/images/gallery/design-room.jpg',
+    tag: 'CAD Studio'
+  },
+  {
+    id: 24,
+    category: 'labs',
+    categoryLabel: 'Technical Labs',
+    title: 'Bonded Warehouse Raw Materials Storage',
+    subtitle: 'Customs-bonded raw material warehouse holding imported silicone, PU films, and dyes.',
+    equipment: 'Customs Regulated Materials Store',
+    src: '/images/gallery/bonded-warehouse-1.jpg',
+    tag: 'Bonded Store'
+  },
+  {
+    id: 25,
+    category: 'labs',
+    categoryLabel: 'Technical Labs',
+    title: 'Climate-Controlled Fabric & Component Warehouse',
+    subtitle: 'Moisture and temperature monitored storage preventing fabric contamination or adhesive decay.',
+    equipment: 'Climate-Controlled Racks',
+    src: '/images/gallery/bonded-warehouse-2.jpg',
+    tag: 'Warehouse'
+  },
+  {
+    id: 26,
+    category: 'labs',
+    categoryLabel: 'Technical Labs',
+    title: 'Central Store Room & Raw Inventory Hub',
+    subtitle: 'Barcode-cataloged storage for transfer films, release papers, hot-melt powders, and metal trims.',
+    equipment: 'Central Storage Facility',
+    src: '/images/gallery/store-room.jpg',
+    tag: 'Inventory Hub'
+  },
+
+  // --- WORKER WELFARE & HEALTHCARE ---
+  {
+    id: 27,
+    category: 'welfare',
+    categoryLabel: 'Worker Welfare',
+    title: 'On-Site First-Aid & Emergency Healthcare Clinic',
+    subtitle: 'Registered nurse on duty, emergency medical equipment, and subsidized healthcare for all staff.',
+    equipment: 'Medical Examination & First Aid Bay',
+    src: '/images/gallery/medical-room.jpg',
+    tag: 'Healthcare'
+  },
+  {
+    id: 28,
+    category: 'welfare',
+    categoryLabel: 'Worker Welfare',
+    title: 'Child Care Centre (শিশু পরিচর্যা কেন্দ্র)',
+    subtitle: 'Safe, hygienic, and supervised nursery facility supporting working mothers in our Ashulia plant.',
+    equipment: 'Maternal Welfare Daycare Center',
+    src: '/images/gallery/child-care-room.jpg',
+    tag: 'Child Care'
+  },
+  {
+    id: 29,
+    category: 'welfare',
+    categoryLabel: 'Worker Welfare',
+    title: 'Hygienic Cafeteria & Recreation Rest Hall',
+    subtitle: 'Spacious dining facility providing clean drinking water, hot meals, and rest areas for 300+ employees.',
+    equipment: 'Worker Dining & Rest Pavilion',
+    src: '/images/gallery/dining-rest-room.jpg',
+    tag: 'Cafeteria'
+  },
+
+  // --- FINISHED WORKCRAFT & PRODUCT TRIMS ---
+  {
+    id: 30,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: '3D High-Density Liquid Silicone Badges',
+    subtitle: 'Ultra-sharp micro-embossed liquid silicone crests with soft-touch grip and high wash stability.',
+    equipment: 'Liquid Platinum-Cured Silicone',
+    src: '/images/gallery/prod_16.png',
+    tag: '3D Silicone'
+  },
+  {
+    id: 31,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Two-Tone Matte & Glossy Hybrid Silicone Badge',
+    subtitle: 'Dual-cavity mold injection with contrasting velvety matte base and high-gloss lettering.',
+    equipment: 'Precision CNC Steel Tooling',
+    src: '/images/gallery/prod_17.png',
+    tag: 'Silicone Hybrid'
+  },
+  {
+    id: 32,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'High-Density Multi-Pass 3D Screen Print',
+    subtitle: 'Razor-sharp squared 3D relief print delivering bold tactile typography on activewear knits.',
+    equipment: 'Silk Screen HD Multi-Pass',
+    src: '/images/gallery/prod_21.png',
+    tag: 'HD Screen Print'
+  },
+  {
+    id: 33,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'NXP Honeycomb & 3D Angle Welded Patch',
+    subtitle: 'Hexagonal cellular textured badge with watertight perimeter welding for technical mountaineering gear.',
+    equipment: 'NXP Ultrasonic 15kW Welder',
+    src: '/images/gallery/prod_11.png',
+    tag: 'NXP Welded'
+  },
+  {
+    id: 34,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Watertight TPU Sonic Welded Pocket Crest',
+    subtitle: 'Stitch-free ultrasonic welded emblem engineered for IPX7 waterproof outerwear plackets.',
+    equipment: 'High-Frequency Ultrasonic Horn',
+    src: '/images/gallery/prod_10.png',
+    tag: 'TPU Crest'
+  },
+  {
+    id: 35,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Embossed & Micro-Injected PVC Brand Badge',
+    subtitle: 'High-detail colorful soft PVC rubber emblem with deep recessed sewing channel borders.',
+    equipment: 'Micro-Dispensing Robotic Dispenser',
+    src: '/images/gallery/prod_12.png',
+    tag: 'PVC Emblem'
+  },
+  {
+    id: 36,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Continuous Roll Sublimation Sports Jersey Panel',
+    subtitle: 'Deep photographic molecular dye bonding with permanent wash fastness on polyester-spandex knits.',
+    equipment: 'Industrial Roll Sublimation Line',
+    src: '/images/gallery/SUBLIMATION.jpeg',
+    tag: 'Sublimation'
+  },
+  {
+    id: 37,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Elastic Multi-Color DTF Heat Transfer Stickers',
+    subtitle: 'Stretchable ready-to-fuse DTF transfer stickers with high-opacity white base backing.',
+    equipment: 'Dual-Head Industrial DTF Machine',
+    src: '/images/gallery/dtf print.jpg',
+    tag: 'DTF Sticker'
+  },
+  {
+    id: 38,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Industrial UV Digital Flatbed Direct-on-Trim',
+    subtitle: 'High-resolution direct printing onto pre-molded silicone badges, plastic toggles, and metal hardware.',
+    equipment: 'Dual UV LED Flatbed Digital Printer',
+    src: '/images/gallery/uv print.jpg',
+    tag: 'UV Digital'
+  },
+  {
+    id: 39,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Precision CAD-Cut Vinyl Heat Transfer Sticker',
+    subtitle: 'Opaque polyurethane thermal transfer cut into sharp brand insignias for sportswear.',
+    equipment: 'Pneumatic Dual-Bed Heat Press',
+    src: '/images/gallery/vinyl print.jpg',
+    tag: 'Vinyl Transfer'
+  },
+  {
+    id: 40,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Custom Ergonomic Silicone Zipper Puller Hardware',
+    subtitle: 'Micro-injected silicone tabs fused over cords or sliders for jackets and backpacks.',
+    equipment: 'Molded Silicone Vulcanizer',
+    src: '/images/gallery/prod_19.png',
+    tag: 'Zipper Puller'
+  },
+  {
+    id: 41,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Metallic Foil & High-Gloss Silicone Hybrid Application',
+    subtitle: 'Combination of vacuum metallized foil and crystal clear 3D silicone gel relief.',
+    equipment: 'Vacuum Foil Transfer & Silicone Gel',
+    src: '/images/gallery/prod_22.png',
+    tag: 'Foil Hybrid'
+  },
+  {
+    id: 42,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'High-Visibility 3M Reflective Heat Transfer Crest',
+    subtitle: 'Retroreflective glass bead transfer (350+ candlepower) conforming to safety standards.',
+    equipment: 'Thermal Lamination Plotter',
+    src: '/images/gallery/prod_3.png',
+    tag: 'Reflective'
+  },
+  {
+    id: 43,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Puff Expanded 3D Thermal Transfer Emblem',
+    subtitle: 'Heat-activated foam compound expanding into rounded 3D relief texture upon fusing.',
+    equipment: 'Thermal Expansion Heat Press',
+    src: '/images/gallery/prod_4.png',
+    tag: 'Puff Transfer'
+  },
+  {
+    id: 44,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Flock Velvet Heat Transfer on Fleece Garment',
+    subtitle: 'Dense rayon velvet fibers offering heritage varsity appeal with superior wash permanence.',
+    equipment: 'Electrostatic Flock Fuser',
+    src: '/images/gallery/prod_5.png',
+    tag: 'Flock Velvet'
+  },
+  {
+    id: 45,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Debossed Genuine Leather Waistband Patch',
+    subtitle: 'Deeply sunken brand logo stamped with heated brass dies onto genuine cowhide and PU leather.',
+    equipment: 'Hydraulic Hot-Stamping Press',
+    src: '/images/gallery/cat_14.png',
+    tag: 'Leather Patch'
+  },
+  {
+    id: 46,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: '3D Micro-Injected Liquid Silicone Crest Badge',
+    subtitle: 'Multi-layer silicone badge with rich color fidelity and maximum stretch flexibility.',
+    equipment: 'High-Tonnage Molding Unit',
+    src: '/images/gallery/cat_15.png',
+    tag: 'Silicone Crest'
+  },
+  {
+    id: 47,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'High-Frequency NXP Ultrasonic Welded Crest',
+    subtitle: 'Precision ultrasonic horn fusing faceted dimensional badges onto performance garments.',
+    equipment: 'NXP Ultrasonic 15kW Station',
+    src: '/images/gallery/cat_16.png',
+    tag: 'NXP Welded'
+  },
+  {
+    id: 48,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Custom Molded Soft PVC Rubber Apparel Patch',
+    subtitle: 'Sew-on PVC badge with stitch groove channel for tactical jackets, caps, and outerwear.',
+    equipment: 'Automated Multi-Color PVC Injection',
+    src: '/images/gallery/pvc patch.jpg',
+    tag: 'PVC Patch'
+  },
+  {
+    id: 49,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Double-Layer Elastic Silicone Heat Transfer',
+    subtitle: 'Two-tone stepped layers creating contrasting typography for athletic apparel.',
+    equipment: 'Dual-Cavity Liquid Silicone Station',
+    src: '/images/gallery/silicon transfer.jpg',
+    tag: 'Silicone Transfer'
+  },
+  {
+    id: 50,
+    category: 'craft',
+    categoryLabel: 'Finished Products',
+    title: 'Screen-Printed Custom Apparel with Export Inspection',
+    subtitle: 'Multi-color export garments on 534ft long table lines compliant with ZDHC Level 3.',
+    equipment: 'Screen Printing Long Table Hall',
+    src: '/images/gallery/Screen-Printing-for-Custom-Apparel.jpg',
+    tag: 'Screen Apparel'
   }
 ];
 
 const categoryTabs = [
-  { id: 'all', label: 'All Photos', count: galleryPhotos.length },
-  { id: 'production', label: 'Production Complex', count: 4 },
-  { id: 'printing', label: 'Printing Lines', count: 3 },
-  { id: 'trims', label: 'Finished Trims', count: 5 },
-  { id: 'lab', label: 'Testing Lab & QC', count: 2 },
-  { id: 'eco', label: 'Sustainable Chemistry', count: 2 }
+  { id: 'all', label: 'All Photos' },
+  { id: 'floors', label: 'Factory Floors & Machinery' },
+  { id: 'action', label: 'Production in Action' },
+  { id: 'labs', label: 'Pre-Press & Technical Labs' },
+  { id: 'welfare', label: 'Worker Welfare & Health' },
+  { id: 'craft', label: 'Finished Craft & Products' }
 ];
 
 export default function GalleryPage({ navigate }) {
@@ -389,6 +738,10 @@ export default function GalleryPage({ navigate }) {
                       onError={(e) => { e.currentTarget.src = '/assets/images/hero_factory_bg.jpg'; }}
                     />
                     <div className="gallery-item-overlay">
+                      <div className="gallery-card-info">
+                        <span className="gallery-card-tag">{photo.tag || photo.categoryLabel}</span>
+                        <h4 className="gallery-card-title">{photo.title}</h4>
+                      </div>
                       <div className="gallery-zoom-pill">
                         <Maximize2 size={20} />
                       </div>
@@ -522,51 +875,55 @@ export default function GalleryPage({ navigate }) {
       <section className="section-padding bg-white">
         <div className="container">
           <div className="factory-visit-card" data-reveal="fade-up">
-            <div className="visit-card-content">
-              <span className="section-badge section-badge-dark">Facility Inspection</span>
-              <h2 className="visit-card-title">Book an In-Person Technical Audit at Ashulia</h2>
-              <p className="visit-card-desc">
-                We welcome international apparel brand sourcing directors, buying house representatives, and garment factory merchandisers to conduct full technical, social, and environmental audits of our facilities.
-              </p>
+            <div className="visit-card-grid">
+              <div className="visit-card-left">
+                <span className="section-badge section-badge-dark">Facility Inspection</span>
+                <h2 className="visit-card-title">Book an In-Person Technical Audit at Ashulia</h2>
+                <p className="visit-card-desc">
+                  We welcome international apparel brand sourcing directors, buying house representatives, and garment factory merchandisers to conduct full technical, social, and environmental audits of our facilities.
+                </p>
 
-              <div className="visit-details-list">
-                <div className="visit-detail-item">
-                  <MapPin size={18} className="text-emerald" />
-                  <div>
-                    <strong>Plant Address:</strong>
-                    <span>South Gazirchat, Ashulia, Savar, Dhaka-1349, Bangladesh</span>
-                  </div>
-                </div>
-                <div className="visit-detail-item">
-                  <Clock size={18} className="text-emerald" />
-                  <div>
-                    <strong>Operating Hours:</strong>
-                    <span>Saturday - Thursday: 8:00 AM - 8:00 PM (Direct Visitor Parking &amp; Merchandising Lounge)</span>
-                  </div>
-                </div>
-                <div className="visit-detail-item">
-                  <Award size={18} className="text-emerald" />
-                  <div>
-                    <strong>Audit Documentation:</strong>
-                    <span>Complete OEKO-TEX®, BSCI, and Fire &amp; Electrical Safety compliance documentation available on-site.</span>
-                  </div>
+                <div className="visit-actions">
+                  <button 
+                    className="btn btn-primary"
+                    onClick={() => navigate('/contact')}
+                  >
+                    <span>Book Plant Visit Appointment</span>
+                    <ArrowRight size={16} />
+                  </button>
+                  <button 
+                    className="btn btn-secondary"
+                    onClick={() => navigate('/profile')}
+                  >
+                    <span>Download Facility Profile (PDF)</span>
+                  </button>
                 </div>
               </div>
 
-              <div className="visit-actions">
-                <button 
-                  className="btn btn-primary"
-                  onClick={() => navigate('/contact')}
-                >
-                  <span>Book Plant Visit Appointment</span>
-                  <ArrowRight size={16} />
-                </button>
-                <button 
-                  className="btn btn-secondary"
-                  onClick={() => navigate('/profile')}
-                >
-                  <span>Download Facility Profile (PDF)</span>
-                </button>
+              <div className="visit-card-right">
+                <div className="visit-details-list">
+                  <div className="visit-detail-item">
+                    <MapPin size={20} className="text-emerald shrink-0" />
+                    <div>
+                      <strong>Plant Address:</strong>
+                      <span>South Gazirchat, Ashulia, Savar, Dhaka-1349, Bangladesh</span>
+                    </div>
+                  </div>
+                  <div className="visit-detail-item">
+                    <Clock size={20} className="text-emerald shrink-0" />
+                    <div>
+                      <strong>Operating Hours:</strong>
+                      <span>Saturday - Thursday: 8:00 AM - 8:00 PM (Direct Visitor Parking &amp; Merchandising Lounge)</span>
+                    </div>
+                  </div>
+                  <div className="visit-detail-item">
+                    <Award size={20} className="text-emerald shrink-0" />
+                    <div>
+                      <strong>Audit Documentation:</strong>
+                      <span>Complete OEKO-TEX®, BSCI, and Fire &amp; Electrical Safety compliance documentation available on-site.</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -645,7 +1002,7 @@ export default function GalleryPage({ navigate }) {
                 src={activeLightboxPhoto.src} 
                 alt={activeLightboxPhoto.title || "ZM Printing Image"} 
                 className="lightbox-large-image" 
-                onError={(e) => { e.currentTarget.src = '/assets/images/hero_factory_bg.jpg'; }}
+                onError={(e) => { e.currentTarget.src = '/images/home/card-screen-printing.jpg'; }}
               />
               
               {/* Prev / Next Controls */}
@@ -666,6 +1023,20 @@ export default function GalleryPage({ navigate }) {
               >
                 <ChevronRight size={28} />
               </button>
+            </div>
+
+            {/* Lightbox Caption Strip */}
+            <div className="lightbox-caption-strip">
+              <div className="lightbox-caption-info">
+                <span className="lightbox-tag-pill">{activeLightboxPhoto.tag || activeLightboxPhoto.categoryLabel}</span>
+                <h3 className="lightbox-item-title">{activeLightboxPhoto.title}</h3>
+                <p className="lightbox-item-desc">{activeLightboxPhoto.subtitle}</p>
+              </div>
+              {activeLightboxPhoto.equipment && (
+                <div className="lightbox-equip-tag">
+                  <span>{activeLightboxPhoto.equipment}</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -1072,11 +1443,13 @@ export default function GalleryPage({ navigate }) {
         .gallery-item-overlay {
           position: absolute;
           inset: 0;
-          background: radial-gradient(circle at center, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.5) 100%);
+          background: linear-gradient(to top, rgba(15, 23, 42, 0.94) 0%, rgba(15, 23, 42, 0.3) 60%, rgba(0, 0, 0, 0.1) 100%);
           opacity: 0;
           display: flex;
-          align-items: center;
-          justify-content: center;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-between;
+          padding: 1.25rem;
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           backdrop-filter: blur(2px);
         }
@@ -1085,9 +1458,36 @@ export default function GalleryPage({ navigate }) {
           opacity: 1;
         }
 
+        .gallery-card-info {
+          margin-top: auto;
+          color: #ffffff;
+        }
+
+        .gallery-card-tag {
+          display: inline-block;
+          font-size: 0.6875rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          background: rgba(16, 185, 129, 0.9);
+          color: #ffffff;
+          padding: 0.2rem 0.55rem;
+          border-radius: 99px;
+          margin-bottom: 0.35rem;
+        }
+
+        .gallery-card-title {
+          font-size: 0.9375rem;
+          font-weight: 700;
+          color: #ffffff;
+          line-height: 1.3;
+          margin: 0;
+        }
+
         .gallery-zoom-pill {
-          width: 52px;
-          height: 52px;
+          align-self: flex-end;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.95);
           color: #0f172a;
@@ -1106,6 +1506,52 @@ export default function GalleryPage({ navigate }) {
         .gallery-item-card:hover .gallery-zoom-pill:hover {
           background: #10b981;
           color: #ffffff;
+        }
+
+        .lightbox-caption-strip {
+          padding: 1.25rem 1.75rem;
+          background: #0f172a;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1.25rem;
+          flex-wrap: wrap;
+        }
+
+        .lightbox-tag-pill {
+          display: inline-block;
+          font-size: 0.71875rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          background: #10b981;
+          color: #ffffff;
+          padding: 0.25rem 0.65rem;
+          border-radius: 99px;
+          margin-bottom: 0.35rem;
+        }
+
+        .lightbox-item-title {
+          font-size: 1.15rem;
+          font-weight: 700;
+          color: #ffffff;
+          margin: 0 0 0.25rem 0;
+        }
+
+        .lightbox-item-desc {
+          font-size: 0.875rem;
+          color: #94a3b8;
+          margin: 0;
+        }
+
+        .lightbox-equip-tag {
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          padding: 0.45rem 0.95rem;
+          border-radius: 8px;
+          color: #cbd5e1;
+          font-size: 0.8125rem;
+          font-weight: 600;
         }
 
         .gallery-empty-state {
@@ -1271,9 +1717,20 @@ export default function GalleryPage({ navigate }) {
 
         .visit-actions {
           display: flex;
+          flex-direction: row;
           align-items: center;
           gap: 1rem;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
+        }
+
+        .visit-actions .btn {
+          white-space: nowrap;
+          padding: 0.85rem 1.35rem;
+          font-size: 0.88rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex: 0 0 auto;
         }
 
         /* 6. Corporate CTA */
@@ -1391,6 +1848,107 @@ export default function GalleryPage({ navigate }) {
           gap: 0.5rem;
           font-size: 0.8rem;
           color: #94a3b8;
+        }
+
+        /* 5. Virtual Factory Tour & Plant Visit Scheduling */
+        .factory-visit-card {
+          background: linear-gradient(135deg, #092e15 0%, #0d401e 50%, #082913 100%);
+          border-radius: 24px;
+          padding: clamp(2.5rem, 5vw, 3.5rem);
+          color: #ffffff;
+          box-shadow: 0 20px 45px rgba(9, 46, 21, 0.25);
+          border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .visit-card-grid {
+          display: grid;
+          grid-template-columns: 1.35fr 1fr;
+          gap: 2.25rem;
+          align-items: center;
+        }
+
+        .visit-card-left {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .visit-card-title {
+          font-size: clamp(1.8rem, 3vw, 2.35rem);
+          font-weight: 800;
+          color: #ffffff;
+          line-height: 1.2;
+          margin: 1rem 0;
+        }
+
+        .visit-card-desc {
+          color: #cbd5e1;
+          font-size: 0.95rem;
+          line-height: 1.65;
+          margin-bottom: 2rem;
+        }
+
+        .visit-details-list {
+          display: flex;
+          flex-direction: column;
+          gap: 1.15rem;
+        }
+
+        .visit-detail-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 1rem;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 14px;
+          padding: 1.15rem 1.25rem;
+          backdrop-filter: blur(8px);
+        }
+
+        .visit-detail-item strong {
+          display: block;
+          color: #ffffff;
+          font-size: 0.925rem;
+          margin-bottom: 0.25rem;
+        }
+
+        .visit-detail-item span {
+          color: #cbd5e1;
+          font-size: 0.825rem;
+          line-height: 1.5;
+        }
+
+        .visit-actions {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: nowrap;
+        }
+
+        .visit-actions .btn {
+          white-space: nowrap;
+          padding: 0.85rem 1.35rem;
+          font-size: 0.88rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex: 0 0 auto;
+        }
+
+        @media (max-width: 640px) {
+          .visit-actions {
+            flex-wrap: wrap;
+          }
+          .visit-actions .btn {
+            width: 100%;
+          }
+        }
+
+        @media (max-width: 960px) {
+          .visit-card-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+          }
         }
 
         /* 7. Lightbox Modal */

@@ -79,6 +79,7 @@ export const websiteContent = {
         { label: "Operations & Sales", number: "+880 1818-724417", raw: "+8801818724417" }
       ],
       emails: [
+        { label: "Official Inquiries", address: "info@zmprintingbd.com" },
         { label: "Managing Director", address: "zilani@zmprintingbd.com" },
         { label: "General & Merchandising", address: "zmprinting02@gmail.com" }
       ],
@@ -233,8 +234,8 @@ export const websiteContent = {
       slides: [
         {
           id: 1,
-          image: "/images/hero/Screen-Printing-for-Custom-Apparel.jpg",
-          imageLegacy: "/assets/images/Screen-Printing-for-Custom-Apparel.jpg",
+          image: "/images/home/hero-screen-printing.jpg",
+          imageLegacy: "/images/home/hero-screen-printing.jpg",
           kicker: "ALL KIND OF SCREEN PRINTING",
           title: "Expertly crafted High-precision Screen Print, Flock Print, HD Print, Crack Print, Silicon Print, Silicon 3D Print, and Puff Print since 2013.",
           subtitle: "Expertly crafted High-precision Screen Print, Flock Print, HD Print, Crack Print, Silicon Print, Silicon 3D Print, and Puff Print since 2013.",
@@ -245,8 +246,8 @@ export const websiteContent = {
         },
         {
           id: 2,
-          image: "/images/hero/SUBLIMATION.jpeg",
-          imageLegacy: "/assets/images/SUBLIMATION.jpeg",
+          image: "/images/home/hero-sublimation.jpg",
+          imageLegacy: "/images/home/hero-sublimation.jpg",
           kicker: "ALL KIND OF SUBLIMATION PRINTING",
           title: "Specialized in premium sublimation printing with cutting-edge Epson technology for exceptional quality and durability.",
           subtitle: "Epson-powered sublimation printing delivering razor-sharp details, brilliant colors, and exceptional soft-hand feel.",
@@ -257,8 +258,8 @@ export const websiteContent = {
         },
         {
           id: 3,
-          image: "/images/hero/silicon.jpg",
-          imageLegacy: "/assets/images/silicon.jpg",
+          image: "/images/home/hero-silicon.jpg",
+          imageLegacy: "/images/home/hero-silicon.jpg",
           kicker: "ALL KIND OF SILICON & 3D BADGES",
           title: "High-definition silicon badges and tactile accessories delivering exceptional durability and modern style.",
           subtitle: "Custom-crafted silicone details and 3D badges offering soft-touch feel, vibrant colors, and long-lasting finish.",
@@ -269,8 +270,8 @@ export const websiteContent = {
         },
         {
           id: 4,
-          image: "/images/hero/sonic.jpeg",
-          imageLegacy: "/assets/images/sonic.jpeg",
+          image: "/images/home/hero-sonic.jpg",
+          imageLegacy: "/images/home/hero-sonic.jpg",
           kicker: "ALL KIND OF PVC BADGE,NXP WELDING,DEBOSSED,EMBOSSED,TPU WELD,TPU PATCH,DTF,UV PRINT ETC",
           title: "Specialized PVC badges, TPU welds, debossed & embossed patches,VINYL TRANSFER, DTF transfers, and UV printing solutions.",
           subtitle: "Advanced NXP welding, TPU patches, and vibrant DTF or UV prints OEKO-TEX certified inks for activewear, team , and headwear.",
@@ -336,8 +337,8 @@ export const websiteContent = {
         bio: "Visionary industry leader with over two decades of technical apparel and trims manufacturing experience across Bangladesh industrial hubs.",
         phone: "+880 1322-881470",
         email: "zilani@zmprintingbd.com",
-        image: "/images/about/managing-director-portrait.jpg",
-        imageLegacy: "/assets/images/about_md_portrait.jpg"
+        image: "/images/team/md-abdul-kader-zilani.webp",
+        imageLegacy: "/images/about/managing-director-portrait.jpg"
       },
       {
         id: "chairman",
@@ -346,16 +347,16 @@ export const websiteContent = {
         bio: "Steers institutional governance, financial stewardship, worker welfare initiatives, and corporate environmental responsibility.",
         phone: "+880 1618-724419",
         email: "zmprinting02@gmail.com",
-        image: "/images/team/chairman-mst-rojina.jpg",
-        imageLegacy: "/assets/images/team_chairman.jpg"
+        image: "/images/team/chairman-mst-rojina.webp",
+        imageLegacy: "/images/team/chairman-mst-rojina.jpg"
       },
       {
         id: "coo",
-        name: "ENG. TARIQUL ISLAM",
-        role: "Chief Operating Officer",
+        name: "Jannatul Ferdous Jonaki",
+        role: "Director & COO",
         bio: "Oversees 4 production plant floors, Lean six-sigma workflows, maintenance schedules, and daily throughput capacity.",
-        image: "/images/team/chief-operating-officer.jpg",
-        imageLegacy: "/assets/images/team_coo.jpg"
+        image: "/images/team/chief-operating-officer.webp",
+        imageLegacy: "/images/team/chief-operating-officer.jpg"
       },
       {
         id: "merchandising",
@@ -417,10 +418,10 @@ export const websiteContent = {
         { name: 'Discharge Print', desc: 'Bleach-discharge printing removing dye from pure cotton for breathable prints.' }
       ],
       galleryImages: [
-        { url: '/assets/images/hero_factory_bg.jpg', caption: '534ft Long Silk Screen Glass Tables & Production Lines' },
-        { url: '/assets/images/prod_21.png', caption: 'High-Density 3D Multi-Pass Print Sample' },
-        { url: '/assets/images/prod_22.png', caption: 'Metallic Foil & High-Gloss Gel Hybrid Application' },
-        { url: '/images/products/product-11.jpg', caption: 'Export Inspection & Quality Finish on Screen Garments' }
+        { url: '/images/sections/printing-floor-1.jpg', caption: '534ft Long Silk Screen Glass Tables & Production Lines' },
+        { url: '/images/sections/printing-floor-2.jpg', caption: 'Continuous Belt Infrared Curing Tunnel & Squeegee Rails' },
+        { url: '/images/products/prod_21.png', caption: 'High-Density 3D Multi-Pass Print Sample' },
+        { url: '/images/products/prod_22.png', caption: 'Metallic Foil & High-Gloss Gel Hybrid Application' }
       ],
       machineryDetails: [
         { machine: 'Glass-Top Screen Printing Tables', count: '06 Long Lines (534 Feet)', origin: 'Taiwan & Custom Fabricated' },
@@ -466,10 +467,10 @@ export const websiteContent = {
         { name: 'Cap Twill Panel Print', desc: 'Heavy cotton-feel twill polyester headwear panel transfers.' }
       ],
       galleryImages: [
-        { url: '/assets/images/slider_7.jpg', caption: 'Continuous Roll-to-Roll Sublimation Transfer Calender' },
-        { url: '/assets/images/cat_14.png', caption: 'Photographic Activewear Sublimation Panels' },
-        { url: '/images/products/product-15.jpg', caption: 'Sublimated Branded Elastic & Twill Trim Tape Lines' },
-        { url: '/assets/images/prod_13.png', caption: 'Cap Panel Sublimation & Applique Sample Detailing' }
+        { url: '/images/sections/sublimation-dtf-1.jpg', caption: 'Continuous Roll-to-Roll Sublimation Transfer Calender' },
+        { url: '/images/sections/sublimation-dtf-2.jpg', caption: 'Industrial Dye Sublimation Precision Printing Line' },
+        { url: '/images/products/cat_14.png', caption: 'Photographic Activewear Sublimation Panels' },
+        { url: '/images/products/prod_13.png', caption: 'Cap Panel Sublimation & Applique Sample Detailing' }
       ],
       machineryDetails: [
         { machine: 'Industrial Dye Sublimation Printers', count: '09 High-Speed Precision Units', origin: 'Epson SureColor & Mimaki' },
@@ -511,9 +512,9 @@ export const websiteContent = {
         { name: 'Tagless Care Label Transfers', desc: 'Ultra-soft neck care labels with tiny readable 4pt font wash instructions.' }
       ],
       galleryImages: [
-        { url: '/assets/images/subcat_17.jpg', caption: 'High-Speed Industrial DTF Dual-Head Printing Line' },
-        { url: '/assets/images/prod_20.png', caption: 'Multi-Color Elastic DTF Graphic Sticker Sample' },
-        { url: '/images/products/product-19.jpg', caption: 'Tagless Neck Care DTF Heat Transfer Application' }
+        { url: '/images/sections/sublimation-dtf-2.jpg', caption: 'High-Speed Industrial DTF Dual-Head Printing Line' },
+        { url: '/images/sections/sublimation-dtf-3.jpg', caption: 'Automated Powder Shaker & In-Line Infrared Baking Unit' },
+        { url: '/images/products/prod_20.png', caption: 'Multi-Color Elastic DTF Graphic Sticker Sample' }
       ],
       machineryDetails: [
         { machine: 'Dual-Head Industrial DTF Printer', count: '01 Multi-Channel System', origin: 'Japan Epson Heads' },
@@ -553,9 +554,9 @@ export const websiteContent = {
         { name: 'Instant Prototyping Samples', desc: 'Same-day strike-offs for urgent buyer packaging and showroom reviews.' }
       ],
       galleryImages: [
-        { url: '/assets/images/prod_24.jpg', caption: 'Industrial UV Flatbed Digital Printer in Operation' },
-        { url: '/assets/images/subcat_19.jpg', caption: 'Direct UV Printing on Molded Silicone Badge Trims' },
-        { url: '/assets/images/subcat_27.jpg', caption: 'Gloss Varnish Texture on Hard Accessory Surface' }
+        { url: '/images/gallery/prod_24.jpg', caption: 'Industrial UV Flatbed Digital Printer in Operation' },
+        { url: '/images/sections/sublimation-dtf-1.jpg', caption: 'Direct UV Printing on Molded Silicone Badge Trims' },
+        { url: '/images/products/prod_16.png', caption: 'Gloss Varnish Texture on Molded Accessory Surface' }
       ],
       machineryDetails: [
         { machine: 'High-Precision Flatbed UV LED Printer', count: '01 Multi-Axis Station', origin: 'Ricoh Industrial Gen6 Heads' },
@@ -595,9 +596,9 @@ export const websiteContent = {
         { name: 'Fast Strike-Off Approval', desc: 'Enabling buyer merchandising desks to review finished shirts in 24 hours.' }
       ],
       galleryImages: [
-        { url: '/assets/images/subcat_22.jpg', caption: 'Direct to Garment Digital Inkjet Station' },
-        { url: '/assets/images/slider_6.jpg', caption: 'Precision Darkroom & Garment Pre-Treatment Room' },
-        { url: '/images/products/product-13.jpg', caption: 'Fine Detailing on Dark Garment DTG Output' }
+        { url: '/images/sections/printing-floor-2.jpg', caption: 'Direct to Garment Production & Curing Floor' },
+        { url: '/images/sections/sublimation-dtf-2.jpg', caption: 'Precision Color Management & Pre-Treatment Area' },
+        { url: '/images/products/prod_21.png', caption: 'Fine Detailing on Dark Garment DTG Output' }
       ],
       machineryDetails: [
         { machine: 'High-Volume Commercial DTG Printer', count: '01 Multi-Platen Line', origin: 'Brother GTX Pro Industrial' },
@@ -644,10 +645,10 @@ export const websiteContent = {
         { name: 'Silicon Badges', desc: 'Sew-on or heat-seal apparel silicone crests with fabric border channels.' }
       ],
       galleryImages: [
-        { url: '/assets/images/cat_15.png', caption: '3D Micro-Injected Liquid Silicone Crest Samples' },
-        { url: '/assets/images/prod_16.png', caption: 'High-Thickness Silicone Angle Welding on Outerwear' },
-        { url: '/assets/images/prod_17.png', caption: 'Two-Tone Matte & Glossy Hybrid Silicone Badge' },
-        { url: '/assets/images/prod_19.png', caption: 'Custom Ergonomic Silicone Zipper Puller Hardware' }
+        { url: '/images/sections/silicon-floor-1.jpg', caption: 'Multi-Station Automated Silicone Molding Presses' },
+        { url: '/images/sections/silicon-floor-2.jpg', caption: 'Micro-Injection & Deeping Lines with Hydraulic Presses' },
+        { url: '/images/products/cat_15.png', caption: '3D Micro-Injected Liquid Silicone Crest Samples' },
+        { url: '/images/products/prod_16.png', caption: 'High-Thickness Silicone Angle Welding on Outerwear' }
       ],
       machineryDetails: [
         { machine: 'Computerized Silicone Color Mixer', count: '01 Planetary Mixer', origin: 'Taiwan Precision' },
@@ -693,10 +694,10 @@ export const websiteContent = {
         { name: 'Watertight Hermetic Seams', desc: 'IPX7 waterproof stitch-free garment seams for technical mountaineering gear.' }
       ],
       galleryImages: [
-        { url: '/assets/images/cat_16.png', caption: 'High-Frequency NXP Ultrasonic Horn & Welding Stations' },
-        { url: '/assets/images/prod_10.png', caption: 'Watertight TPU Sonic Welded Pocket Crest' },
-        { url: '/assets/images/prod_11.png', caption: 'NXP Honeycomb & 3D Angle Welded Patch Detailing' },
-        { url: '/assets/images/prod_12.png', caption: 'Embossed + Micro-Injected PVC Brand Badge' }
+        { url: '/images/sections/sonic-transfer-1.jpg', caption: 'High-Frequency NXP Ultrasonic Horn & Welding Stations' },
+        { url: '/images/sections/sonic-transfer-2.jpg', caption: 'Ultrasonic Sealing & High-Frequency Pressure Banks' },
+        { url: '/images/products/cat_16.png', caption: 'NXP Ultrasonic Horn & Welded Badge Production' },
+        { url: '/images/products/prod_10.png', caption: 'Watertight TPU Sonic Welded Pocket Crest' }
       ],
       machineryDetails: [
         { machine: 'NXP High-Frequency Ultrasonic Welders', count: '08 Heavy-Duty 15kW Stations', origin: 'NXP Ultrasonic Systems' },
@@ -741,10 +742,10 @@ export const websiteContent = {
         { name: 'DTF Heat Transfer', desc: 'Precision industrial fused DTF transfers for multi-color detailed artwork.' }
       ],
       galleryImages: [
-        { url: '/assets/images/subcat_20.jpg', caption: 'Pneumatic Heat Transfer Production Bank' },
-        { url: '/assets/images/prod_3.png', caption: 'High-Visibility 3M Reflective Heat Transfer Crest' },
-        { url: '/assets/images/prod_4.png', caption: 'Puff Expanded Thermal Vinyl Logo Sample' },
-        { url: '/assets/images/prod_5.png', caption: 'Flock Velvet Heat Transfer on Fleece Garment' }
+        { url: '/images/sections/sonic-transfer-1.jpg', caption: 'Pneumatic Heat Transfer Production Bank' },
+        { url: '/images/sections/sublimation-dtf-3.jpg', caption: 'Continuous Roll Heat Fusing Calenders' },
+        { url: '/images/products/prod_3.png', caption: 'High-Visibility 3M Reflective Heat Transfer Crest' },
+        { url: '/images/products/prod_4.png', caption: 'Puff Expanded Thermal Vinyl Logo Sample' }
       ],
       machineryDetails: [
         { machine: 'Dual-Bed Pneumatic Heat Presses', count: '12 Automatic Dual Stations', origin: 'Industrial Pneumatic' },
@@ -786,9 +787,9 @@ export const websiteContent = {
         { name: 'Eco Faux Leather Trims', desc: 'Solvent-free waterborne PU and apple/cactus eco leather certified options.' }
       ],
       galleryImages: [
-        { url: '/assets/images/prod_25.jpg', caption: 'Hydraulic High-Temperature Leather Stamping Press' },
-        { url: '/assets/images/prod_27.png', caption: 'Burnished Deep-Relief Leather Denim Patch Sample' },
-        { url: '/assets/images/prod_28.png', caption: 'Gold Foil Stamped Suede Badge with Stitch Channel' }
+        { url: '/images/gallery/prod_24.jpg', caption: 'Hydraulic High-Temperature Leather Stamping Press' },
+        { url: '/images/products/prod_27.png', caption: 'Burnished Deep-Relief Leather Denim Patch Sample' },
+        { url: '/images/products/prod_28.png', caption: 'Gold Foil Stamped Suede Badge with Stitch Channel' }
       ],
       machineryDetails: [
         { machine: 'High-Tonnage Hydraulic Debossing Presses', count: '04 Heavy Hydraulic Stations', origin: 'Heavy Industrial' },
@@ -826,9 +827,9 @@ export const websiteContent = {
         { name: 'Low-Curing Silicone Blends', desc: 'High-elasticity liquid silicone inks curing at low temperatures to prevent fabric dye migration.' }
       ],
       galleryImages: [
-        { url: '/assets/images/quality_lab_testing.jpg', caption: 'X-Rite Spectrophotometer & Computerized Ink Mixing Kitchen' },
-        { url: '/assets/images/subcat_24.jpg', caption: 'Computerized Pigment Dispensing & Color Recipe Calibration' },
-        { url: '/assets/images/prod_23.png', caption: 'Pantone Formulated Swatches & Lab Dip Archive' }
+        { url: '/images/sections/color-room-1.jpg', caption: 'X-Rite Spectrophotometer & Computerized Ink Mixing Kitchen' },
+        { url: '/images/sections/color-room-2.jpg', caption: 'Computerized Pigment Dispensing & Color Recipe Calibration' },
+        { url: '/images/products/prod_23.png', caption: 'Pantone Formulated Swatches & Lab Dip Archive' }
       ],
       machineryDetails: [
         { machine: 'Computerized High-Shear Color Mixers', count: '04 Digital Planetary Units', origin: 'Precision Laboratory' },
@@ -866,9 +867,9 @@ export const websiteContent = {
         { name: 'Water-Resistant Stencil Coating', desc: 'Cross-linked emulsion stencils built to endure 50,000 impressions of water-base inks.' }
       ],
       galleryImages: [
-        { url: '/assets/images/slider_6.jpg', caption: 'High-Precision UV Vacuum Exposure & Screen Washing Room' },
-        { url: '/assets/images/subcat_13.jpg', caption: 'Pneumatic Mesh Stretching & Tension Measurement Bench' },
-        { url: '/assets/images/prod_24.jpg', caption: 'High-Intensity UV Vacuum Stencil Exposure Unit' }
+        { url: '/images/sections/expose-room.jpg', caption: 'High-Precision UV Vacuum Exposure & Screen Darkroom' },
+        { url: '/images/sections/printing-floor-1.jpg', caption: 'Pneumatic Mesh Stretching & Screen Washing Stations' },
+        { url: '/images/products/prod_21.png', caption: 'Pin-Sharp Mesh Stencil Resolution Output' }
       ],
       machineryDetails: [
         { machine: 'High-Intensity Vacuum UV Exposure Frame', count: '02 Deep Vacuum Units', origin: 'Metal-Halide 5kW' },
@@ -906,9 +907,9 @@ export const websiteContent = {
         { name: 'Buyer Prototype Approvals', desc: 'Digital PDF approvals and physical strike-off dispatch documentation.' }
       ],
       galleryImages: [
-        { url: '/assets/images/prod_24.jpg', caption: 'Creative CAD Workstations & Vector Color Separation Studio' },
-        { url: '/assets/images/subcat_21.jpg', caption: 'High-Resolution Vector Art & 3D Mold CAM Simulation' },
-        { url: '/assets/images/prod_30.png', caption: 'Engineered Multi-Color Separation Film Output' }
+        { url: '/images/sections/design-room.jpg', caption: 'Creative CAD Workstations & Vector Color Separation Studio' },
+        { url: '/images/sections/color-room-1.jpg', caption: 'High-Resolution Vector Art & 3D Mold Simulation Lab' },
+        { url: '/images/products/prod_30.png', caption: 'Engineered Multi-Color Separation Film Output' }
       ],
       machineryDetails: [
         { machine: 'Apple Mac & High-Performance CAD Stations', count: '06 Dedicated Workstations', origin: 'Apple & Dell Precision' },
@@ -946,9 +947,9 @@ export const websiteContent = {
         { name: 'Finished Trims Packaging', desc: 'Poly-bagged, carton-packed export trims awaiting shipment dispatch.' }
       ],
       galleryImages: [
-        { url: '/assets/images/slider_8.jpg', caption: 'High-Density Pallet Racking in Climate-Controlled Bonded Store' },
-        { url: '/assets/images/subcat_6.jpg', caption: 'Climate-Controlled Raw Material & Polymer Storage Racks' },
-        { url: '/images/products/product-14.jpg', caption: 'Barcode Tracked Export Finished Trims Packaging Area' }
+        { url: '/images/sections/bonded-warehouse-1.jpg', caption: 'High-Density Pallet Racking in Climate-Controlled Bonded Store' },
+        { url: '/images/sections/bonded-warehouse-2.jpg', caption: 'Climate-Controlled Raw Material & Polymer Storage Racks' },
+        { url: '/images/sections/store-room.jpg', caption: 'Barcode Tracked Export Finished Trims Packaging Area' }
       ],
       machineryDetails: [
         { machine: 'High-Density Steel Pallet Racking', count: '10 Heavy-Duty Bays', origin: 'Engineered Steel' },
@@ -986,9 +987,9 @@ export const websiteContent = {
         { name: 'Clean Sanitized Rest Beds', desc: 'Isolated quiet examination and recovery beds with privacy curtains.' }
       ],
       galleryImages: [
-        { url: '/assets/images/sustainability_production.jpg', caption: 'Factory Health & Safety Audit and Nursing Facility' },
-        { url: '/assets/images/about_workers_team.jpg', caption: 'Registered Occupational Health & On-Site Nursing Staff' },
-        { url: '/assets/images/hero_factory_bg.jpg', caption: 'Dedicated Cleanroom Medical Examination & First-Aid Zone' }
+        { url: '/images/sections/medical-room.jpg', caption: 'Dedicated Cleanroom Medical Examination & First-Aid Zone' },
+        { url: '/images/about/factory-workforce-team.jpg', caption: 'Registered Occupational Health & On-Site Nursing Staff' },
+        { url: '/images/sections/dining-rest-room.jpg', caption: 'Worker Health & Welfare Center in Ashulia Plant' }
       ],
       machineryDetails: [
         { machine: 'Medical Examination Beds', count: '02 Sanitized Clinical Beds', origin: 'Medical Grade' },
@@ -1026,9 +1027,9 @@ export const websiteContent = {
         { name: 'Hygienic Infant Care Environment', desc: 'Clean sanitized bedding, diaper changing counters, and purified water.' }
       ],
       galleryImages: [
-        { url: '/assets/images/about_workers_team.jpg', caption: 'Female Workforce & Child Care Community Support in Ashulia' },
-        { url: '/assets/images/subcat_35.jpg', caption: 'Safe Supervised Daycare & Children Activity Space' },
-        { url: '/assets/images/subcat_7.jpg', caption: 'Maternal Welfare & Clean Lactation Facilities for Female Staff' }
+        { url: '/images/sections/child-care-room.jpg', caption: 'Safe Supervised Daycare & Children Activity Space' },
+        { url: '/images/about/factory-workforce-team.jpg', caption: 'Female Workforce & Child Care Community Support in Ashulia' },
+        { url: '/images/sections/dining-rest-room.jpg', caption: 'Maternal Welfare & Clean Lactation Facilities for Female Staff' }
       ],
       machineryDetails: [
         { machine: 'Infant Cribs & Toddler Sleep Cots', count: '08 Wooden Certified Cots', origin: 'Safe Furniture' },
@@ -1066,9 +1067,9 @@ export const websiteContent = {
         { name: 'Worker Harmony & Community', desc: 'Welcoming communal environment fostering mutual respect among teams.' }
       ],
       galleryImages: [
-        { url: '/assets/images/hero_factory_bg.jpg', caption: 'Spacious Plant Complex with Worker Welfare Infrastructure' },
-        { url: '/assets/images/subcat_8.jpg', caption: 'Well-Ventilated Granite Table Dining Facility for 300 Workers' },
-        { url: '/assets/images/slider_8.jpg', caption: 'Multi-Stage UV Filtered Drinking Water Stations & Rest Hall' }
+        { url: '/images/sections/dining-rest-room.jpg', caption: 'Well-Ventilated Granite Table Dining Facility for 300 Workers' },
+        { url: '/images/about/factory-workforce-team.jpg', caption: 'Factory Workforce Community Dining & Rest Area' },
+        { url: '/images/sections/printing-floor-1.jpg', caption: 'Clean Multi-Stage UV Filtered Drinking Water Stations' }
       ],
       machineryDetails: [
         { machine: 'Multi-Stage RO UV Drinking Water Dispensers', count: '04 Heavy-Duty Coolers', origin: 'Certified Water Tech' },
@@ -1288,6 +1289,7 @@ export const websiteContent = {
         { label: "Operations & Sales", number: "+880 1818-724417", raw: "+8801818724417" }
       ],
       emails: [
+        { label: "Official Inquiries", address: "info@zmprintingbd.com" },
         { label: "Managing Director", address: "zilani@zmprintingbd.com" },
         { label: "General & Merchandising", address: "zmprinting02@gmail.com" }
       ],
@@ -1310,11 +1312,11 @@ export const websiteContent = {
         desc: "Governance, compliance matters, and financial inquiries."
       },
       {
-        role: "Operations, Sales & Merchandising",
-        name: "Commercial Merchandising Desk",
+        role: "Official Inquiry & Merchandising Desk",
+        name: "Commercial Merchandising Team",
         phone: "+880 1818-724417",
-        email: "zmprinting02@gmail.com",
-        desc: "Daily sampling status, quotation calculations, and shipment scheduling."
+        email: "info@zmprintingbd.com",
+        desc: "Daily sampling status, quotation calculations, tech-packs, and export shipping."
       }
     ],
     facilities: [

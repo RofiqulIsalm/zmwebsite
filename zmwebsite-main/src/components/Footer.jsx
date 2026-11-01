@@ -45,6 +45,21 @@ export default function Footer({ navigate }) {
                 {siteConfig.contact.locations.factory.address}
               </p>
             </div>
+
+            <div className="footer-contact-details" style={{ marginTop: '0.85rem', display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.875rem' }}>
+              <div>
+                <span style={{ color: '#94a3b8' }}>Official Email: </span>
+                <a href="mailto:info@zmprintingbd.com" style={{ color: '#ffffff', textDecoration: 'underline' }}>
+                  info@zmprintingbd.com
+                </a>
+              </div>
+              <div>
+                <span style={{ color: '#94a3b8' }}>Direct Desk: </span>
+                <a href="https://wa.me/8801818724417" target="_blank" rel="noopener noreferrer" style={{ color: '#ffffff' }}>
+                  +880 1818-724417
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Col 2: Shortcuts */}

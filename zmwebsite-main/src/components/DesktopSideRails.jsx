@@ -53,11 +53,18 @@ export default function DesktopSideRails({ currentPath }) {
   useEffect(() => {
     if (!isHomeOrAbout) return;
 
+    let ticking = false;
     const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalScroll > 0) {
-        const current = (window.scrollY / totalScroll) * 100;
-        setScrollProgress(Math.min(100, Math.max(0, current)));
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+          if (totalScroll > 0) {
+            const current = (window.scrollY / totalScroll) * 100;
+            setScrollProgress(Math.min(100, Math.max(0, current)));
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 

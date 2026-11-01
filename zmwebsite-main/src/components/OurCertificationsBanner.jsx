@@ -257,9 +257,9 @@ export default function OurCertificationsBanner({ navigate }) {
           will-change: transform;
         }
 
-        /* Hover pauses the auto slide so the user can easily view or click */
+        /* Never pause on hover - keeps scrolling continuously */
         .certifications-slider-viewport:hover .certifications-marquee-track {
-          animation-play-state: paused;
+          animation-play-state: running;
         }
 
         @keyframes certAutoScroll {

@@ -6,7 +6,7 @@ const newsItems = [
     id: 'leed-platinum',
     slug: 'zm-printing-achieved-leed-platinum-certificate',
     title: 'ZM Printing & Design Ltd. Participates in Getexpo and Achieves Prestigious LEED Platinum Certification',
-    image: '/assets/images/0Y3A8898.jpg',
+    image: '/assets/images/0Y3A8898.webp',
     category: 'Achievement & Ecology',
     date: 'january 2026',
     readTime: '3 min read',
@@ -24,7 +24,7 @@ const newsItems = [
     id: 'expands-production',
     slug: 'zm-printing-expands-production-meet-global-demand',
     title: 'ZM Printing & Design Ltd. Expands Production to Meet Global Demand',
-    image: '/images/news/0Y3A8848.jpg',
+    image: '/images/news/0Y3A8848.webp',
     category: 'Corporate Growth',
     date: 'January 2026',
     readTime: '4 min read',
@@ -46,7 +46,7 @@ const newsItems = [
     id: 'gapexpo-award',
     slug: 'zm-printing-won-1st-prize-gapexpo',
     title: 'ZM Printing won the “1st Prize for the best stall of GAPEXPO”',
-    image: '/images/news/0Y3A8684.jpg',
+    image: '/images/news/0Y3A8684.webp',
     category: 'Industry Award',
     date: 'December 2025',
     readTime: '3 min read',
@@ -178,17 +178,20 @@ export default function LatestNewsSection({ navigate }) {
         </div>
       </div>
 
-      {/* Edge-to-Edge Full-Width Image Gallery Strip directly below news cards */}
-      <div className="news-gallery-strip-wrapper" data-reveal="scale" aria-label="Company Gallery Strip">
+      {/* Edge-to-Edge Full-Width Image Gallery Strip directly below news cards (Continuous Silk Smooth Auto-Scroll) */}
+      <div className="news-gallery-strip-wrapper" aria-label="Company Gallery Strip">
         <div className="news-gallery-strip-track">
           {duplicatedGallery.map((img, idx) => (
             <div key={`${img.id}-${idx}`} className="gallery-strip-item">
               <img
                 src={img.src}
                 alt={img.alt}
+                width="320"
+                height="220"
+                decoding="async"
                 className="gallery-strip-photo"
                 loading="lazy"
-                onError={(e) => { e.currentTarget.src = '/assets/images/0Y3A8898.jpg'; }}
+                onError={(e) => { e.currentTarget.src = '/assets/images/0Y3A8898.webp'; }}
               />
               <div className="gallery-strip-hover-overlay" />
             </div>
@@ -520,18 +523,22 @@ export default function LatestNewsSection({ navigate }) {
           width: max-content;
           animation: stripInfiniteScroll 35s linear infinite;
           will-change: transform;
+          transform: translate3d(0, 0, 0);
+          backface-visibility: hidden;
+          perspective: 1000px;
         }
 
+        /* Never stop or pause on hover - keeps sliding smoothly as requested */
         .news-gallery-strip-wrapper:hover .news-gallery-strip-track {
-          animation-play-state: paused;
+          animation-play-state: running;
         }
 
         @keyframes stripInfiniteScroll {
           0% {
-            transform: translateX(0);
+            transform: translate3d(0, 0, 0);
           }
           100% {
-            transform: translateX(-50%);
+            transform: translate3d(-50%, 0, 0);
           }
         }
 

@@ -60,10 +60,39 @@ export default function QuoteWizard({ preselectedProduct = '' }) {
       return;
     }
 
-    // Fast industrial server simulation
+    const mailSubject = `Quotation Request: ${formData.product || 'Apparel Trims'} - ${formData.companyName}`;
+    const mailBody = `Official Quotation & Sampling Request for ZM Printing & Design Ltd.
+
+Buyer Information:
+- Full Name: ${formData.fullName}
+- Company: ${formData.companyName}
+- Country: ${formData.country || 'Not specified'}
+- Email: ${formData.email}
+- Phone: ${formData.phone}
+
+Production Order Details:
+- Target Product: ${formData.product || 'General Apparel Trims'}
+- Order Quantity: ${formData.quantity}
+- Target Completion Date: ${formData.targetDate || 'Flexible'}
+- Artwork Uploaded: ${formData.artworkFile ? formData.artworkFile.name : 'No file attached'}
+
+Technical Specifications / Comments:
+${formData.message || 'Please provide quotation and strike-off timeline.'}
+
+---
+Target Desk: info@zmprintingbd.com`;
+
+    const mailtoUrl = `mailto:info@zmprintingbd.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+
+    try {
+      window.location.href = mailtoUrl;
+    } catch (err) {
+      console.log('Mail client triggered');
+    }
+
     setTimeout(() => {
       setStatus({ submitting: false, submitted: true, error: null });
-    }, 600);
+    }, 400);
   };
 
   return (

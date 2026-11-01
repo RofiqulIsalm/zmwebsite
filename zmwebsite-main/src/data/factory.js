@@ -13,37 +13,37 @@ export const factoryFacility = {
       id: "screen-print-floor",
       title: "Screen Printing Halls (Sides 1, 2 & 3)",
       description: "Continuous long printing tables and automated carousels with precision squeegee rails and intermediate flash cure units.",
-      image: "/assets/images/slider_6.jpg"
+      image: "/images/sections/printing-floor-1.jpg"
     },
     {
       id: "sublimation-floor",
       title: "Digital Sublimation & Transfer Hall",
       description: "Temperature-controlled digital printing suite housing EPSON printers and continuous oil-drum calendar heat transfer machines.",
-      image: "/assets/images/slider_7.jpg"
+      image: "/images/sections/sublimation-dtf-1.jpg"
     },
     {
       id: "sonic-rubber-floor",
       title: "Rubber & Sonic NXP Molding Section",
       description: "High-frequency ultrasonic welding stations, micro-dispensing robotic heads, and hydraulic vulcanizing heat presses.",
-      image: "/assets/images/slider_8.jpg"
+      image: "/images/sections/sonic-transfer-1.jpg"
     },
     {
       id: "qa-laboratory",
       title: "Quality Assurance & Color Testing Lab",
       description: "In-house lab for wash testing, rub crocking, tensile adhesion verification, and Pantone color match approval.",
-      image: "/assets/images/quality_lab_testing.jpg"
+      image: "/images/sections/color-room-1.jpg"
     },
     {
       id: "eco-floor",
       title: "Sustainable Manufacturing & Curing Area",
       description: "Clean production lines operating water-based ink formulations and smart zoned curing tunnels.",
-      image: "/assets/images/sustainability_production.jpg"
+      image: "/images/sections/printing-floor-2.jpg"
     },
     {
       id: "main-production-floor",
       title: "Automated Trims & Finishing Complex",
       description: "Overview of modern precision textile carousels, finishing lines, and export-packaging sorting areas.",
-      image: "/assets/images/hero_factory_bg.jpg"
+      image: "/images/sections/silicon-floor-1.jpg"
     }
   ]
 };

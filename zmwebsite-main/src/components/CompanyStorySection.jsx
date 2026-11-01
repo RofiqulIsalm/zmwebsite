@@ -135,20 +135,15 @@ export default function CompanyStorySection({ navigate }) {
           <div className="story-video-side">
             <video
               ref={videoRef}
-              poster="/assets/images/slider_6.jpg"
+              poster="/images/home/story-factory-poster.jpg"
               autoPlay
               loop
               muted
               playsInline
               className="story-bg-video"
-              aria-label="Global Shipment and Logistics in Motion"
+              aria-label="ZM Printing Factory Operations and High Precision Production"
             >
-              {/* This is one the main video if this one not work then below the video will show  */}
-              <source src="/assets/videos/ZM Printing 1.mp4" type="video/webm" />
-              {/* This is one mroe video if that top not work then use this  */}
-              <source src="/assets/videos/ZM Printing 1.mp4" type="video/webm" />
-              {/* This is one mroe video if that top not work then use this  */}
-              <source src="/assets/videos/ZM Printing 1.mp4" type="video/webm" />
+              <source src="/assets/videos/ZM Printing 1.mp4" type="video/mp4" />
             </video>
 
             {/* Bottom-left Caption Badges (Matching Screenshot 1 exactly) */}

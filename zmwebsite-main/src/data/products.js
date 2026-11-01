@@ -5,8 +5,8 @@ export const categories = [
     name: "Screen Printing",
     tagline: "Industrial Silk Screen, Plastisol, High-Density & Specialty Finishes",
     description: "Multi-color automated carousels and manual long-table printing lines capable of water-based, plastisol, discharge, reflective, and 3D high-density effects on cotton, poly-blends, and headwear.",
-    image: "/assets/images/cat_14.png",
-    count: 6
+    image: "/images/products/cat_14.png",
+    count: 7
   },
   {
     id: "sublimation",
@@ -14,7 +14,7 @@ export const categories = [
     name: "Sublimation Printing",
     tagline: "High-Resolution Roll-to-Roll & Engineered Piece Transfer",
     description: "EPSON precision dye-sublimation printers paired with industrial continuous rotary calendars and flatbed heat presses for activewear, sportswear jerseys, and seamless cap graphics.",
-    image: "/assets/images/cat_15.png",
+    image: "/images/products/cat_15.png",
     count: 6
   },
   {
@@ -23,26 +23,17 @@ export const categories = [
     name: "Rubber Patch & Sonic NXP",
     tagline: "High-Frequency Sonic Welds, Liquid Silicone & 3D Molded Patches",
     description: "Precision CNC steel and copper tooling for multi-color micro-injected PVC, soft-touch liquid silicone, and high-frequency NXP ultrasonic heat welds for outerwear and denim.",
-    image: "/assets/images/cat_16.png",
-    count: 8
+    image: "/images/products/cat_16.png",
+    count: 11
   },
   {
-    id: "trims-fasteners",
+    id: "leather-patches",
     numericId: 17,
-    name: "Trims & Fasteners",
-    tagline: "High-Tenacity Threads, Metal/Resin Buttons, Zippers & Hangers",
-    description: "Complete apparel accessory lines supplying spun polyester sewing threads, custom-cast alloy buttons, snap fasteners, smooth sliding zippers, and GRS-certified display hangers.",
-    image: "/images/products/product-15.jpg",
-    count: 4
-  },
-  {
-    id: "labels-packaging",
-    numericId: 18,
-    name: "Labels, Patches & Packaging",
-    tagline: "Offset Hangtags, Sustainable Polybags, TPU Pouches & Leather Patches",
-    description: "Commercial Heidelberg offset hangtags, eco-friendly biodegradable polybags, ultrasonic welded waterproof TPU pouches, and deep-embossed genuine leather denim waist patches.",
-    image: "/images/products/product-11.jpg",
-    count: 4
+    name: "PU & Leather Patches",
+    tagline: "Thermal Debossed, Foil Stamped & Laser-Engraved Badges",
+    description: "Denim and outerwear waist badges made through heat-debossing, foil stamping, screen printing, and laser engraving on genuine and PU leather.",
+    image: "/images/products/prod_27.png",
+    count: 1
   }
 ];
 
@@ -497,165 +488,19 @@ export const products = [
     featured: false
   },
 
-  // --- 8 ENGINEERED PRODUCT SOLUTIONS (Matching Reference Showcase) ---
-  {
-    id: "sewing-thread",
-    slug: "sewing-thread",
-    name: "Sewing Thread",
-    category: "Trims & Fasteners",
-    categoryId: "trims-fasteners",
-    shortDesc: "High-tenacity 100% spun polyester and core-spun threads engineered for high-speed automated sewing machines.",
-    fullDesc: "Premium lubricated sewing thread with consistent tensile strength, minimal shrinkage, and superior resistance to friction and abrasion. Ideal for lockstitch, overlock, and coverstitch operations across knits, woven garments, and heavy denim.",
-    image: "/images/products/product-19.jpg",
-    gallery: [
-      "/images/products/product-19.jpg"
-    ],
-    applications: ["Knitwear & T-Shirts", "Denim & Workwear", "Outerwear & Activewear", "Home Textiles"],
-    materials: ["100% Spun Polyester", "Poly-Poly Core Spun", "Continuous Filament"],
-    finishes: ["Silicone Lubricated", "Matte Soft Finish", "High Lustre"],
-    qualityStandards: "AATCC 61 Wash Fastness Grade 4-5, Oeko-Tex Standard 100 Class I Certified",
-    capacity: "50,000 Cones / Month",
-    moq: "200 Cones per color",
-    leadTime: "Sample: 2 Days | Bulk: 5-7 Days",
-    featured: true
-  },
-  {
-    id: "button",
-    slug: "button",
-    name: "Button",
-    category: "Trims & Fasteners",
-    categoryId: "trims-fasteners",
-    shortDesc: "Precision molded polyester, zinc alloy snap, jeans tack, and laser-engraved eco-friendly buttons.",
-    fullDesc: "Complete button manufacturing and sourcing covering 2-hole/4-hole polyester buttons, custom logo-engraved horn and corozo buttons, anti-rust brass snap fasteners, and heavy-duty jeans tack buttons with nickel-free finishes.",
-    image: "/images/products/product-20.jpg",
-    gallery: [
-      "/images/products/product-20.jpg"
-    ],
-    applications: ["Dress Shirts", "Jeans & Trousers", "Suits & Blazers", "Outerwear Jackets"],
-    materials: ["Polyester Resin", "Zinc Alloy", "Eco-friendly Corozo & Wood", "Brass / Steel"],
-    finishes: ["Laser Engraved Logo", "Chalk / Pearlized Effect", "Antique Brass", "Matte Black Enamel"],
-    qualityStandards: "Nickel-Free, Lead-Free under CPSIA standards, 90N pull test certified",
-    capacity: "500,000 Gross / Month",
-    moq: "100 Gross per design",
-    leadTime: "Sample: 3 Days | Bulk: 7-10 Days",
-    featured: true
-  },
-  {
-    id: "zipper",
-    slug: "zipper",
-    name: "Zipper",
-    category: "Trims & Fasteners",
-    categoryId: "trims-fasteners",
-    shortDesc: "High-grade metal, nylon coil, plastic vislon, and waterproof sealed TPU zippers.",
-    fullDesc: "Precision-engineered apparel zippers featuring smooth sliding action, high lateral chain strength, and auto-lock pullers. Available in open-end, closed-end, two-way reversible, and waterproof seam-sealed configurations.",
-    image: "/images/products/product-15.jpg",
-    gallery: [
-      "/images/products/product-15.jpg"
-    ],
-    applications: ["Jackets & Hoodies", "Sportswear & Tracksuits", "Denim Pants", "Bags & Backpacks"],
-    materials: ["Nylon Coil (#3, #5, #8)", "Plastic Delrin / Vislon", "Solid Brass / Gunmetal", "TPU Waterproof Film"],
-    finishes: ["Shiny Gold / Silver", "Matte Gunmetal", "Waterproof Matte Film", "Custom Puller Cast"],
-    qualityStandards: "BS 3084 / ASTM D2061 lateral strength certified, >5,000 reciprocation cycles",
-    capacity: "250,000 Pcs / Month",
-    moq: "1,000 Pcs",
-    leadTime: "Sample: 3 Days | Bulk: 7-10 Days",
-    featured: true
-  },
-  {
-    id: "hanger",
-    slug: "hanger",
-    name: "Hanger",
-    category: "Trims & Fasteners",
-    categoryId: "trims-fasteners",
-    shortDesc: "Sustainable recycled plastic, natural FSC wood, and velvet flocked garment display hangers.",
-    fullDesc: "Retail display and shipping hangers engineered for garment shape preservation. Featuring swivel steel hooks, non-slip rubberized shoulder grips, adjustable pant clips, and hot-stamped custom brand logos.",
-    image: "/images/products/product-16.jpg",
-    gallery: [
-      "/images/products/product-16.jpg"
-    ],
-    applications: ["Store Retail Display", "Shipment & Distribution", "Suits & Heavy Coats", "Lingerie & Swimwear"],
-    materials: ["Recycled PP / PS Plastic", "FSC-Certified Solid Lotus Wood", "Flocked Velvet"],
-    finishes: ["Matte Soft Touch", "Chrome Swivel Hook", "Metallic Hot Stamp Logo", "Rubberized Grips"],
-    qualityStandards: "Load bearing test > 15 kg without deflection, GRS Recycled Plastic certified",
-    capacity: "300,000 Pcs / Month",
-    moq: "2,000 Pcs",
-    leadTime: "Sample: 3 Days | Bulk: 10-12 Days",
-    featured: true
-  },
-  {
-    id: "press-printing-offset",
-    slug: "press-printing-offset",
-    name: "Press Printing (Offset)",
-    category: "Labels & Packaging",
-    categoryId: "labels-packaging",
-    shortDesc: "High-precision offset printed hangtags, price tickets, barcode labels, and specialty foil cards.",
-    fullDesc: "Commercial Heidelberg multi-color offset printing unit producing luxury hangtags, FSC-certified kraft paper tags, spot UV varnish cards, embossed seals, and string-attached brand identification cards.",
-    image: "/images/products/product-11.jpg",
-    gallery: [
-      "/images/products/product-11.jpg"
-    ],
-    applications: ["Branded Hangtags", "Barcode & RFID Price Tickets", "Pocket Flashers", "Garment Header Cards"],
-    materials: ["FSC Art Paper 350-700 GSM", "Recycled Kraft Board", "Duplex Board", "Specialty Textured Paper"],
-    finishes: ["Matte / Gloss Lamination", "Hot Foil Stamping", "Spot UV & Embossing", "Eyelet with Wax Cord"],
-    qualityStandards: "ISO 12647-2 Color Management, FSC Chain of Custody Certified",
-    capacity: "1,500,000 Pcs / Month",
-    moq: "3,000 Pcs",
-    leadTime: "Sample: 2 Days | Bulk: 5-7 Days",
-    featured: true
-  },
-  {
-    id: "poly-bag-sustainable",
-    slug: "poly-bag-sustainable",
-    name: "Poly Bag Sustainable Packaging",
-    category: "Labels & Packaging",
-    categoryId: "labels-packaging",
-    shortDesc: "Biodegradable, compostable (PLA/PBAT), and GRS-certified recycled LDPE/PP garment polybags.",
-    fullDesc: "Eco-friendly retail apparel packaging bags equipped with self-adhesive resealable tape strips, ventilation air holes, printed suffocating warning notices, and customized multi-color flexographic brand printing.",
-    image: "/images/products/product-17.jpg",
-    gallery: [
-      "/images/products/product-17.jpg"
-    ],
-    applications: ["Individual Apparel Packing", "E-commerce Shipping Bags", "Master Carton Poly Liners"],
-    materials: ["GRS Certified Recycled LDPE (30%-100%)", "Bio-based PLA + PBAT", "High-Clarity Virgin PP"],
-    finishes: ["Permanent or Resealable Adhesive", "Micro-Perforated Air Holes", "Flexo Print up to 6 Colors"],
-    qualityStandards: "EN 13432 Compostable Certified, GRS (Global Recycled Standard) 4.0 Certified",
-    capacity: "2,000,000 Pcs / Month",
-    moq: "5,000 Pcs",
-    leadTime: "Sample: 3 Days | Bulk: 6-8 Days",
-    featured: true
-  },
-  {
-    id: "tpu-eva-pvc-pouches",
-    slug: "tpu-eva-pvc-pouches",
-    name: "TPU, EVA & PVC Pouches",
-    category: "Labels & Packaging",
-    categoryId: "labels-packaging",
-    shortDesc: "Frosted translucent TPU, waterproof EVA zip slider pouches, and high-frequency welded bags.",
-    fullDesc: "Modern reusable packaging pouches manufactured with ultrasonic high-frequency welding. Chemical-resistant, soft-touch matte finish, featuring custom plastic zipper pullers and silkscreen printed logos.",
-    image: "/images/products/product-13.jpg",
-    gallery: [
-      "/images/products/product-13.jpg"
-    ],
-    applications: ["Swimwear Packaging", "Activewear & Underwear Bags", "Cosmetic Pouches", "Travel Toiletry Kits"],
-    materials: ["Eco-EVA (Phthalate Free)", "Matte Frosted TPU Film", "Non-Toxic PVC"],
-    finishes: ["Silk Screen Printed", "Frosted Soft Touch", "Slider Zip / Press-Seal Ziplock"],
-    qualityStandards: "REACH compliant, 100% Phthalate-Free, Water-resistant seam seal",
-    capacity: "400,000 Pcs / Month",
-    moq: "1,000 Pcs",
-    leadTime: "Sample: 3 Days | Bulk: 7-10 Days",
-    featured: true
-  },
+  // --- 8 VERIFIED FACTORY PRODUCT SOLUTIONS ---
   {
     id: "pu-leather-patches",
     slug: "pu-leather-patches",
     name: "PU & Leather Patches",
-    category: "Labels & Packaging",
-    categoryId: "labels-packaging",
+    category: "PU & Leather Patches",
+    categoryId: "leather-patches",
     shortDesc: "Embossed faux PU leather, genuine cowhide, suede, and sonic-welded jeans waist patches.",
     fullDesc: "Denim and outerwear waist badges made through heat-debossing, foil stamping, screen printing, and laser engraving. Specifically tanned to survive high-temperature industrial garment washes and stone washing without cracking or fading.",
-    image: "/images/products/product-14.jpg",
+    image: "/images/products/prod_27.png",
     gallery: [
-      "/images/products/product-14.jpg"
+      "/images/products/prod_27.png",
+      "/images/products/prod_28.png"
     ],
     applications: ["Jeans Back Waistbands", "Jackets & Parkas", "Beanies & Caps", "Luggage & Bags"],
     materials: ["Microfiber PU Leather", "Genuine Vegetable-Tanned Leather", "Synthetic Suede / Jacron Paper"],
@@ -674,9 +519,10 @@ export const products = [
     categoryId: "screen-printing",
     shortDesc: "High-resolution digital Direct-to-Film transfer stickers engineered for cotton, polyester, and dark fabrics.",
     fullDesc: "Utilizing industrial multi-head DTF printers with high-pigment CMYK + White ink channels and automated hot-melt TPU powder adhesive application. Delivers photographic sharpness, high elasticity, superior stretch recovery, and rich opacity on both light and dark textile substrates without contour weeding.",
-    image: "/images/Productlist/dtf print.jpg",
+    image: "/images/home/card-dtf-sticker.jpg",
     gallery: [
-      "/images/Productlist/dtf print.jpg"
+      "/images/home/card-dtf-sticker.jpg",
+      "/images/products/prod_20.png"
     ],
     applications: ["Custom T-Shirts", "Performance Hoodies", "Sportswear Jerseys", "Canvas Tote Bags", "Caps & Headwear"],
     materials: ["PET Release Film", "Eco-friendly Water-based Pigments", "Elastic TPU Hot-Melt Adhesive Powder"],
@@ -695,9 +541,10 @@ export const products = [
     categoryId: "screen-printing",
     shortDesc: "Instant LED-curable UV ink printing delivering vivid color accuracy and embossed textures on rigid and flexible items.",
     fullDesc: "Our high-precision UV printing floor uses ultraviolet LED-curing technology that instantly polymerizes inks upon deposition. Capable of printing photographic resolution with optional clear varnish gloss coats and raised embossed tactile effects on acrylic, metal, leather, wood, and promotional garment tags.",
-    image: "/images/Productlist/uv print.jpg",
+    image: "/images/home/card-uv-printing.jpg",
     gallery: [
-      "/images/Productlist/uv print.jpg"
+      "/images/home/card-uv-printing.jpg",
+      "/images/gallery/prod_24.jpg"
     ],
     applications: ["Acrylic Brand Tags", "Metal Zipper Pullers", "Luxury Hangtags", "Packaging Boxes", "Promotional Merchandise"],
     materials: ["Rigid Acrylic", "Polycarbonate", "Wood / Kraft Board", "Anodized Aluminum", "PU Leather"],
@@ -716,9 +563,10 @@ export const products = [
     categoryId: "screen-printing",
     shortDesc: "Precision plotter-cut polyurethane vinyl transfers and industrial decals with maximum wash endurance.",
     fullDesc: "Engineered for sportswear roster numbers, technical activewear, safety apparel, and branding decals. Made from high-grade elastic PU film that withstands severe athletic laundering, tumble drying, and outdoor weathering without peeling or discoloration.",
-    image: "/images/Productlist/vinyl print.jpg",
+    image: "/images/home/card-vinyl-sticker.jpg",
     gallery: [
-      "/images/Productlist/vinyl print.jpg"
+      "/images/home/card-vinyl-sticker.jpg",
+      "/images/products/prod_3.png"
     ],
     applications: ["Athletic Team Numbers", "Sportswear Branding", "Hi-Vis Safety Vests", "Waterproof Jackets", "Equipment Decals"],
     materials: ["Eco-PU Heat Transfer Vinyl", "Permanent Cast Adhesive Film", "Reflective Vinyl"],
@@ -737,9 +585,10 @@ export const products = [
     categoryId: "rubber-nxp-sonic",
     shortDesc: "Ultra-flexible, silky soft-touch liquid silicone heat transfer logos with permanent fabric fusion.",
     fullDesc: "Liquid silicone formulated with eco-friendly catalysts is screen-printed or molded onto PET carriers and backed with specialized thermal adhesive. When heat-applied to swimwear, activewear, or compression apparel, it moves fluidly with the fabric without cracking, puckering, or peeling.",
-    image: "/images/Productlist/silicon transfer.jpg",
+    image: "/images/home/card-silicon-transfer.jpg",
     gallery: [
-      "/images/Productlist/silicon transfer.jpg"
+      "/images/home/card-silicon-transfer.jpg",
+      "/images/products/cat_15.png"
     ],
     applications: ["Yoga Pants & Leggings", "Swimwear & Rashguards", "Cycling Jerseys", "Athleisure Outerwear"],
     materials: ["100% Medical-Grade Liquid Silicone", "Low-Temperature Hot-Melt Adhesive Film"],
@@ -758,9 +607,10 @@ export const products = [
     categoryId: "rubber-nxp-sonic",
     shortDesc: "High-definition 3D molded silicone crests with sharp geometric bevels and heat-resistant durability.",
     fullDesc: "Molded using high-precision CNC engraved copper and aluminum tooling under calibrated vulcanization presses. Unlike PVC, our food-grade silicone badges never yellow, endure extreme freezing and boiling temperatures, and provide an ultra-luxurious hand-feel on international apparel collections.",
-    image: "/images/Productlist/silicon badge.jpg",
+    image: "/images/home/card-silicon-badge.jpg",
     gallery: [
-      "/images/Productlist/silicon badge.jpg"
+      "/images/home/card-silicon-badge.jpg",
+      "/images/products/prod_16.png"
     ],
     applications: ["Down Parkas & Heavy Jackets", "Streetwear Hoodies", "Beanie & Snapback Hats", "Tactical Bags"],
     materials: ["High-Purity Eco Liquid Silicone", "Base Fabric Carrier", "Heat-Seal / Velcro Backing"],
@@ -779,9 +629,10 @@ export const products = [
     categoryId: "rubber-nxp-sonic",
     shortDesc: "Multi-color micro-injected soft PVC rubber patches with recessed perimeter stitching canal.",
     fullDesc: "Precision micro-dispensed soft PVC rubber badges crafted with automated robotic color dosing needles. Features deep dimensional layers, vibrant Pantone color matching, recessed perimeter sewing channels for needle clearance, and rugged outdoor durability for jackets, caps, and workwear.",
-    image: "/images/Productlist/pvc patch.jpg",
+    image: "/images/home/card-pvc-badge.jpg",
     gallery: [
-      "/images/Productlist/pvc patch.jpg"
+      "/images/home/card-pvc-badge.jpg",
+      "/images/products/prod_12.png"
     ],
     applications: ["Denim Waistbands", "Military & Tactical Outerwear", "Backpack Patches", "Baseball Caps"],
     materials: ["Phthalate-Free Eco-PVC Compound", "Recessed Sewing Groove", "Optional Velcro / Heat Seal"],

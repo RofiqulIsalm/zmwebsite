@@ -280,7 +280,7 @@ export function applySEO(pathname) {
         "longitude": 90.2782
       },
       "telephone": companyInfo.contact.phones[0]?.raw || "+8801322881470",
-      "email": companyInfo.contact.emails[0]?.address || "zilani@zmprintingbd.com",
+      "email": companyInfo.contact.emails[0]?.address || "info@zmprintingbd.com",
       "priceRange": "$$",
       "currenciesAccepted": "USD, EUR, BDT",
       "paymentAccepted": "L/C, TT, Wire Transfer",

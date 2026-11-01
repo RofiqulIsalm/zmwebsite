@@ -34,7 +34,7 @@ export default function SustainabilityPage({ navigate }) {
           <div className="sus-split-visual">
             <div className="sus-img-frame">
               <img 
-                src="/assets/images/sustainability_production.jpg" 
+                src="/images/sections/printing-floor-1.jpg" 
                 alt="ZM Printing Sustainable Clean Factory Line" 
                 className="sus-main-img"
               />

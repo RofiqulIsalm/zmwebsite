@@ -59,8 +59,6 @@ export default function Hero({ navigate }) {
     <section 
       className="hero-slider-master" 
       aria-label="Hero Showcase Slider"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
     >
       {/* 1. Cinematic Background Layer with Ken-Burns Camera Drift */}
       <div className="slider-media-stage">

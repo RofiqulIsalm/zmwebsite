@@ -81,9 +81,15 @@ export function useScrollReveal(dependencyKey) {
     const timer1 = setTimeout(registerElements, 120);
     const timer2 = setTimeout(registerElements, 400);
 
-    // Watch for dynamic DOM changes (e.g., category filter changes)
+    // Watch for dynamic DOM changes with rAF throttle to preserve 60 FPS
+    let mutationRafId = null;
     const mutationObserver = new MutationObserver(() => {
-      registerElements();
+      if (!mutationRafId) {
+        mutationRafId = requestAnimationFrame(() => {
+          registerElements();
+          mutationRafId = null;
+        });
+      }
     });
 
     mutationObserver.observe(document.body, {
@@ -93,6 +99,7 @@ export function useScrollReveal(dependencyKey) {
 
     return () => {
       cancelAnimationFrame(rafId);
+      if (mutationRafId) cancelAnimationFrame(mutationRafId);
       clearTimeout(timer1);
       clearTimeout(timer2);
       observer.disconnect();

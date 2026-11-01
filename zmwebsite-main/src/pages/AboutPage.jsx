@@ -56,7 +56,7 @@ export default function AboutPage({ navigate }) {
       categoryLabel: 'Production Floor',
       title: 'Printing Floor',
       subtitle: '534-Foot Long Screen Printing & Curing Tables',
-      src: '/images/factory-tour/printing-floor-1.jpg'
+      src: '/images/sections/printing-floor-1.jpg'
     },
     {
       id: 2,
@@ -64,7 +64,7 @@ export default function AboutPage({ navigate }) {
       categoryLabel: 'Printing Line',
       title: 'Sublimation, DTF Floor',
       subtitle: 'Industrial Sublimation & Continuous Roller Press',
-      src: '/images/factory-tour/sublimation-dtf-1.jpg'
+      src: '/images/sections/sublimation-dtf-1.jpg'
     },
     {
       id: 3,
@@ -72,7 +72,7 @@ export default function AboutPage({ navigate }) {
       categoryLabel: 'Molding Floor',
       title: 'Silicon Floor',
       subtitle: '3D Silicone Badges & High-Temperature Curing Units',
-      src: '/images/factory-tour/silicon-floor-1.jpg'
+      src: '/images/sections/silicon-floor-1.jpg'
     },
     {
       id: 4,
@@ -80,7 +80,7 @@ export default function AboutPage({ navigate }) {
       categoryLabel: 'Welding Floor',
       title: 'Sonic / Transfer Floor',
       subtitle: 'High-Frequency NXP Sonic Welding & Heat Press',
-      src: '/images/factory-tour/sonic-transfer-1.jpg'
+      src: '/images/sections/sonic-transfer-1.jpg'
     },
     {
       id: 5,
@@ -88,7 +88,7 @@ export default function AboutPage({ navigate }) {
       categoryLabel: 'Color & QA',
       title: 'Color Room',
       subtitle: 'Computerized Ink Formulation & Exact Pantone Mixing',
-      src: '/images/factory-tour/color-room-1.jpg'
+      src: '/images/sections/color-room-1.jpg'
     },
     {
       id: 6,
@@ -96,7 +96,7 @@ export default function AboutPage({ navigate }) {
       categoryLabel: 'Pre-Press',
       title: 'Expose Room',
       subtitle: 'Precision UV Exposure & Screen Developing Darkroom',
-      src: '/images/factory-tour/expose-room.jpg'
+      src: '/images/sections/expose-room.jpg'
     },
     {
       id: 7,
@@ -104,7 +104,7 @@ export default function AboutPage({ navigate }) {
       categoryLabel: 'Healthcare',
       title: 'Medical Room',
       subtitle: 'Dedicated First Aid Clinic & Worker Health Support',
-      src: '/images/factory-tour/medical-room.jpg'
+      src: '/images/sections/medical-room.jpg'
     },
     {
       id: 9,
@@ -112,7 +112,7 @@ export default function AboutPage({ navigate }) {
       categoryLabel: 'Worker Welfare',
       title: 'Dining & Rest Room',
       subtitle: 'Sanitized Dining Spaces & Cafeteria for 300+ Workforce',
-      src: '/images/factory-tour/dining-rest-room.jpg'
+      src: '/images/sections/dining-rest-room.jpg'
     },
     {
       id: 10,
@@ -120,7 +120,7 @@ export default function AboutPage({ navigate }) {
       categoryLabel: 'Design Studio',
       title: 'Design Room',
       subtitle: 'Pre-Press Graphics, Artwork Separation & CAD Studio',
-      src: '/images/factory-tour/design-room.jpg'
+      src: '/images/sections/design-room.jpg'
     },
     {
       id: 11,
@@ -128,7 +128,7 @@ export default function AboutPage({ navigate }) {
       categoryLabel: 'Inventory',
       title: 'Store Room',
       subtitle: 'Organized Storage for Fabrics, Inks & Accessories',
-      src: '/images/factory-tour/store-room.jpg'
+      src: '/images/sections/store-room.jpg'
     },
     {
       id: 12,
@@ -136,7 +136,7 @@ export default function AboutPage({ navigate }) {
       categoryLabel: 'Maternal Welfare',
       title: 'Child Care Room (শিশু পরিচর্যা কেন্দ্র)',
       subtitle: 'Safe Daycare Facility for Working Mothers',
-      src: '/images/factory-tour/child-care-room.jpg'
+      src: '/images/sections/child-care-room.jpg'
     },
     {
       id: 8,
@@ -144,7 +144,7 @@ export default function AboutPage({ navigate }) {
       categoryLabel: 'Logistics',
       title: 'Bonded Warehouse',
       subtitle: 'Regulated Inventory Storage & Customer Garment Security',
-      src: '/images/factory-tour/bonded-warehouse-2.jpg'
+      src: '/images/sections/bonded-warehouse-2.jpg'
     }
   ];
 
@@ -371,9 +371,10 @@ export default function AboutPage({ navigate }) {
             {/* MD Photo Column */}
             <div className="md-photo-card" data-reveal="scale">
               <img
-                src="/images/about/managing-director-portrait.jpg"
+                src="/images/team/md-abdul-kader-zilani.webp"
                 alt="MD. ABDUL KADER ZILANI - Managing Director, ZM Printing & Design Ltd."
                 className="md-portrait-img"
+                onError={(e) => { e.currentTarget.src = '/images/about/managing-director-portrait.jpg'; }}
               />
               <div className="md-photo-overlay-tag">
                 <span className="md-name-label">MD. ABDUL KADER ZILANI</span>

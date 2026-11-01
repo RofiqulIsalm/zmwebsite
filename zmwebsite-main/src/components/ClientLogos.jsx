@@ -164,8 +164,9 @@ export default function ClientLogos({
           will-change: transform;
         }
 
+        /* Keep continuous smooth motion on hover as requested */
         .our-clients-slider-viewport:hover .our-clients-track {
-          animation-play-state: paused;
+          animation-play-state: running;
         }
 
         @keyframes clientInfiniteScroll {

@@ -32,7 +32,7 @@ export default function QualitySection() {
           <div className="quality-intro-visual">
             <div className="quality-image-frame">
               <img 
-                src="/assets/images/quality_lab_testing.jpg" 
+                src="/images/sections/color-room-1.jpg" 
                 alt="ZM Printing Quality Assurance Testing Station and Spectrophotometer" 
                 className="quality-lab-img"
                 loading="lazy"

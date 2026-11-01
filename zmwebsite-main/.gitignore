@@ -26,3 +26,4 @@ dist-ssr
 # Scratch & extracted temp files
 pdf_extracted_raw.txt
 scratch_pdf_text.txt
+*.zip
