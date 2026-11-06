@@ -45,26 +45,37 @@ export default function ClientLogos({
         {/* Enhanced Auto-sliding Marquee Viewport */}
         <div className="our-clients-slider-viewport" data-reveal="scale">
           <div className="our-clients-track">
-            {marqueeBrands.map((brand, index) => (
-              <div
-                key={`${brand.id}-${index}`}
-                className="client-logo-card"
-                title={`${brand.name} • ${brand.tier}`}
-              >
-                <div className="client-logo-inner">
-                  {brand.image ? (
-                    <img
-                      src={brand.image}
-                      alt={brand.name}
-                      className={`client-img-item brand-img-${brand.id}`}
-                      loading="lazy"
-                    />
-                  ) : (
-                    brand.svg
-                  )}
+            {marqueeBrands.map((brand, index) => {
+              const staticBrand = clientBrands.find(b => b.id === brand.id);
+              const logoSrc = brand.image || staticBrand?.image;
+              const displayName = brand.name || staticBrand?.name || brand.group || brand.id;
+              const displayTier = brand.tier || staticBrand?.tier || brand.status || 'Nominated Partner';
+              return (
+                <div
+                  key={`${brand.id}-${index}`}
+                  className="client-logo-card"
+                  title={`${displayName} • ${displayTier}`}
+                >
+                  <div className="client-logo-inner">
+                    {logoSrc ? (
+                      <img
+                        src={logoSrc}
+                        alt={displayName}
+                        className={`client-img-item brand-img-${brand.id}`}
+                        loading="lazy"
+                        onError={(e) => {
+                          if (staticBrand?.image && staticBrand.image !== logoSrc) {
+                            e.currentTarget.src = staticBrand.image;
+                          }
+                        }}
+                      />
+                    ) : (
+                      staticBrand?.svg || <span className="font-bold">{displayName}</span>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
