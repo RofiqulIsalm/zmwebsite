@@ -21,7 +21,7 @@ const ABOUT_SECTIONS_TABS = [
 ];
 
 export default function AboutPageEditor({ content, onSaveSection, loading }) {
-  const [activeTab, setActiveTab] = useState('workerWelfare'); // Default to what user is editing
+  const [activeTab, setActiveTab] = useState('aboutHero');
 
   // Form states for all 10 sections
   const [heroForm, setHeroForm] = useState(content?.about?.aboutHero || {});
@@ -60,7 +60,7 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
         <div className="builder-header-left">
           <div className="builder-badge">
             <Sparkles size={14} color="#4ade80" />
-            <span>VISUAL ABOUT PAGE BUILDER</span>
+            <span>ABOUT US VISUAL BUILDER</span>
           </div>
           <h2>About Us Management Hub</h2>
           <p>
@@ -81,7 +81,7 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
         </div>
       </div>
 
-      {/* 2. HORIZONTAL TAB SELECTOR */}
+      {/* 2. HORIZONTAL TAB SELECTOR (LUXURY SAAS BUTTONS) */}
       <div className="home-builder-nav">
         {ABOUT_SECTIONS_TABS.map((tab) => {
           let isSectionActive = true;
@@ -96,20 +96,27 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
           if (tab.id === 'clientLogos') isSectionActive = clientsForm._isActive !== false;
           if (tab.id === 'ctaBanner') isSectionActive = ctaForm._isActive !== false;
 
+          const isCurrent = activeTab === tab.id;
+
           return (
             <button
               key={tab.id}
               type="button"
-              className={`home-nav-tab ${activeTab === tab.id ? 'is-active' : ''}`}
+              className={`builder-tab-btn ${isCurrent ? 'is-active' : ''}`}
               onClick={() => setActiveTab(tab.id)}
             >
-              <span className="tab-order-badge">{tab.num}</span>
-              <span className="tab-icon">{tab.icon}</span>
-              <div className="tab-text">
-                <span className="tab-title">{tab.title}</span>
-                <span className="tab-sub">{tab.subtitle}</span>
+              <div className="builder-tab-icon">{tab.icon}</div>
+              <div className="builder-tab-info">
+                <div className="builder-tab-title-row">
+                  <span className="builder-tab-num">{tab.num}</span>
+                  <strong className="builder-tab-name">{tab.title}</strong>
+                  <span
+                    className={`builder-status-dot ${isSectionActive ? 'is-online' : 'is-offline'}`}
+                    title={isSectionActive ? 'Section is Live' : 'Section is Hidden'}
+                  />
+                </div>
+                <small className="builder-tab-sub">{tab.subtitle}</small>
               </div>
-              <span className={`tab-status-dot ${isSectionActive ? 'dot-active' : 'dot-hidden'}`} />
             </button>
           );
         })}
@@ -336,7 +343,7 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
         )}
 
         {/* ========================================================================= */}
-        {/* TAB 02: MD LEADERSHIP VISION (WITH PHOTO UPLOADER)                        */}
+        {/* TAB 02: MD LEADERSHIP VISION (FULL CLEAR PORTRAIT UPLOADER)                */}
         {/* ========================================================================= */}
         {activeTab === 'mdMessage' && (
           <div className="builder-panel">
@@ -371,17 +378,26 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
             </div>
 
             <div className="builder-grid-2col">
-              {/* Left Column: MD Photo Uploader & Identity */}
+              {/* Left Column: MD Photo Uploader (Centered 3:4 Portrait Ratio) */}
               <div className="builder-subcard">
                 <h4>Managing Director Official Photo</h4>
                 
-                <div style={{ marginBottom: '16px' }}>
+                {/* Clear, well-proportioned portrait preview (no squashed strip) */}
+                <div style={{ textAlign: 'center', margin: '8px 0 16px' }}>
                   <ImageUploader
                     currentImage={mdForm.image}
                     onSelectImage={(url) => setMdForm({ ...mdForm, image: url })}
                     label="MD Official Portrait"
                     compact={true}
+                    width="260px"
+                    height="320px"
+                    aspectRatio="3/4"
+                    objectFit="cover"
+                    objectPosition="top center"
                   />
+                  <small style={{ color: 'var(--admin-text-dim)', fontSize: '0.75rem', display: 'block', marginTop: '4px' }}>
+                    Click photo to change or upload new MD portrait
+                  </small>
                 </div>
 
                 <div className="admin-form-group">
@@ -767,7 +783,7 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
         )}
 
         {/* ========================================================================= */}
-        {/* TAB 05: FACTORY TOUR PHOTOS (12 PHOTOS WITH DIRECT UPLOADER)              */}
+        {/* TAB 05: FACTORY TOUR PHOTOS (12 PROPORTIONED FACILITY PREVIEWS)           */}
         {/* ========================================================================= */}
         {activeTab === 'facilityPhotos' && (
           <div className="builder-panel">
@@ -820,7 +836,7 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
                     </button>
                   </div>
 
-                  {/* Visual Image Uploader with Thumbnail Preview */}
+                  {/* Visual Image Uploader with 16:10 Widescreen Facility Aspect Ratio */}
                   <div style={{ marginBottom: '12px' }}>
                     <ImageUploader
                       currentImage={p.src}
@@ -831,6 +847,10 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
                       }}
                       label={`Photo ${pIdx + 1}`}
                       compact={true}
+                      height="180px"
+                      aspectRatio="16/10"
+                      objectFit="cover"
+                      objectPosition="center center"
                     />
                   </div>
 
@@ -903,7 +923,7 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
         )}
 
         {/* ========================================================================= */}
-        {/* TAB 06: EXECUTIVE LEADERSHIP TREE (ALL 5 WITH DIRECT UPLOADER)            */}
+        {/* TAB 06: EXECUTIVE LEADERSHIP TREE (PROPORTIONED 3:4 PORTRAIT RATIOS)       */}
         {/* ========================================================================= */}
         {activeTab === 'leadershipTree' && (
           <div className="builder-panel">
@@ -948,8 +968,8 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
                     <span className="builder-badge" style={{ margin: 0 }}>{leader.tag || `Leader #${lIdx + 1}`}</span>
                   </div>
 
-                  {/* Photo Uploader */}
-                  <div style={{ marginBottom: '14px' }}>
+                  {/* Centered 3:4 Portrait Photo Uploader */}
+                  <div style={{ textAlign: 'center', margin: '6px 0 16px' }}>
                     <ImageUploader
                       currentImage={leader.img}
                       onSelectImage={(url) => {
@@ -959,6 +979,11 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
                       }}
                       label={leader.name || 'Executive Photo'}
                       compact={true}
+                      width="200px"
+                      height="240px"
+                      aspectRatio="3/4"
+                      objectFit="cover"
+                      objectPosition="top center"
                     />
                   </div>
 
@@ -1035,8 +1060,8 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
                     </span>
                   </div>
 
-                  {/* Photo Uploader */}
-                  <div style={{ marginBottom: '14px' }}>
+                  {/* Centered 3:4 Portrait Photo Uploader */}
+                  <div style={{ textAlign: 'center', margin: '6px 0 16px' }}>
                     <ImageUploader
                       currentImage={dir.img}
                       onSelectImage={(url) => {
@@ -1046,6 +1071,11 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
                       }}
                       label={dir.name || 'Director Photo'}
                       compact={true}
+                      width="200px"
+                      height="240px"
+                      aspectRatio="3/4"
+                      objectFit="cover"
+                      objectPosition="top center"
                     />
                   </div>
 
@@ -1115,7 +1145,7 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
             </h4>
             <div className="builder-subcard">
               <div className="admin-grid-2">
-                <div style={{ marginBottom: '14px' }}>
+                <div style={{ textAlign: 'center', margin: '6px 0 16px' }}>
                   <ImageUploader
                     currentImage={teamForm.gmProfile?.img}
                     onSelectImage={(url) => setTeamForm({
@@ -1124,6 +1154,11 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
                     })}
                     label="General Manager Photo"
                     compact={true}
+                    width="200px"
+                    height="240px"
+                    aspectRatio="3/4"
+                    objectFit="cover"
+                    objectPosition="top center"
                   />
                 </div>
                 <div>
@@ -1196,7 +1231,7 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
         )}
 
         {/* ========================================================================= */}
-        {/* TAB 07: WORKFORCE WELFARE (4 BENTO PHOTOS WITH DIRECT UPLOADER)           */}
+        {/* TAB 07: WORKFORCE WELFARE (4 BENTO PHOTOS WITH CLEAR PREVIEWS)            */}
         {/* ========================================================================= */}
         {activeTab === 'workerWelfare' && (
           <div className="builder-panel">
@@ -1252,7 +1287,7 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
               </div>
             </div>
 
-            {/* 4 Bento Photos with Direct Visual Uploaders */}
+            {/* 4 Bento Photos with Clear Previews */}
             <h4 style={{ color: '#4ade80', margin: '20px 0 12px', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
               📸 4 Facility Bento Photos (Floor, Medical Clinic, Child Care, Dining Hall)
             </h4>
@@ -1263,7 +1298,7 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
                     <span className="photo-num-tag">Bento Slot #{bIdx + 1}</span>
                   </div>
 
-                  {/* Visual Image Uploader */}
+                  {/* Visual Image Uploader with 16:10 or 4:3 Ratio */}
                   <div style={{ marginBottom: '12px' }}>
                     <ImageUploader
                       currentImage={bp.src}
@@ -1274,6 +1309,10 @@ export default function AboutPageEditor({ content, onSaveSection, loading }) {
                       }}
                       label={bp.title || `Bento Photo ${bIdx + 1}`}
                       compact={true}
+                      height="180px"
+                      aspectRatio="16/10"
+                      objectFit="cover"
+                      objectPosition="center center"
                     />
                   </div>
 

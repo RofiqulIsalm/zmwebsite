@@ -8,7 +8,11 @@ export default function ImageUploader({
   label = "Upload Image", 
   compact = false,
   aspectRatio = 'auto',
-  showUrl = false
+  height,
+  maxHeight,
+  width,
+  objectFit = 'cover',
+  objectPosition = 'top center'
 }) {
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(null);
@@ -71,15 +75,21 @@ export default function ImageUploader({
       setUploadProgress(null);
     } finally {
       setUploading(false);
-      // Reset input so same file can be re-uploaded if desired
       if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
-  // Compact Card Mode (Used in grid tiles like Factory Photos, Leaders, Bento Grid)
+  // Card Mode (Used in grid tiles like Factory Photos, Leaders, Bento Grid)
   if (compact) {
     return (
-      <div className="admin-uploader-card-mode">
+      <div 
+        className="admin-uploader-card-mode" 
+        style={{ 
+          width: width || '100%', 
+          maxWidth: width || undefined,
+          margin: width ? '0 auto 12px' : '0 0 12px'
+        }}
+      >
         <input 
           ref={fileInputRef}
           type="file" 
@@ -93,23 +103,39 @@ export default function ImageUploader({
           className="admin-card-thumbnail-box"
           onClick={() => fileInputRef.current?.click()}
           title="Click to select and upload new image"
+          style={{
+            height: height || undefined,
+            maxHeight: maxHeight || undefined,
+            aspectRatio: aspectRatio !== 'auto' ? aspectRatio : (height ? undefined : '16/10'),
+          }}
         >
           {previewUrl ? (
             <img 
               src={previewUrl} 
               alt={label || "Preview"} 
               className="admin-card-thumb-img"
+              style={{
+                objectFit: objectFit || 'cover',
+                objectPosition: objectPosition || 'top center'
+              }}
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
               }}
             />
           ) : (
             <div className="admin-card-thumb-empty">
-              <ImageIcon size={28} color="#4ade80" />
-              <span>No image chosen</span>
+              <ImageIcon size={30} color="#4ade80" />
+              <span>Click to choose photo</span>
             </div>
           )}
 
+          {/* Persistent visible Pill Button on top of image */}
+          <div className="admin-card-thumb-pill">
+            <Camera size={13} />
+            <span>{previewUrl ? 'Change Photo' : 'Upload Photo'}</span>
+          </div>
+
+          {/* Hover Overlay */}
           <div className="admin-card-thumb-overlay">
             {uploading ? (
               <div className="upload-state-wrap">
@@ -119,7 +145,7 @@ export default function ImageUploader({
             ) : (
               <div className="upload-state-wrap">
                 <Camera size={16} />
-                <span>{previewUrl ? 'Change Photo' : 'Upload Photo'}</span>
+                <span>Click to Replace</span>
               </div>
             )}
           </div>
@@ -163,7 +189,11 @@ export default function ImageUploader({
 
         {previewUrl ? (
           <div className="admin-uploader-preview">
-            <img src={previewUrl} alt="Preview" />
+            <img 
+              src={previewUrl} 
+              alt="Preview" 
+              style={{ objectFit: objectFit || 'contain', objectPosition: objectPosition || 'center center' }} 
+            />
             <div className="admin-uploader-overlay">
               <RefreshCw size={22} className={uploading ? 'spin' : ''} />
               <span>{uploading ? 'Uploading Photo...' : 'Click to Replace Image'}</span>
