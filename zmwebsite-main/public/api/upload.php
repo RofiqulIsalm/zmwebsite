@@ -128,3 +128,4 @@ if ($action === 'upload' && $_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 send_error("Invalid upload action requested.", 400);
+

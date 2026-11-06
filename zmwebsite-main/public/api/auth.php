@@ -166,3 +166,4 @@ if ($action === 'change_password' && $_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 send_error("Invalid auth action requested.", 400);
+

@@ -379,3 +379,4 @@ if ($action === 'publish' && $_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 send_error("Invalid content action requested.", 400);
+

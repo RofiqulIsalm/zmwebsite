@@ -125,3 +125,4 @@ function require_auth() {
     
     return $user;
 }
+

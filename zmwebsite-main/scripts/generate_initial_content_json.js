@@ -16,3 +16,4 @@ fs.writeFileSync(targetPath, JSON.stringify(websiteContent, null, 2), 'utf-8');
 
 console.log(`Successfully generated ${targetPath}`);
 console.log(`Content size: ${(fs.statSync(targetPath).size / 1024).toFixed(2)} KB`);
+

@@ -68,3 +68,4 @@ export default function AdminPortal({ navigate }) {
     <AdminLogin onLoginSuccess={setUser} />
   );
 }
+

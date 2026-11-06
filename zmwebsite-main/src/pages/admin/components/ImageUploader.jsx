@@ -119,3 +119,4 @@ export default function ImageUploader({ onSelectImage, currentImage, label = "Up
     </div>
   );
 }
+

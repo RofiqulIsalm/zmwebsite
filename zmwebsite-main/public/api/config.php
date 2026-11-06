@@ -70,3 +70,4 @@ function set_api_headers() {
         exit;
     }
 }
+

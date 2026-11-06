@@ -1,9 +1,10 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
+import { devApiPlugin } from './scripts/devApiPlugin.js'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), devApiPlugin()],
   build: {
     rollupOptions: {
       output: {
