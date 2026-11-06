@@ -16,7 +16,28 @@ $action = $_GET['action'] ?? 'upload';
 // 1. LIST RECENT MEDIA FILES
 // ------------------------------------------------------------------------------
 if ($action === 'list') {
-    $db = get_db();
+    $db = get_db(false);
+    if (!$db) {
+        $files = [];
+        if (is_dir(UPLOADS_DIR)) {
+            $scan = scandir(UPLOADS_DIR);
+            foreach ($scan as $f) {
+                if ($f === '.' || $f === '..' || substr($f, 0, 1) === '.') continue;
+                $fPath = UPLOADS_DIR . '/' . $f;
+                $files[] = [
+                    'id' => md5($f),
+                    'file_name' => $f,
+                    'original_name' => $f,
+                    'file_path' => '/uploads/' . $f,
+                    'file_size' => @filesize($fPath) ?: 0,
+                    'mime_type' => 'image/webp',
+                    'dimensions' => '',
+                    'created_at' => date('Y-m-d H:i:s', @filemtime($fPath) ?: time())
+                ];
+            }
+        }
+        send_json(['success' => true, 'files' => $files]);
+    }
     $stmt = $db->query("SELECT id, file_name, original_name, file_path, file_size, mime_type, dimensions, created_at FROM zm_media_files ORDER BY id DESC LIMIT 50");
     send_json(['success' => true, 'files' => $stmt->fetchAll()]);
 }
@@ -110,11 +131,16 @@ if ($action === 'upload' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $fileSize = filesize($targetFilePath);
     $dimensions = "{$finalW}x{$finalH}";
 
-    // Record into zm_media_files
-    $db = get_db();
-    $stmt = $db->prepare("INSERT INTO zm_media_files (file_name, original_name, file_path, file_size, mime_type, dimensions) VALUES (?, ?, ?, ?, 'image/webp', ?)");
-    $stmt->execute([$targetFileName, $originalName, $publicUrl, $fileSize, $dimensions]);
-    $mediaId = $db->lastInsertId();
+    // Record into zm_media_files if database is active
+    $db = get_db(false);
+    $mediaId = 0;
+    if ($db) {
+        try {
+            $stmt = $db->prepare("INSERT INTO zm_media_files (file_name, original_name, file_path, file_size, mime_type, dimensions) VALUES (?, ?, ?, ?, 'image/webp', ?)");
+            $stmt->execute([$targetFileName, $originalName, $publicUrl, $fileSize, $dimensions]);
+            $mediaId = $db->lastInsertId();
+        } catch (Throwable $e) {}
+    }
 
     log_audit('upload_media', "media:$mediaId", "Uploaded $targetFileName ({$dimensions}, " . round($fileSize / 1024) . " KB)", $user['uid']);
 

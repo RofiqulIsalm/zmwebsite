@@ -7,9 +7,19 @@
 
 require_once __DIR__ . '/config.php';
 
-function get_db() {
+function get_db($failHard = false) {
     static $pdo = null;
+    static $connectionAttempted = false;
+
+    if ($connectionAttempted && $pdo === null) {
+        if ($failHard) {
+            send_error("Database connection failed. Please check db credentials in api/config.php.", 500);
+        }
+        return null;
+    }
+
     if ($pdo === null) {
+        $connectionAttempted = true;
         $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET;
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -19,7 +29,11 @@ function get_db() {
         try {
             $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (PDOException $e) {
-            send_error("Database connection failed. Please check db credentials.", 500);
+            $pdo = null;
+            if ($failHard) {
+                send_error("Database connection failed. Please check db credentials in api/config.php.", 500);
+            }
+            return null;
         }
     }
     return $pdo;
@@ -54,6 +68,7 @@ function get_client_ip() {
 function log_audit($action, $target, $details = '', $userId = null) {
     try {
         $db = get_db();
+        if (!$db) return;
         $stmt = $db->prepare("INSERT INTO zm_audit_logs (user_id, action, target_entity, details, ip_address) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([
             $userId,
@@ -62,7 +77,7 @@ function log_audit($action, $target, $details = '', $userId = null) {
             is_array($details) ? json_encode($details) : (string)$details,
             get_client_ip()
         ]);
-    } catch (Exception $e) {
+    } catch (Throwable $e) {
         // Silently continue if audit logging fails
     }
 }

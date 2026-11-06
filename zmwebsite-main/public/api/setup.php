@@ -22,11 +22,9 @@ if (file_exists($lockFile)) {
     die("<div style='font-family:system-ui,sans-serif;padding:40px;background:#0d1810;color:#e2e8f0;max-width:500px;margin:50px auto;border-radius:12px;border:1px solid #1f3624;'><h2 style='color:#ef4444;margin-top:0;'>403 Access Forbidden</h2><p>Database setup is permanently locked for security. To re-run, remove <code>api/setup.lock</code> via SSH or cPanel File Manager.</p></div>");
 }
 
-$db = null;
-try {
-    $db = get_db();
-} catch (Exception $e) {
-    die("<h3>Database Connection Error:</h3><p>" . htmlspecialchars($e->getMessage()) . "</p><p>Please configure <code>DB_NAME</code>, <code>DB_USER</code>, and <code>DB_PASS</code> in <code>api/config.php</code> or create <code>api/db_config.local.php</code>.</p>");
+$db = get_db(false);
+if (!$db) {
+    die("<div style='font-family:system-ui,sans-serif;padding:40px;background:#0d1810;color:#e2e8f0;max-width:500px;margin:50px auto;border-radius:12px;border:1px solid #1f3624;'><h2 style='color:#f59e0b;margin-top:0;'>Database Not Configured</h2><p>To use MySQL, enter your cPanel database name, user, and password in <code>api/config.php</code> or create <code>api/db_config.local.php</code>.</p><p style='color:#94a3b8;'>Note: The website and admin panel already work immediately in zero-config mode without MySQL!</p></div>");
 }
 
 // ------------------------------------------------------------------------------

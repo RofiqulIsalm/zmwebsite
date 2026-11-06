@@ -81,7 +81,7 @@
 </IfModule>
 
 # Block Direct Access to Sensitive Database, Setup and System Files
-<FilesMatch "^(schema\.sql|setup\.lock|\.env|.*\.log|setup\.php|db\.php)$">
+<FilesMatch "^(schema\.sql|setup\.lock|\.env|.*\.log|setup\.php|db\.php|\.admin_auth\.php|\.login_rate\.json)$">
   Order Allow,Deny
   Deny from all
 </FilesMatch>

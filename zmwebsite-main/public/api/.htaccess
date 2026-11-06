@@ -3,7 +3,7 @@
 # ==============================================================================
 
 # Deny direct access to configuration and SQL schemas
-<FilesMatch "^(config\.php|db_config\.local\.php|schema\.sql|\.env)$">
+<FilesMatch "^(config\.php|db_config\.local\.php|schema\.sql|\.env|db\.php|setup\.lock|setup\.php|\.admin_auth\.php|\.login_rate\.json|.*\.log)$">
     Order Allow,Deny
     Deny from all
 </FilesMatch>
