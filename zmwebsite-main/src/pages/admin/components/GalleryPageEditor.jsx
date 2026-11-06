@@ -1094,3 +1094,4 @@ export default function GalleryPageEditor({ content, onSaveSection, loading }) {
     </div>
   );
 }
+
