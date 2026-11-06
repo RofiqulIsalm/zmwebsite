@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, X, Calendar, Clock, Building, CheckCircle2 } from 'lucide-react';
+import { useSiteContent } from '../context/SiteContentContext';
 
 const newsItems = [
   {
@@ -84,7 +85,21 @@ const galleryStripImages = [
 const duplicatedGallery = [...galleryStripImages, ...galleryStripImages];
 
 export default function LatestNewsSection({ navigate }) {
+  const { content: siteContent } = useSiteContent();
   const [activeNews, setActiveNews] = useState(null);
+
+  const newsSectionData = siteContent?.home?.latestNews || {};
+
+  if (newsSectionData._isActive === false) {
+    return null;
+  }
+
+  const sectionTitle = newsSectionData.title || "Latest News";
+  const exploreCtaText = newsSectionData.ctaText || "EXPLORE ALL NEWS";
+  const exploreCtaLink = newsSectionData.ctaLink || "/news";
+  const activeNewsItems = (siteContent?.news?.articles && siteContent.news.articles.length > 0)
+    ? siteContent.news.articles
+    : newsItems;
 
   // Close modal on Escape key press and prevent background page scroll
   useEffect(() => {
@@ -128,10 +143,10 @@ export default function LatestNewsSection({ navigate }) {
       <div className="container">
         {/* Top Header Row matching screenshot */}
         <div className="latest-news-header" data-reveal="fade-up">
-          <h2 className="latest-news-title">Latest News</h2>
+          <h2 className="latest-news-title">{sectionTitle}</h2>
 
           <a
-            href="/news"
+            href={exploreCtaLink}
             onClick={handleExploreAll}
             className="explore-news-link"
             aria-label="Explore all company news"
@@ -139,13 +154,13 @@ export default function LatestNewsSection({ navigate }) {
             <span className="explore-news-circle">
               <ArrowRight size={16} strokeWidth={2.5} />
             </span>
-            <span className="explore-news-text">EXPLORE ALL NEWS</span>
+            <span className="explore-news-text">{exploreCtaText}</span>
           </a>
         </div>
 
         {/* 3-Card Grid matching reference screenshot */}
         <div className="latest-news-grid" data-reveal-group>
-          {newsItems.map((item, idx) => (
+          {activeNewsItems.map((item, idx) => (
             <article
               key={item.id}
               data-reveal="fade-up"

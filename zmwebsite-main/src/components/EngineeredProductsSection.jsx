@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { useSiteContent } from '../context/SiteContentContext';
 
 const showcaseItems = [
   {
@@ -85,10 +86,21 @@ const showcaseItems = [
 ];
 
 export default function EngineeredProductsSection({ navigate }) {
+  const { content } = useSiteContent();
   const [activeFilter, setActiveFilter] = useState('all');
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredId, setHoveredId] = useState(null);
   const sectionRef = useRef(null);
+
+  const showcaseData = content?.home?.productsShowcase || {};
+
+  if (showcaseData._isActive === false) {
+    return null;
+  }
+
+  const titleText = showcaseData.title || "Products";
+  const exploreCtaText = showcaseData.ctaText || "EXPLORE ALL PRODUCTS";
+  const exploreCtaLink = showcaseData.ctaLink || "/products";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -134,12 +146,12 @@ export default function EngineeredProductsSection({ navigate }) {
         <div className="products-showcase-header" data-reveal="fade-up">
           <div className="title-with-explore">
             <h2 className="products-main-title">
-              Products<span className="pulsing-dot">.</span>
+              {titleText}<span className="pulsing-dot">.</span>
             </h2>
 
             {/* Explore All Products CTA matching screenshot */}
             <a
-              href="/products"
+              href={exploreCtaLink}
               onClick={handleExploreAll}
               className="explore-cta-link"
               aria-label="Explore all product solutions"
@@ -147,7 +159,7 @@ export default function EngineeredProductsSection({ navigate }) {
               <span className="explore-cta-circle">
                 <ArrowRight size={16} strokeWidth={2.5} />
               </span>
-              <span className="explore-cta-text">EXPLORE ALL PRODUCTS</span>
+              <span className="explore-cta-text">{exploreCtaText}</span>
             </a>
           </div>
 

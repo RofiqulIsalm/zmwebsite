@@ -1500,6 +1500,47 @@ export const websiteContent = {
   // 12. CLIENT PARTNERS
   // ============================================================================
   clients: {
+    badge: "Trusted Partnerships",
+    title: "Our Clients",
+    subtitle: "Serving the highest standards of international retail brands with consistency, reliability, and certified compliance.",
+    brands: [
+      {
+        id: 'new-era',
+        name: 'New Era',
+        tier: 'Global Headwear & Cap Icon',
+        image: '/images/clients/new-era-logo-png_seeklogo-173919.png'
+      },
+      {
+        id: 'richardson',
+        name: 'Richardson',
+        tier: 'Performance Headwear',
+        image: '/images/clients/Richardson.png'
+      },
+      {
+        id: 'flexfit',
+        name: 'Flexfit',
+        tier: 'Yupoong Premium Caps',
+        image: '/images/clients/flexfit-logo-png_seeklogo-207071.png'
+      },
+      {
+        id: '47-brand',
+        name: '47 Brand',
+        tier: 'Premium Lifestyle Sportswear',
+        image: '/images/clients/47-Brand-logo.png'
+      },
+      {
+        id: 'otto-cap',
+        name: 'Otto Cap',
+        tier: 'American Cap Authority',
+        image: '/images/clients/otto-logo.png'
+      },
+      {
+        id: 'yupoong',
+        name: 'Yupoong',
+        tier: 'Precision Headwear Manufacturing',
+        image: '/images/clients/yupoong-logo.png'
+      }
+    ],
     partners: [
       { id: 1, name: "Partner Brand 01", logo: "/assets/images/logo_19.jpg" },
       { id: 2, name: "Partner Brand 02", logo: "/assets/images/logo_20.jpg" },

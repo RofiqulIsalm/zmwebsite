@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSiteContent } from '../context/SiteContentContext';
 
 const certBadges = [
   {
@@ -93,6 +94,13 @@ const certBadges = [
 const duplicatedBadges = [...certBadges, ...certBadges, ...certBadges];
 
 export default function OurCertificationsBanner({ navigate }) {
+  const { content } = useSiteContent();
+  const certData = content?.home?.certificationsBanner || {};
+
+  if (certData._isActive === false) {
+    return null;
+  }
+
   const handleBadgeClick = () => {
     if (navigate) {
       navigate('/certifications');

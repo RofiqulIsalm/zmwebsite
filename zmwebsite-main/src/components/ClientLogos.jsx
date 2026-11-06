@@ -1,9 +1,7 @@
 import React from 'react';
 import { ShieldCheck, Award, Clock, CheckCircle2 } from 'lucide-react';
 import { clientBrands } from '../data/clientBrands';
-
-// Triplicate items to form a seamless infinite loop
-const marqueeBrands = [...clientBrands, ...clientBrands, ...clientBrands];
+import { useSiteContent } from '../context/SiteContentContext';
 
 export default function ClientLogos({
   showHeader = true,
@@ -13,15 +11,32 @@ export default function ClientLogos({
   centerHeader = false,
   showMetrics = true
 }) {
+  const { content } = useSiteContent();
+  const clientsData = content?.clients || {};
+  const homeClientLogos = content?.home?.clientLogos || {};
+
+  // Check visibility on homepage
+  if (homeClientLogos._isActive === false) {
+    return null;
+  }
+
+  const brandsList = (clientsData?.brands && clientsData.brands.length > 0)
+    ? clientsData.brands
+    : clientBrands;
+  const marqueeBrands = [...brandsList, ...brandsList, ...brandsList];
+
+  const sectionTitle = homeClientLogos.title || clientsData.title || title;
+  const sectionBadge = homeClientLogos.badge || clientsData.badge || badge;
+  const sectionSubtitle = homeClientLogos.subtitle || clientsData.subtitle || subtitle;
   return (
-    <section className="our-clients-section" aria-label={title || "Our Clients"}>
+    <section className="our-clients-section" aria-label={sectionTitle || "Our Clients"}>
       <div className="container">
         {/* Unified, Beautiful Header */}
         {showHeader && (
           <div className={`our-clients-header ${centerHeader ? 'header-centered' : ''}`} data-reveal="fade-up">
-            {badge && <span className="section-badge">{badge}</span>}
-            <h2 className="our-clients-title">{title}</h2>
-            {subtitle && <p className="our-clients-subtitle">{subtitle}</p>}
+            {sectionBadge && <span className="section-badge">{sectionBadge}</span>}
+            <h2 className="our-clients-title">{sectionTitle}</h2>
+            {sectionSubtitle && <p className="our-clients-subtitle">{sectionSubtitle}</p>}
           </div>
         )}
 

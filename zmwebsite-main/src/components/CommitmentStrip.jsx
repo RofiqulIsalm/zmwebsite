@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Award, Truck, HandCoins } from 'lucide-react';
+import { useSiteContent } from '../context/SiteContentContext';
 
 const commitments = [
   {
@@ -107,8 +108,24 @@ function AnimatedCommitmentMetric({ item, delay = 0, isParentVisible = false, in
 }
 
 export default function CommitmentStrip() {
+  const { content } = useSiteContent();
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+
+  const commitmentData = content?.home?.commitment || {};
+
+  if (commitmentData._isActive === false) {
+    return null;
+  }
+
+  const headingText = commitmentData.heading || "ZM Printing & Design Ltd. \nCommitment";
+  const itemsList = (commitmentData.items && commitmentData.items.length > 0)
+    ? commitmentData.items.map((it, idx) => ({
+        ...commitments[idx % commitments.length],
+        ...it,
+        icon: commitments[idx % commitments.length]?.icon || Award
+      }))
+    : commitments;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -139,17 +156,16 @@ export default function CommitmentStrip() {
       <div className="container commitment-container">
         {/* Left: Clean, Sharp Headline */}
         <div className="commitment-left-title-area">
-          <h2 className="commitment-main-heading">
-            ZM Printing & Design Ltd. <br />
-            Commitment
+          <h2 className="commitment-main-heading" style={{ whiteSpace: 'pre-line' }}>
+            {headingText}
           </h2>
         </div>
 
         {/* Right: 3 Clean Compact Animated Metric Cards */}
         <div className="commitment-metrics-grid">
-          {commitments.map((item, idx) => (
+          {itemsList.map((item, idx) => (
             <AnimatedCommitmentMetric
-              key={item.id}
+              key={item.id || idx}
               item={item}
               index={idx}
               delay={idx * 140}
