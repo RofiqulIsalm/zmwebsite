@@ -11,6 +11,9 @@ import HomePageEditor from './components/HomePageEditor';
 import AboutPageEditor from './components/AboutPageEditor';
 import ProductsPageEditor from './components/ProductsPageEditor';
 import ClientsPageEditor from './components/ClientsPageEditor';
+import GalleryPageEditor from './components/GalleryPageEditor';
+import ProfilePageEditor from './components/ProfilePageEditor';
+import ContactPageEditor from './components/ContactPageEditor';
 import { useSiteContent } from '../../context/SiteContentContext';
 
 // Website Navigation Menus / Pages Hierarchy
@@ -774,19 +777,82 @@ export default function AdminDashboard({ user, onLogout, navigate }) {
                 </div>
               )}
 
-              {/* VIEW 6, 7, 8: GALLERY, PROFILE, CONTACT */}
-              {(selectedPageMenu === 'gallery' || selectedPageMenu === 'profile' || selectedPageMenu === 'contact') && (
-                <div className="admin-page-flow-wrapper">
-                  <div className="admin-card">
-                    <h3>{selectedPageMenu.toUpperCase()} Page Configuration</h3>
-                    <p style={{ color: 'var(--admin-text-dim)', fontSize: '0.85rem' }}>
-                      Use the Company & Site Info tab to manage global contact info, or upload new images in the Media tab.
-                    </p>
-                    <button className="admin-btn admin-btn-primary" onClick={() => setActiveTab('settings')}>
-                      <Settings size={16} /> Open Company & Site Settings
-                    </button>
-                  </div>
-                </div>
+              {/* VIEW 5: GALLERY (Comprehensive Visual Builder) */}
+              {selectedPageMenu === 'gallery' && (
+                <GalleryPageEditor
+                  content={content}
+                  onSaveSection={async (pageKey, sectionKey, sectionContent) => {
+                    setLoading(true);
+                    try {
+                      const res = await fetch('/api/content.php?action=save_section', {
+                        method: 'POST',
+                        headers: getAuthHeader(),
+                        body: JSON.stringify({ page_key: pageKey, section_key: sectionKey, content: sectionContent })
+                      });
+                      const data = await res.json();
+                      if (!res.ok || !data.success) throw new Error(data.error || 'Failed to save');
+                      await refreshContent();
+                      showToast(`Gallery section '${sectionKey}' saved & published live!`);
+                    } catch (err) {
+                      showToast(err.message, 'error');
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
+                  loading={loading}
+                />
+              )}
+
+              {/* VIEW 6: PROFILE (Comprehensive Visual Builder) */}
+              {selectedPageMenu === 'profile' && (
+                <ProfilePageEditor
+                  content={content}
+                  onSaveSection={async (pageKey, sectionKey, sectionContent) => {
+                    setLoading(true);
+                    try {
+                      const res = await fetch('/api/content.php?action=save_section', {
+                        method: 'POST',
+                        headers: getAuthHeader(),
+                        body: JSON.stringify({ page_key: pageKey, section_key: sectionKey, content: sectionContent })
+                      });
+                      const data = await res.json();
+                      if (!res.ok || !data.success) throw new Error(data.error || 'Failed to save');
+                      await refreshContent();
+                      showToast(`Profile section '${sectionKey}' saved & published live!`);
+                    } catch (err) {
+                      showToast(err.message, 'error');
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
+                  loading={loading}
+                />
+              )}
+
+              {/* VIEW 7: CONTACT (Comprehensive Visual Builder) */}
+              {selectedPageMenu === 'contact' && (
+                <ContactPageEditor
+                  content={content}
+                  onSaveSection={async (pageKey, sectionKey, sectionContent) => {
+                    setLoading(true);
+                    try {
+                      const res = await fetch('/api/content.php?action=save_section', {
+                        method: 'POST',
+                        headers: getAuthHeader(),
+                        body: JSON.stringify({ page_key: pageKey, section_key: sectionKey, content: sectionContent })
+                      });
+                      const data = await res.json();
+                      if (!res.ok || !data.success) throw new Error(data.error || 'Failed to save');
+                      await refreshContent();
+                      showToast(`Contact section '${sectionKey}' saved & published live!`);
+                    } catch (err) {
+                      showToast(err.message, 'error');
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
+                  loading={loading}
+                />
               )}
 
               {/* SECTION CONTENT EDITOR MODAL */}

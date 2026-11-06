@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useSiteContent } from '../context/SiteContentContext';
 import { 
   Camera, 
   ArrowRight, 
@@ -540,15 +541,36 @@ const categoryTabs = [
   { id: 'craft', label: 'Finished Craft & Products' }
 ];
 
+const metricIconMap = {
+  Building2,
+  Cpu,
+  ShieldCheck,
+  Clock,
+  MapPin,
+  Award,
+  Calendar,
+  FileText
+};
+
 export default function GalleryPage({ navigate }) {
+  const { content } = useSiteContent();
+  const galleryData = content?.gallery || {};
+
+  const heroData = galleryData.hero || {};
+  const photosList = (galleryData.photos && galleryData.photos.length > 0) ? galleryData.photos : galleryPhotos;
+  const categoriesList = (galleryData.categories && galleryData.categories.length > 0) ? galleryData.categories : categoryTabs;
+  const machineryData = galleryData.machinery || {};
+  const visitData = galleryData.visit || {};
+  const ctaData = galleryData.ctaBanner || {};
+
   const [activeFilter, setActiveFilter] = useState('all');
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [viewMode, setViewMode] = useState('bento'); // 'bento' or 'grid'
 
   // Filter photos
   const filteredPhotos = activeFilter === 'all'
-    ? galleryPhotos
-    : galleryPhotos.filter(p => p.category === activeFilter);
+    ? photosList
+    : photosList.filter(p => p.category === activeFilter);
 
   // Lightbox keyboard navigation
   const handleKeyDown = useCallback((e) => {
@@ -578,17 +600,17 @@ export default function GalleryPage({ navigate }) {
           
           <div className="gallery-hero-badge" data-reveal="fade-down">
             <span className="pulse-indicator"></span>
-            <span>✦ INDUSTRIAL VISUAL SHOWCASE</span>
+            <span>{heroData.badge || '✦ INDUSTRIAL VISUAL SHOWCASE'}</span>
           </div>
 
           <h1 className="gallery-hero-title" data-reveal="fade-up">
-            Factory Infrastructure, Machinery &amp; <br className="title-break" />
-            <span className="text-emerald-glow">Precision Apparel Trims</span>
+            {heroData.titleLine1 || 'Factory Infrastructure, Machinery &'}{' '}
+            <br className="title-break" />
+            <span className="text-emerald-glow">{heroData.titleLine2 || 'Precision Apparel Trims'}</span>
           </h1>
 
           <p className="gallery-hero-description" data-reveal="fade-up">
-            A comprehensive visual tour of our export-standard 45,000 sq.ft manufacturing complex in Ashulia, Savar. 
-            Inspect automated Swiss screen carousels, ultrasonic welding lines, in-house QA laboratories, and export-certified garment accessories.
+            {heroData.description || 'A comprehensive visual tour of our export-standard 45,000 sq.ft manufacturing complex in Ashulia, Savar. Inspect automated Swiss screen carousels, ultrasonic welding lines, in-house QA laboratories, and export-certified garment accessories.'}
           </p>
 
           <div className="gallery-hero-actions" data-reveal="fade-up">
@@ -599,59 +621,39 @@ export default function GalleryPage({ navigate }) {
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              <span>Explore Visual Catalog</span>
+              <span>{heroData.buttonPrimaryText || 'Explore Visual Catalog'}</span>
               <ArrowRight size={17} />
             </button>
             <button 
               className="btn btn-secondary btn-hero-secondary" 
-              onClick={() => navigate('/contact')}
+              onClick={() => navigate(heroData.buttonSecondaryLink || '/contact')}
             >
               <Calendar size={16} />
-              <span>Schedule Plant Visit / Audit</span>
+              <span>{heroData.buttonSecondaryText || 'Schedule Plant Visit / Audit'}</span>
             </button>
           </div>
 
           {/* Quick Metrics Bar */}
           <div className="gallery-metrics-grid" data-reveal="fade-up">
-            <div className="gallery-metric-card">
-              <div className="metric-icon-wrap">
-                <Building2 size={20} />
-              </div>
-              <div>
-                <strong className="metric-num">45,000 Sq.Ft</strong>
-                <span className="metric-sub">Ashulia Industrial Plant</span>
-              </div>
-            </div>
-
-            <div className="gallery-metric-card">
-              <div className="metric-icon-wrap">
-                <Cpu size={20} />
-              </div>
-              <div>
-                <strong className="metric-num">12+ Automated Lines</strong>
-                <span className="metric-sub">M&amp;R, EPSON &amp; Sonic NXP</span>
-              </div>
-            </div>
-
-            <div className="gallery-metric-card">
-              <div className="metric-icon-wrap">
-                <ShieldCheck size={20} />
-              </div>
-              <div>
-                <strong className="metric-num">100% In-House Lab</strong>
-                <span className="metric-sub">X-Rite Spectrophotometer</span>
-              </div>
-            </div>
-
-            <div className="gallery-metric-card">
-              <div className="metric-icon-wrap">
-                <Clock size={20} />
-              </div>
-              <div>
-                <strong className="metric-num">48h Sampling Cell</strong>
-                <span className="metric-sub">Direct Merchandiser Dispatch</span>
-              </div>
-            </div>
+            {(heroData.metrics && heroData.metrics.length > 0 ? heroData.metrics : [
+              { icon: 'Building2', number: '45,000 Sq.Ft', label: 'Ashulia Industrial Plant' },
+              { icon: 'Cpu', number: '12+ Automated Lines', label: 'M&R, EPSON & Sonic NXP' },
+              { icon: 'ShieldCheck', number: '100% In-House Lab', label: 'X-Rite Spectrophotometer' },
+              { icon: 'Clock', number: '48h Sampling Cell', label: 'Direct Merchandiser Dispatch' }
+            ]).map((metric, mIdx) => {
+              const IconComp = metricIconMap[metric.icon] || Building2;
+              return (
+                <div key={mIdx} className="gallery-metric-card">
+                  <div className="metric-icon-wrap">
+                    <IconComp size={20} />
+                  </div>
+                  <div>
+                    <strong className="metric-num">{metric.number}</strong>
+                    <span className="metric-sub">{metric.label}</span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
         </div>
@@ -664,7 +666,7 @@ export default function GalleryPage({ navigate }) {
             
             {/* Filter Tabs */}
             <div className="gallery-filter-tabs" data-reveal="fade-up">
-              {categoryTabs.map(tab => (
+              {categoriesList.map(tab => (
                 <button
                   key={tab.id}
                   type="button"
@@ -676,7 +678,7 @@ export default function GalleryPage({ navigate }) {
                 >
                   <span>{tab.label}</span>
                   <span className="filter-count-badge">
-                    {tab.id === 'all' ? galleryPhotos.length : galleryPhotos.filter(p => p.category === tab.id).length}
+                    {tab.id === 'all' ? photosList.length : photosList.filter(p => p.category === tab.id).length}
                   </span>
                 </button>
               ))}
@@ -767,209 +769,189 @@ export default function GalleryPage({ navigate }) {
       </section>
 
       {/* 4. Machinery & Capacity Technical Grid */}
-      <section className="section-padding bg-slate-subtle">
-        <div className="container">
-          <div className="section-header-center" data-reveal="fade-up">
-            <span className="section-badge">Facility Machinery</span>
-            <h2 className="section-title">Automated Production Lines &amp; Technical Capabilities</h2>
-            <p className="section-subtitle">
-              Engineered with world-class European, Japanese, and American machinery to ensure zero-defect compliance for export apparel brands.
-            </p>
-          </div>
-
-          <div className="machinery-specs-grid">
-            <div className="machinery-spec-card" data-reveal="fade-up">
-              <div className="spec-card-top">
-                <span className="spec-card-num">01</span>
-                <span className="spec-card-brand">M&amp;R Printing Lines</span>
-              </div>
-              <h3 className="spec-card-title">Automated Screen Carousels</h3>
-              <p className="spec-card-desc">
-                Equipped with pneumatic squeegees, computerized servo indexing, and high-mesh Swiss screens. Supports up to 12 colors with micro-registration.
+      {machineryData._isActive !== false && (
+        <section className="section-padding bg-slate-subtle">
+          <div className="container">
+            <div className="section-header-center" data-reveal="fade-up">
+              <span className="section-badge">{machineryData.badge || 'Facility Machinery'}</span>
+              <h2 className="section-title">{machineryData.title || 'Automated Production Lines & Technical Capabilities'}</h2>
+              <p className="section-subtitle">
+                {machineryData.subtitle || 'Engineered with world-class European, Japanese, and American machinery to ensure zero-defect compliance for export apparel brands.'}
               </p>
-              <div className="spec-metrics-list">
-                <div className="spec-metric-pill">Capacity: 18,000 Pcs/Day</div>
-                <div className="spec-metric-pill">Inks: Water-based &amp; Plastisol</div>
-              </div>
             </div>
 
-            <div className="machinery-spec-card" data-reveal="fade-up" style={{ animationDelay: '0.1s' }}>
-              <div className="spec-card-top">
-                <span className="spec-card-num">02</span>
-                <span className="spec-card-brand">EPSON SureColor</span>
-              </div>
-              <h3 className="spec-card-title">Roll-to-Roll Dye Sublimation</h3>
-              <p className="spec-card-desc">
-                High-definition 300+ DPI continuous sublimation paired with industrial oil-heated rotary calendars for flawless color saturation on sports jersey fabrics.
-              </p>
-              <div className="spec-metrics-list">
-                <div className="spec-metric-pill">Resolution: 300+ DPI</div>
-                <div className="spec-metric-pill">Width: 64" Continuous</div>
-              </div>
-            </div>
-
-            <div className="machinery-spec-card" data-reveal="fade-up" style={{ animationDelay: '0.2s' }}>
-              <div className="spec-card-top">
-                <span className="spec-card-num">03</span>
-                <span className="spec-card-brand">NXP High-Frequency</span>
-              </div>
-              <h3 className="spec-card-title">15kW Ultrasonic Sonic Welding</h3>
-              <p className="spec-card-desc">
-                Precision high-frequency molecular bonding for seamless logos, waterproof pocket welds, and embossed performance trims for activewear.
-              </p>
-              <div className="spec-metrics-list">
-                <div className="spec-metric-pill">Power: 15kW Ultrasonic</div>
-                <div className="spec-metric-pill">Bond: 100% Watertight</div>
-              </div>
-            </div>
-
-            <div className="machinery-spec-card" data-reveal="fade-up" style={{ animationDelay: '0.3s' }}>
-              <div className="spec-card-top">
-                <span className="spec-card-num">04</span>
-                <span className="spec-card-brand">CNC Steel Tooling</span>
-              </div>
-              <h3 className="spec-card-title">3D Liquid Silicone &amp; Rubber</h3>
-              <p className="spec-card-desc">
-                Multi-cavity CNC engraved steel molds producing soft-touch, phthalate-free 3D silicone badges with extreme tactile definition and wash resistance.
-              </p>
-              <div className="spec-metrics-list">
-                <div className="spec-metric-pill">Material: 100% Medical Silicone</div>
-                <div className="spec-metric-pill">Testing: 50+ Wash Cycles</div>
-              </div>
-            </div>
-
-            <div className="machinery-spec-card" data-reveal="fade-up" style={{ animationDelay: '0.4s' }}>
-              <div className="spec-card-top">
-                <span className="spec-card-num">05</span>
-                <span className="spec-card-brand">X-Rite Spectrophotometry</span>
-              </div>
-              <h3 className="spec-card-title">In-House QA Testing Cell</h3>
-              <p className="spec-card-desc">
-                Equipped with computerized spectrophotometers, Roaches wash fastness testers, crockmeters, and calibrated light booths (D65, TL84, CWF, U30).
-              </p>
-              <div className="spec-metrics-list">
-                <div className="spec-metric-pill">Standard: Delta E &lt; 0.8</div>
-                <div className="spec-metric-pill">Audit: AQL 1.0 Gate</div>
-              </div>
-            </div>
-
-            <div className="machinery-spec-card" data-reveal="fade-up" style={{ animationDelay: '0.5s' }}>
-              <div className="spec-card-top">
-                <span className="spec-card-num">06</span>
-                <span className="spec-card-brand">Infrared Curing Tunnels</span>
-              </div>
-              <h3 className="spec-card-title">Multi-Zone Conveyor Dryers</h3>
-              <p className="spec-card-desc">
-                Precision thermostatic heat tunnels featuring calibrated digital temperature sensors and exhaust airflow to guarantee full pigment curing.
-              </p>
-              <div className="spec-metrics-list">
-                <div className="spec-metric-pill">Temp: 160°C - 180°C Curing</div>
-                <div className="spec-metric-pill">Airflow: Negative Pressure</div>
-              </div>
+            <div className="machinery-specs-grid">
+              {(machineryData.items && machineryData.items.length > 0 ? machineryData.items : [
+                {
+                  number: '01',
+                  brand: 'M&R Printing Lines',
+                  title: 'Automated Screen Carousels',
+                  desc: 'Equipped with pneumatic squeegees, computerized servo indexing, and high-mesh Swiss screens. Supports up to 12 colors with micro-registration.',
+                  pill1: 'Capacity: 18,000 Pcs/Day',
+                  pill2: 'Inks: Water-based & Plastisol'
+                },
+                {
+                  number: '02',
+                  brand: 'EPSON SureColor',
+                  title: 'Roll-to-Roll Dye Sublimation',
+                  desc: 'High-definition 300+ DPI continuous sublimation paired with industrial oil-heated rotary calendars for flawless color saturation on sports jersey fabrics.',
+                  pill1: 'Resolution: 300+ DPI',
+                  pill2: 'Width: 64" Continuous'
+                },
+                {
+                  number: '03',
+                  brand: 'NXP High-Frequency',
+                  title: '15kW Ultrasonic Sonic Welding',
+                  desc: 'Precision high-frequency molecular bonding for seamless logos, waterproof pocket welds, and embossed performance trims for activewear.',
+                  pill1: 'Power: 15kW Ultrasonic',
+                  pill2: 'Bond: 100% Watertight'
+                },
+                {
+                  number: '04',
+                  brand: 'CNC Steel Tooling',
+                  title: '3D Liquid Silicone & Rubber',
+                  desc: 'Multi-cavity CNC engraved steel molds producing soft-touch, phthalate-free 3D silicone badges with extreme tactile definition and wash resistance.',
+                  pill1: 'Material: 100% Medical Silicone',
+                  pill2: 'Testing: 50+ Wash Cycles'
+                },
+                {
+                  number: '05',
+                  brand: 'X-Rite Spectrophotometry',
+                  title: 'In-House QA Testing Cell',
+                  desc: 'Equipped with computerized spectrophotometers, Roaches wash fastness testers, crockmeters, and calibrated light booths (D65, TL84, CWF, U30).',
+                  pill1: 'Standard: Delta E < 0.8',
+                  pill2: 'Audit: AQL 1.0 Gate'
+                },
+                {
+                  number: '06',
+                  brand: 'Infrared Curing Tunnels',
+                  title: 'Multi-Zone Conveyor Dryers',
+                  desc: 'Precision thermostatic heat tunnels featuring calibrated digital temperature sensors and exhaust airflow to guarantee full pigment curing.',
+                  pill1: 'Temp: 160°C - 180°C Curing',
+                  pill2: 'Airflow: Negative Pressure'
+                }
+              ]).map((spec, sIdx) => (
+                <div key={sIdx} className="machinery-spec-card" data-reveal="fade-up" style={{ animationDelay: `${sIdx * 0.1}s` }}>
+                  <div className="spec-card-top">
+                    <span className="spec-card-num">{spec.number || `0${sIdx + 1}`}</span>
+                    <span className="spec-card-brand">{spec.brand}</span>
+                  </div>
+                  <h3 className="spec-card-title">{spec.title}</h3>
+                  <p className="spec-card-desc">{spec.desc}</p>
+                  <div className="spec-metrics-list">
+                    {spec.pill1 && <div className="spec-metric-pill">{spec.pill1}</div>}
+                    {spec.pill2 && <div className="spec-metric-pill">{spec.pill2}</div>}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 5. Virtual Factory Tour & Plant Visit Scheduling */}
-      <section className="section-padding bg-white">
-        <div className="container">
-          <div className="factory-visit-card" data-reveal="fade-up">
-            <div className="visit-card-grid">
-              <div className="visit-card-left">
-                <span className="section-badge section-badge-dark">Facility Inspection</span>
-                <h2 className="visit-card-title">Book an In-Person Technical Audit at Ashulia</h2>
-                <p className="visit-card-desc">
-                  We welcome international apparel brand sourcing directors, buying house representatives, and garment factory merchandisers to conduct full technical, social, and environmental audits of our facilities.
-                </p>
+      {visitData._isActive !== false && (
+        <section className="section-padding bg-white">
+          <div className="container">
+            <div className="factory-visit-card" data-reveal="fade-up">
+              <div className="visit-card-grid">
+                <div className="visit-card-left">
+                  <span className="section-badge section-badge-dark">{visitData.badge || 'Facility Inspection'}</span>
+                  <h2 className="visit-card-title">{visitData.title || 'Book an In-Person Technical Audit at Ashulia'}</h2>
+                  <p className="visit-card-desc">
+                    {visitData.desc || 'We welcome international apparel brand sourcing directors, buying house representatives, and garment factory merchandisers to conduct full technical, social, and environmental audits of our facilities.'}
+                  </p>
 
-                <div className="visit-actions">
-                  <button 
-                    className="btn btn-primary"
-                    onClick={() => navigate('/contact')}
-                  >
-                    <span>Book Plant Visit Appointment</span>
-                    <ArrowRight size={16} />
-                  </button>
-                  <button 
-                    className="btn btn-secondary"
-                    onClick={() => navigate('/profile')}
-                  >
-                    <span>Download Facility Profile (PDF)</span>
-                  </button>
+                  <div className="visit-actions">
+                    <button 
+                      className="btn btn-primary"
+                      onClick={() => navigate(visitData.buttonPrimaryLink || '/contact')}
+                    >
+                      <span>{visitData.buttonPrimaryText || 'Book Plant Visit Appointment'}</span>
+                      <ArrowRight size={16} />
+                    </button>
+                    <button 
+                      className="btn btn-secondary"
+                      onClick={() => navigate(visitData.buttonSecondaryLink || '/profile')}
+                    >
+                      <span>{visitData.buttonSecondaryText || 'Download Facility Profile (PDF)'}</span>
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              <div className="visit-card-right">
-                <div className="visit-details-list">
-                  <div className="visit-detail-item">
-                    <MapPin size={20} className="text-emerald shrink-0" />
-                    <div>
-                      <strong>Plant Address:</strong>
-                      <span>South Gazirchat, Ashulia, Savar, Dhaka-1349, Bangladesh</span>
+                <div className="visit-card-right">
+                  <div className="visit-details-list">
+                    <div className="visit-detail-item">
+                      <MapPin size={20} className="text-emerald shrink-0" />
+                      <div>
+                        <strong>Plant Address:</strong>
+                        <span>{visitData.address || 'South Gazirchat, Ashulia, Savar, Dhaka-1349, Bangladesh'}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="visit-detail-item">
-                    <Clock size={20} className="text-emerald shrink-0" />
-                    <div>
-                      <strong>Operating Hours:</strong>
-                      <span>Saturday - Thursday: 8:00 AM - 8:00 PM (Direct Visitor Parking &amp; Merchandising Lounge)</span>
+                    <div className="visit-detail-item">
+                      <Clock size={20} className="text-emerald shrink-0" />
+                      <div>
+                        <strong>Operating Hours:</strong>
+                        <span>{visitData.hours || 'Saturday - Thursday: 8:00 AM - 8:00 PM (Direct Visitor Parking & Merchandising Lounge)'}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="visit-detail-item">
-                    <Award size={20} className="text-emerald shrink-0" />
-                    <div>
-                      <strong>Audit Documentation:</strong>
-                      <span>Complete OEKO-TEX®, BSCI, and Fire &amp; Electrical Safety compliance documentation available on-site.</span>
+                    <div className="visit-detail-item">
+                      <Award size={20} className="text-emerald shrink-0" />
+                      <div>
+                        <strong>Audit Documentation:</strong>
+                        <span>{visitData.auditDoc || 'Complete OEKO-TEX®, BSCI, and Fire & Electrical Safety compliance documentation available on-site.'}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 6. High-Converting Bottom CTA Banner */}
-      <section className="section-padding gallery-cta-section">
-        <div className="container">
-          <div className="gallery-cta-card" data-reveal="fade-up">
-            <div className="gallery-cta-glow"></div>
-            
-            <div className="gallery-cta-content">
-              <span className="cta-badge">SAMPLE DEVELOPMENT CELL</span>
-              <h2 className="gallery-cta-title">
-                Need Physical Strike-Off Samples or Lab Dips?
-              </h2>
-              <p className="gallery-cta-desc">
-                Send us your digital artwork or garment tech pack. Our sampling cell will dispatch physical counter-samples, CNC mold prototypes, and pantone lab dips to your desk within 48 hours.
-              </p>
+      {ctaData._isActive !== false && (
+        <section className="section-padding gallery-cta-section">
+          <div className="container">
+            <div className="gallery-cta-card" data-reveal="fade-up">
+              <div className="gallery-cta-glow"></div>
+              
+              <div className="gallery-cta-content">
+                <span className="cta-badge">{ctaData.badge || 'SAMPLE DEVELOPMENT CELL'}</span>
+                <h2 className="gallery-cta-title">
+                  {ctaData.title || 'Need Physical Strike-Off Samples or Lab Dips?'}
+                </h2>
+                <p className="gallery-cta-desc">
+                  {ctaData.desc || 'Send us your digital artwork or garment tech pack. Our sampling cell will dispatch physical counter-samples, CNC mold prototypes, and pantone lab dips to your desk within 48 hours.'}
+                </p>
 
-              <div className="gallery-cta-actions">
-                <button 
-                  className="btn btn-primary btn-cta-main" 
-                  onClick={() => navigate('/contact')}
-                >
-                  <FileText size={18} />
-                  <span>Request Physical Sample Folder</span>
-                </button>
-                <button 
-                  className="btn btn-outline-light btn-cta-secondary" 
-                  onClick={() => navigate('/products')}
-                >
-                  <span>Explore Product Catalog</span>
-                  <ArrowRight size={16} />
-                </button>
-              </div>
+                <div className="gallery-cta-actions">
+                  <button 
+                    className="btn btn-primary btn-cta-main" 
+                    onClick={() => navigate(ctaData.buttonPrimaryLink || '/contact')}
+                  >
+                    <FileText size={18} />
+                    <span>{ctaData.buttonPrimaryText || 'Request Physical Sample Folder'}</span>
+                  </button>
+                  <button 
+                    className="btn btn-outline-light btn-cta-secondary" 
+                    onClick={() => navigate(ctaData.buttonSecondaryLink || '/products')}
+                  >
+                    <span>{ctaData.buttonSecondaryText || 'Explore Product Catalog'}</span>
+                    <ArrowRight size={16} />
+                  </button>
+                </div>
 
-              <div className="gallery-cta-trust-note">
-                <CheckCircle2 size={16} className="text-emerald" />
-                <span>Zero sample development fee for nominated international apparel brands.</span>
+                <div className="gallery-cta-trust-note">
+                  <CheckCircle2 size={16} className="text-emerald" />
+                  <span>{ctaData.trustNote || 'Zero sample development fee for nominated international apparel brands.'}</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 7. Fullscreen Interactive High-Res Lightbox */}
       {activeLightboxPhoto && (

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSiteContent } from '../context/SiteContentContext';
 import { 
   Award, 
   CheckCircle2, 
@@ -18,147 +19,201 @@ import {
 } from 'lucide-react';
 import LeadershipVisionModal from '../components/LeadershipVisionModal';
 
+const profileIconMap = {
+  Award,
+  CheckCircle2,
+  MapPin,
+  Phone,
+  Mail,
+  Download,
+  Cpu,
+  Layers,
+  HeartHandshake,
+  Baby,
+  Stethoscope,
+  Utensils,
+  Warehouse,
+  Printer,
+  PhoneCall
+};
+
+const defaultInstitutionalFacts = [
+  { label: 'Company Name', value: 'ZM Printing & Design Ltd.' },
+  { label: 'Year Established', value: '2026' },
+  { label: 'Nature of Business', value: '100% Export Garment Printing & RMG Accessories Manufacturing' },
+  { label: 'Office & Factory Address', value: 'Ariarar Mor, South Gazirchat, Ashulia, Savar, Dhaka-1349, Bangladesh' },
+  { label: 'Plant Floor Space', value: '30,000 SQFT Modern Facility' },
+  { label: 'Total Workforce', value: '300 Personnel (135 Women, 120 Men, 35 Staff, 10 Admin)' },
+  { label: 'Monthly Output Capacity', value: '2,336,000+ Units / Month (Panel, Badges, Stickers & Transfers)' },
+  { label: 'Industry Affiliation', value: 'Member of BPAMEA (Reg. Packaging & Accessories) & DCCI' },
+  { label: 'Official Banking Partners', value: 'Trust Bank PLC & Woori Bank' },
+  { label: 'Applied Certifications', value: 'OEKO-TEX® Standard 100, amfori BSCI, Sedex SMETA 4-Pillar' }
+];
+
+const defaultLeadershipTeam = [
+  {
+    id: 'md',
+    role: 'Managing Director',
+    name: 'MD. ABDUL KADER ZILANI',
+    phone: '+8801322-881470',
+    email: 'zilani@zmprintingbd.com',
+    image: '/images/about/managing-director-portrait.jpg',
+    badge: 'Leadership Vision',
+    heading: 'A Word From Our Managing Director',
+    quote: 'True craftsmanship in apparel branding and accessories manufacturing is not merely about machinery; it is about passion, ecological responsibility, and keeping promises to global fashion creators.',
+    paragraphs: [
+      'When we laid the foundation of ZM Printing & Design Ltd., our ambition was clear: to engineer world-class screen printing, sublimation, PVC and silicon badges, heat transfers, and specialized patches right here that surpass international standards in precision and durability.',
+      'We invest continuously in advanced technology, green chemistry, and most importantly, our people. Today, as a trusted partner to premier apparel brands across the globe, we remain committed to zero-defect quality and ethical sustainability every single day.',
+      'With our 30,000 SQFT eco-friendly manufacturing base in Ashulia, rigorous AQL inspection regimes, and a dedicated workforce of 300+ artisans and technicians, we guarantee reliable lead times, flawless print execution, and long-term value for every partner.'
+    ],
+    signature: 'Md. Abdul Kader Zilani'
+  },
+  {
+    id: 'chairman',
+    role: 'Chairman of the Board',
+    name: 'MST. ROJINA',
+    phone: '+8801618724419',
+    email: 'zmprinting02@gmail.com',
+    image: '/images/team/chairman-mst-rojina.jpg',
+    badge: 'Board Governance & Vision',
+    heading: 'A Word From Our Chairman of the Board',
+    quote: 'Our greatest strength lies in our commitment to quality, innovation, human capital empowerment, and enduring customer trust.',
+    paragraphs: [
+      'At ZM Printing & Design Ltd., we specialize in Screen Printing, Sublimation Printing, Silicon Badges, and PVC Badges, delivering creative and reliable solutions designed to meet the diverse needs of the global garment and fashion industry.',
+      'Our strategic governance ensures zero-defect quality standards, employee safety, maternal care facilities, and eco-certified green production across our 30,000 SQFT facility in Ashulia.',
+      'We believe sustainable manufacturing begins with valuing every artisan and engineer in our workforce while nurturing long-term partnerships with international fashion labels.'
+    ],
+    signature: 'Mst. Rojina'
+  }
+];
+
+const defaultWorkforceData = [
+  { count: '135', label: 'Women Workers', share: '45% Female Workforce', color: '#ec4899', bg: 'rgba(236, 72, 153, 0.1)' },
+  { count: '120', label: 'Men Workers', share: '40% Skilled Artisans', color: '#3b82f6', bg: 'rgba(59, 130, 246, 0.1)' },
+  { count: '35', label: 'Operational Staff', share: '12% Quality & Merchandising', color: '#10b981', bg: 'rgba(16, 185, 129, 0.1)' },
+  { count: '10', label: 'Admin Officers', share: '3% Management & Accounts', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.1)' }
+];
+
+const defaultProductionCapacities = [
+  { title: 'Sublimation Panel Print', capacity: '5,50,000 Pcs', unit: 'Per Month' },
+  { title: 'NXP & Sonic Welding', capacity: '2,56,000 Pcs', unit: 'Per Month' },
+  { title: 'Rubber & Silicone Patches', capacity: '3,10,000 Pcs', unit: 'Per Month' },
+  { title: 'Sticker Production', capacity: '7,20,000 Pcs', unit: 'Per Month' },
+  { title: 'DTF Transfer Stickers', capacity: '5,00,000 Pcs', unit: 'Per Month' }
+];
+
+const defaultBuyersList = [
+  'RICHARDSON',
+  'NEW ERA',
+  'TARGET',
+  'WALMART',
+  'CONCEPT ONE',
+  'ATLANTA',
+  'PERRY ELLIS',
+  'PLAY GAME',
+  'AGUSTA'
+];
+
+const defaultMachinerySections = [
+  {
+    title: 'Screen Printing Section',
+    icon: 'Printer',
+    items: [
+      { name: 'Manual Printing Tables (534 Feet Length)', qty: '06 pcs' },
+      { name: 'Belt Curing & Hand Dryers (China 2-Belt Curing)', qty: '25 Dryers' },
+      { name: 'Screen Binding & Washing Machines (China)', qty: '04 pcs' }
+    ]
+  },
+  {
+    title: 'Sublimation & Heat Press Section',
+    icon: 'Layers',
+    items: [
+      { name: 'Industrial Sublimation Printers', qty: '09 pcs' },
+      { name: 'Roller Heat Press Machines', qty: '02 pcs' },
+      { name: 'Pneumatic Flatbed Heat Press Machines', qty: '12 pcs' },
+      { name: 'Manual Heat Press Machines', qty: '06 pcs' },
+      { name: 'High-Temperature Heater Machines', qty: '03 pcs' },
+      { name: 'Injection Machines with Deeping Unit', qty: '02 pcs' },
+      { name: 'Vacuum Form & Sandblasting Machines', qty: '03 pcs' },
+      { name: 'Computerized Colour Mixer Machines', qty: '04 pcs' },
+      { name: 'Rubber Patch Curing & Front Iron Machines', qty: '03 pcs' }
+    ]
+  },
+  {
+    title: 'NXP Welding, Sonic & Silicone Section',
+    icon: 'Cpu',
+    items: [
+      { name: 'High-Frequency NXP Welding Machines', qty: '08 pcs' },
+      { name: 'CNC Steel Mold Cutting Machine', qty: '01 pcs' },
+      { name: 'Silicone Precision Color Matching Machine', qty: '01 pcs' },
+      { name: 'Silicone Brand Shaping Machine', qty: '01 pcs' },
+      { name: 'High-Speed Industrial DTF Machine', qty: '01 pcs' }
+    ]
+  }
+];
+
+const defaultWelfareAmenities = [
+  {
+    icon: 'Stethoscope',
+    title: 'In-House Medical Room',
+    desc: 'Dedicated on-site first-aid clinic with beds, medical supplies, and trained nursing support for worker emergencies.'
+  },
+  {
+    icon: 'Baby',
+    title: 'Child Care Centre (শিশু পরিচর্যা কেন্দ্র)',
+    desc: 'Safe and supervised daycare facility for working mothers, guaranteeing zero child labor and maternal empowerment.'
+  },
+  {
+    icon: 'Utensils',
+    title: 'Hygienic Dining & Rest Hall',
+    desc: 'Clean, sanitized cafeteria and dining spaces providing comfortable rest periods for our 300+ workforce.'
+  },
+  {
+    icon: 'Warehouse',
+    title: 'Bonded Warehouse & Secure Stores',
+    desc: 'Regulated inventory storage for raw inks, silicone polymers, and customer garments with strict climate control.'
+  }
+];
+
 export default function ProfilePage({ navigate }) {
+  const { content } = useSiteContent();
+  const profileData = content?.profile || {};
+
+  const heroData = profileData.hero || {};
+  const institutionalFacts = (profileData.institutionalFacts && profileData.institutionalFacts.length > 0)
+    ? profileData.institutionalFacts
+    : defaultInstitutionalFacts;
+  const missionVision = profileData.missionVision || {};
+  const leadershipTeam = (profileData.leadershipTeam && profileData.leadershipTeam.length > 0)
+    ? profileData.leadershipTeam
+    : defaultLeadershipTeam;
+  const workforceData = (profileData.workforce?.stats && profileData.workforce.stats.length > 0)
+    ? profileData.workforce.stats
+    : defaultWorkforceData;
+  const welfareAmenities = (profileData.workforce?.welfareAmenities && profileData.workforce.welfareAmenities.length > 0)
+    ? profileData.workforce.welfareAmenities
+    : defaultWelfareAmenities;
+  const productionCapacities = (profileData.productionCapacities?.items && profileData.productionCapacities.items.length > 0)
+    ? profileData.productionCapacities.items
+    : defaultProductionCapacities;
+  const machinerySections = (profileData.machineryInventory?.sections && profileData.machineryInventory.sections.length > 0)
+    ? profileData.machineryInventory.sections
+    : defaultMachinerySections;
+  const buyersList = (profileData.buyersAndPartners?.buyers && profileData.buyersAndPartners.buyers.length > 0)
+    ? profileData.buyersAndPartners.buyers
+    : defaultBuyersList;
+  const bankingPartners = profileData.buyersAndPartners?.bankingPartners || {
+    title: 'Official Banking Partners',
+    desc: 'Trust Bank Ltd (PLC) & Woori Bank (Providing financial stability & foreign exchange facilities)'
+  };
+  const association = profileData.buyersAndPartners?.association || {
+    title: 'BPAMEA & DCCI Member',
+    desc: 'Registered with Bangladesh Packaging & Accessories Manufacturers & Exporters Association.'
+  };
+  const ctaData = profileData.ctaBanner || {};
+
   const [selectedLeader, setSelectedLeader] = useState(null);
-  const pdfUrl = '/assets/docs/ZM_Printing_Factory_Profile.pdf';
-
-  const institutionalFacts = [
-    { label: 'Company Name', value: 'ZM Printing & Design Ltd.' },
-    { label: 'Year Established', value: '2026' },
-    { label: 'Nature of Business', value: '100% Export Garment Printing & RMG Accessories Manufacturing' },
-    { label: 'Office & Factory Address', value: 'Ariarar Mor, South Gazirchat, Ashulia, Savar, Dhaka-1349, Bangladesh' },
-    { label: 'Plant Floor Space', value: '30,000 SQFT Modern Facility' },
-    { label: 'Total Workforce', value: '300 Personnel (135 Women, 120 Men, 35 Staff, 10 Admin)' },
-    { label: 'Monthly Output Capacity', value: '2,336,000+ Units / Month (Panel, Badges, Stickers & Transfers)' },
-    { label: 'Industry Affiliation', value: 'Member of BPAMEA (Reg. Packaging & Accessories) & DCCI' },
-    { label: 'Official Banking Partners', value: 'Trust Bank PLC & Woori Bank' },
-    { label: 'Applied Certifications', value: 'OEKO-TEX® Standard 100, amfori BSCI, Sedex SMETA 4-Pillar' }
-  ];
-
-  const leadershipTeam = [
-    {
-      id: 'md',
-      role: 'Managing Director',
-      name: 'MD. ABDUL KADER ZILANI',
-      phone: '+8801322-881470',
-      email: 'zilani@zmprintingbd.com',
-      image: '/images/about/managing-director-portrait.jpg',
-      badge: 'Leadership Vision',
-      heading: 'A Word From Our Managing Director',
-      quote: 'True craftsmanship in apparel branding and accessories manufacturing is not merely about machinery; it is about passion, ecological responsibility, and keeping promises to global fashion creators.',
-      paragraphs: [
-        'When we laid the foundation of ZM Printing & Design Ltd., our ambition was clear: to engineer world-class screen printing, sublimation, PVC and silicon badges, heat transfers, and specialized patches right here that surpass international standards in precision and durability.',
-        'We invest continuously in advanced technology, green chemistry, and most importantly, our people. Today, as a trusted partner to premier apparel brands across the globe, we remain committed to zero-defect quality and ethical sustainability every single day.',
-        'With our 30,000 SQFT eco-friendly manufacturing base in Ashulia, rigorous AQL inspection regimes, and a dedicated workforce of 300+ artisans and technicians, we guarantee reliable lead times, flawless print execution, and long-term value for every partner.'
-      ],
-      signature: 'Md. Abdul Kader Zilani'
-    },
-    {
-      id: 'chairman',
-      role: 'Chairman of the Board',
-      name: 'MST. ROJINA',
-      phone: '+8801618724419',
-      email: 'zmprinting02@gmail.com',
-      image: '/images/team/chairman-mst-rojina.jpg',
-      badge: 'Board Governance & Vision',
-      heading: 'A Word From Our Chairman of the Board',
-      quote: 'Our greatest strength lies in our commitment to quality, innovation, human capital empowerment, and enduring customer trust.',
-      paragraphs: [
-        'At ZM Printing & Design Ltd., we specialize in Screen Printing, Sublimation Printing, Silicon Badges, and PVC Badges, delivering creative and reliable solutions designed to meet the diverse needs of the global garment and fashion industry.',
-        'Our strategic governance ensures zero-defect quality standards, employee safety, maternal care facilities, and eco-certified green production across our 30,000 SQFT facility in Ashulia.',
-        'We believe sustainable manufacturing begins with valuing every artisan and engineer in our workforce while nurturing long-term partnerships with international fashion labels.'
-      ],
-      signature: 'Mst. Rojina'
-    }
-  ];
-
-  const workforceData = [
-    { count: '135', label: 'Women Workers', share: '45% Female Workforce', color: '#ec4899', bg: 'rgba(236, 72, 153, 0.1)' },
-    { count: '120', label: 'Men Workers', share: '40% Skilled Artisans', color: '#3b82f6', bg: 'rgba(59, 130, 246, 0.1)' },
-    { count: '35', label: 'Operational Staff', share: '12% Quality & Merchandising', color: '#10b981', bg: 'rgba(16, 185, 129, 0.1)' },
-    { count: '10', label: 'Admin Officers', share: '3% Management & Accounts', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.1)' }
-  ];
-
-  const productionCapacities = [
-    { title: 'Sublimation Panel Print', capacity: '5,50,000 Pcs', unit: 'Per Month' },
-    { title: 'NXP & Sonic Welding', capacity: '2,56,000 Pcs', unit: 'Per Month' },
-    { title: 'Rubber & Silicone Patches', capacity: '3,10,000 Pcs', unit: 'Per Month' },
-    { title: 'Sticker Production', capacity: '7,20,000 Pcs', unit: 'Per Month' },
-    { title: 'DTF Transfer Stickers', capacity: '5,00,000 Pcs', unit: 'Per Month' }
-  ];
-
-  const buyersList = [
-    'RICHARDSON',
-    'NEW ERA',
-    'TARGET',
-    'WALMART',
-    'CONCEPT ONE',
-    'ATLANTA',
-    'PERRY ELLIS',
-    'PLAY GAME',
-    'AGUSTA'
-  ];
-
-  const machinerySections = [
-    {
-      title: 'Screen Printing Section',
-      icon: <Printer size={20} className="text-emerald" />,
-      items: [
-        { name: 'Manual Printing Tables (534 Feet Length)', qty: '06 pcs' },
-        { name: 'Belt Curing & Hand Dryers (China 2-Belt Curing)', qty: '25 Dryers' },
-        { name: 'Screen Binding & Washing Machines (China)', qty: '04 pcs' }
-      ]
-    },
-    {
-      title: 'Sublimation & Heat Press Section',
-      icon: <Layers size={20} className="text-blue" />,
-      items: [
-        { name: 'Industrial Sublimation Printers', qty: '09 pcs' },
-        { name: 'Roller Heat Press Machines', qty: '02 pcs' },
-        { name: 'Pneumatic Flatbed Heat Press Machines', qty: '12 pcs' },
-        { name: 'Manual Heat Press Machines', qty: '06 pcs' },
-        { name: 'High-Temperature Heater Machines', qty: '03 pcs' },
-        { name: 'Injection Machines with Deeping Unit', qty: '02 pcs' },
-        { name: 'Vacuum Form & Sandblasting Machines', qty: '03 pcs' },
-        { name: 'Computerized Colour Mixer Machines', qty: '04 pcs' },
-        { name: 'Rubber Patch Curing & Front Iron Machines', qty: '03 pcs' }
-      ]
-    },
-    {
-      title: 'NXP Welding, Sonic & Silicone Section',
-      icon: <Cpu size={20} className="text-amber" />,
-      items: [
-        { name: 'High-Frequency NXP Welding Machines', qty: '08 pcs' },
-        { name: 'CNC Steel Mold Cutting Machine', qty: '01 pcs' },
-        { name: 'Silicone Precision Color Matching Machine', qty: '01 pcs' },
-        { name: 'Silicone Brand Shaping Machine', qty: '01 pcs' },
-        { name: 'High-Speed Industrial DTF Machine', qty: '01 pcs' }
-      ]
-    }
-  ];
-
-  const welfareAmenities = [
-    {
-      icon: <Stethoscope size={22} />,
-      title: 'In-House Medical Room',
-      desc: 'Dedicated on-site first-aid clinic with beds, medical supplies, and trained nursing support for worker emergencies.'
-    },
-    {
-      icon: <Baby size={22} />,
-      title: 'Child Care Centre (শিশু পরিচর্যা কেন্দ্র)',
-      desc: 'Safe and supervised daycare facility for working mothers, guaranteeing zero child labor and maternal empowerment.'
-    },
-    {
-      icon: <Utensils size={22} />,
-      title: 'Hygienic Dining & Rest Hall',
-      desc: 'Clean, sanitized cafeteria and dining spaces providing comfortable rest periods for our 300+ workforce.'
-    },
-    {
-      icon: <Warehouse size={22} />,
-      title: 'Bonded Warehouse & Secure Stores',
-      desc: 'Regulated inventory storage for raw inks, silicone polymers, and customer garments with strict climate control.'
-    }
-  ];
+  const pdfUrl = heroData.pdfUrl || '/assets/docs/ZM_Printing_Factory_Profile.pdf';
 
   return (
     <div className="profile-page">
@@ -169,17 +224,16 @@ export default function ProfilePage({ navigate }) {
           
           <div className="profile-hero-badge" data-reveal="fade-down">
             <span className="pulse-indicator"></span>
-            <span>✦ ESTABLISHED 2026 • ASHULIA, SAVAR</span>
+            <span>{heroData.badge || '✦ ESTABLISHED 2026 • ASHULIA, SAVAR'}</span>
           </div>
 
           <h1 className="profile-title" data-reveal="fade-up">
-            ZM Printing &amp; Design Ltd. <br />
-            <span className="text-emerald-glow">Factory &amp; Corporate Profile</span>
+            {heroData.titleLine1 || 'ZM Printing & Design Ltd.'} <br />
+            <span className="text-emerald-glow">{heroData.titleLine2 || 'Factory & Corporate Profile'}</span>
           </h1>
 
           <p className="profile-subtitle" data-reveal="fade-up">
-            A comprehensive overview of our 30,000 sq.ft apparel trims manufacturing complex, 
-            300-strong skilled workforce, automated machinery lines, and international export certifications.
+            {heroData.subtitle || 'A comprehensive overview of our 30,000 sq.ft apparel trims manufacturing complex, 300-strong skilled workforce, automated machinery lines, and international export certifications.'}
           </p>
 
           {/* Clean, Non-Intrusive Action Group */}
@@ -191,7 +245,7 @@ export default function ProfilePage({ navigate }) {
               title="Download Full 23-Page Factory Profile PDF (5.18 MB)"
             >
               <Download size={17} />
-              <span>Download Profile (PDF)</span>
+              <span>{heroData.pdfButtonText || 'Download Profile (PDF)'}</span>
             </a>
 
             <button 
@@ -199,32 +253,24 @@ export default function ProfilePage({ navigate }) {
               onClick={() => navigate('/contact')}
             >
               <PhoneCall size={16} />
-              <span>Contact Merchandising Desk</span>
+              <span>{heroData.contactButtonText || 'Contact Merchandising Desk'}</span>
             </button>
           </div>
 
           {/* Key Metric Highlights Bar */}
           <div className="profile-hero-metrics-bar" data-reveal="fade-up">
-            <div className="hero-metric-tile">
-              <span className="tile-num">30,000</span>
-              <span className="tile-unit">SQFT Area</span>
-              <span className="tile-desc">Ashulia Manufacturing Hub</span>
-            </div>
-            <div className="hero-metric-tile">
-              <span className="tile-num">300</span>
-              <span className="tile-unit">Workforce</span>
-              <span className="tile-desc">45% Women Empowerment</span>
-            </div>
-            <div className="hero-metric-tile">
-              <span className="tile-num">2.33M+</span>
-              <span className="tile-unit">Monthly Output</span>
-              <span className="tile-desc">Trims, Prints &amp; Badges</span>
-            </div>
-            <div className="hero-metric-tile">
-              <span className="tile-num">BPAMEA</span>
-              <span className="tile-unit">&amp; DCCI Member</span>
-              <span className="tile-desc">Fully Audited &amp; Compliant</span>
-            </div>
+            {(heroData.metrics || [
+              { num: '30,000', unit: 'SQFT Area', desc: 'Ashulia Manufacturing Hub' },
+              { num: '300', unit: 'Workforce', desc: '45% Women Empowerment' },
+              { num: '2.33M+', unit: 'Monthly Output', desc: 'Trims, Prints & Badges' },
+              { num: 'BPAMEA', unit: '& DCCI Member', desc: 'Fully Audited & Compliant' }
+            ]).map((m, idx) => (
+              <div key={idx} className="hero-metric-tile">
+                <span className="tile-num">{m.num}</span>
+                <span className="tile-unit">{m.unit}</span>
+                <span className="tile-desc">{m.desc}</span>
+              </div>
+            ))}
           </div>
 
         </div>
@@ -261,23 +307,18 @@ export default function ProfilePage({ navigate }) {
             {/* Right: Mission & Vision */}
             <div className="profile-mission-stack">
               <div className="mission-card card-hover-lift">
-                <div className="mission-badge">OUR MISSION</div>
-                <h3 className="mission-title">#1 Green Factory &amp; Export Excellence</h3>
+                <div className="mission-badge">{missionVision.mission?.badge || 'OUR MISSION'}</div>
+                <h3 className="mission-title">{missionVision.mission?.title || '#1 Green Factory & Export Excellence'}</h3>
                 <p className="mission-desc">
-                  We want to provide modern and highest quality product and support to RMG sectors in the future to export more from Bangladesh. 
-                  Our mission is to be the number 1 &amp; green factory in Bangladesh as per international environmental requirements. 
-                  We always establish standard relationship with all the clients. We will setup the online delivery portal and update production status after each hour as order number, 
-                  as well as controlling the smooth delivery system and to ensure quality by special internal inspection team for customer satisfaction.
+                  {missionVision.mission?.desc || 'We want to provide modern and highest quality product and support to RMG sectors in the future to export more from Bangladesh. Our mission is to be the number 1 & green factory in Bangladesh as per international environmental requirements. We always establish standard relationship with all the clients. We will setup the online delivery portal and update production status after each hour as order number, as well as controlling the smooth delivery system and to ensure quality by special internal inspection team for customer satisfaction.'}
                 </p>
               </div>
 
               <div className="vision-card card-hover-lift">
-                <div className="vision-badge">OUR VISION</div>
-                <h3 className="vision-title">Advanced Technology &amp; Job Creation</h3>
+                <div className="vision-badge">{missionVision.vision?.badge || 'OUR VISION'}</div>
+                <h3 className="vision-title">{missionVision.vision?.title || 'Advanced Technology & Job Creation'}</h3>
                 <p className="vision-desc">
-                  ZM Printing &amp; Design Ltd. is strictly following the latest tasks of RMG Printing and accessories advanced technology. 
-                  As applied modern technology and supplies super quality products to be a top RMG Printing and accessories manufacturer in international market. 
-                  We are dedicated to inspire our employees that, all are family members and actually target to helping the nation through creating jobs to the unemployed.
+                  {missionVision.vision?.desc || 'ZM Printing & Design Ltd. is strictly following the latest tasks of RMG Printing and accessories advanced technology. As applied modern technology and supplies super quality products to be a top RMG Printing and accessories manufacturer in international market. We are dedicated to inspire our employees that, all are family members and actually target to helping the nation through creating jobs to the unemployed.'}
                 </p>
               </div>
             </div>
@@ -381,17 +422,22 @@ export default function ProfilePage({ navigate }) {
 
           {/* Welfare Amenities */}
           <div className="welfare-facilities-grid" data-reveal="fade-up">
-            {welfareAmenities.map((amenity, i) => (
-              <div key={i} className="welfare-card">
-                <div className="welfare-icon-wrap">
-                  {amenity.icon}
+            {welfareAmenities.map((amenity, i) => {
+              const IconComp = typeof amenity.icon === 'string' 
+                ? (profileIconMap[amenity.icon] || HeartHandshake) 
+                : null;
+              return (
+                <div key={i} className="welfare-card">
+                  <div className="welfare-icon-wrap">
+                    {IconComp ? <IconComp size={22} /> : amenity.icon}
+                  </div>
+                  <div>
+                    <h4 className="welfare-title">{amenity.title}</h4>
+                    <p className="welfare-desc">{amenity.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="welfare-title">{amenity.title}</h4>
-                  <p className="welfare-desc">{amenity.desc}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -400,10 +446,10 @@ export default function ProfilePage({ navigate }) {
       <section className="section-padding bg-white">
         <div className="container">
           <div className="section-header-center" data-reveal="fade-up">
-            <span className="section-badge">Production Scale</span>
-            <h2 className="section-title">Monthly Manufacturing Capacities</h2>
+            <span className="section-badge">{profileData.productionCapacities?.badge || 'Production Scale'}</span>
+            <h2 className="section-title">{profileData.productionCapacities?.title || 'Monthly Manufacturing Capacities'}</h2>
             <p className="section-subtitle">
-              Over 2,336,000+ pieces monthly production capacity across our specialized garment accessories divisions.
+              {profileData.productionCapacities?.subtitle || 'Over 2,336,000+ pieces monthly production capacity across our specialized garment accessories divisions.'}
             </p>
           </div>
 
@@ -423,30 +469,35 @@ export default function ProfilePage({ navigate }) {
       <section className="section-padding bg-slate-subtle">
         <div className="container">
           <div className="section-header-left" data-reveal="fade-up">
-            <span className="section-badge">Technical Equipment</span>
-            <h2 className="section-title">Plant Machinery &amp; Tooling Inventory</h2>
+            <span className="section-badge">{profileData.machineryInventory?.badge || 'Technical Equipment'}</span>
+            <h2 className="section-title">{profileData.machineryInventory?.title || 'Plant Machinery & Tooling Inventory'}</h2>
             <p className="section-subtitle">
-              Inventory of industrial machines currently operational across our 30,000 SQFT Ashulia facility.
+              {profileData.machineryInventory?.subtitle || 'Inventory of industrial machines currently operational across our 30,000 SQFT Ashulia facility.'}
             </p>
           </div>
 
           <div className="machinery-columns-grid" data-reveal="fade-up">
-            {machinerySections.map((sec, i) => (
-              <div key={i} className="machinery-section-card">
-                <div className="machinery-section-header">
-                  {sec.icon}
-                  <h3>{sec.title}</h3>
+            {machinerySections.map((sec, i) => {
+              const SecIcon = typeof sec.icon === 'string'
+                ? (profileIconMap[sec.icon] || Printer)
+                : null;
+              return (
+                <div key={i} className="machinery-section-card">
+                  <div className="machinery-section-header">
+                    {SecIcon ? <SecIcon size={20} className="text-emerald" /> : sec.icon}
+                    <h3>{sec.title}</h3>
+                  </div>
+                  <div className="machinery-items-table">
+                    {sec.items.map((item, j) => (
+                      <div key={j} className="machinery-table-row">
+                        <span className="machinery-name">{item.name}</span>
+                        <span className="machinery-qty">{item.qty}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="machinery-items-table">
-                  {sec.items.map((item, j) => (
-                    <div key={j} className="machinery-table-row">
-                      <span className="machinery-name">{item.name}</span>
-                      <span className="machinery-qty">{item.qty}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -455,10 +506,10 @@ export default function ProfilePage({ navigate }) {
       <section className="section-padding bg-white">
         <div className="container">
           <div className="section-header-center" data-reveal="fade-up">
-            <span className="section-badge">Trust &amp; Partnerships</span>
-            <h2 className="section-title">Approved Brands &amp; Financial Partners</h2>
+            <span className="section-badge">{profileData.buyersAndPartners?.badge || 'Trust & Partnerships'}</span>
+            <h2 className="section-title">{profileData.buyersAndPartners?.title || 'Approved Brands & Financial Partners'}</h2>
             <p className="section-subtitle">
-              Serving world-renowned apparel retailers with the support of leading commercial financial institutions.
+              {profileData.buyersAndPartners?.subtitle || 'Serving world-renowned apparel retailers with the support of leading commercial financial institutions.'}
             </p>
           </div>
 
@@ -477,16 +528,16 @@ export default function ProfilePage({ navigate }) {
             <div className="bank-partner-card">
               <HeartHandshake size={28} className="text-emerald" />
               <div>
-                <strong>Official Banking Partners</strong>
-                <p>Trust Bank Ltd (PLC) &amp; Woori Bank (Providing financial stability &amp; foreign exchange facilities)</p>
+                <strong>{bankingPartners.title || 'Official Banking Partners'}</strong>
+                <p>{bankingPartners.desc || 'Trust Bank Ltd (PLC) & Woori Bank (Providing financial stability & foreign exchange facilities)'}</p>
               </div>
             </div>
 
             <div className="bank-partner-card">
               <Award size={28} className="text-emerald" />
               <div>
-                <strong>BPAMEA &amp; DCCI Member</strong>
-                <p>Registered with Bangladesh Packaging &amp; Accessories Manufacturers &amp; Exporters Association.</p>
+                <strong>{association.title || 'BPAMEA & DCCI Member'}</strong>
+                <p>{association.desc || 'Registered with Bangladesh Packaging & Accessories Manufacturers & Exporters Association.'}</p>
               </div>
             </div>
           </div>
@@ -497,37 +548,37 @@ export default function ProfilePage({ navigate }) {
       <section className="section-padding profile-final-cta">
         <div className="container text-center">
           <div className="profile-cta-inner" data-reveal="fade-up">
-            <span className="cta-badge">PARTNER WITH ZM PRINTING</span>
+            <span className="cta-badge">{ctaData.badge || 'PARTNER WITH ZM PRINTING'}</span>
             <h2 className="profile-cta-title">
-              Ready to Upgrade Your Trims &amp; Printing Supply Chain?
+              {ctaData.title || 'Ready to Upgrade Your Trims & Printing Supply Chain?'}
             </h2>
             <p className="profile-cta-desc">
-              Connect directly with our Ashulia corporate merchandising team to request physical counter-samples, custom lab dips, or factory vendor compliance audit slots.
+              {ctaData.desc || 'Connect directly with our Ashulia corporate merchandising team to request physical counter-samples, custom lab dips, or factory vendor compliance audit slots.'}
             </p>
 
             <div className="profile-cta-actions">
               <button 
                 className="btn btn-primary btn-lg"
-                onClick={() => navigate('/contact')}
+                onClick={() => navigate(ctaData.buttonPrimaryLink || '/contact')}
               >
                 <PhoneCall size={18} />
-                <span>Connect with Merchandising Desk</span>
+                <span>{ctaData.buttonPrimaryText || 'Connect with Merchandising Desk'}</span>
               </button>
 
               <a 
-                href={pdfUrl} 
+                href={ctaData.buttonSecondaryLink || pdfUrl} 
                 download="ZM_Printing_Factory_Profile.pdf"
                 className="btn btn-outline-light btn-lg"
               >
                 <Download size={18} />
-                <span>Download Profile PDF</span>
+                <span>{ctaData.buttonSecondaryText || 'Download Profile PDF'}</span>
               </a>
             </div>
 
             <div className="profile-address-foot">
               <MapPin size={16} className="text-emerald" />
               <span>
-                <strong>Factory &amp; Head Office:</strong> Ariarar Mor, South Gazirchat, Ashulia, Savar, Dhaka-1349, Bangladesh
+                <strong>Factory &amp; Head Office:</strong> {ctaData.address || 'Ariarar Mor, South Gazirchat, Ashulia, Savar, Dhaka-1349, Bangladesh'}
               </span>
             </div>
           </div>

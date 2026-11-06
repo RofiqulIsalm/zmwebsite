@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSiteContent } from '../context/SiteContentContext';
 import { 
   MapPin, 
   Mail, 
@@ -18,6 +19,15 @@ import {
 } from 'lucide-react';
 
 export default function ContactPage() {
+  const { content } = useSiteContent();
+  const contactData = content?.contact || {};
+
+  const heroData = contactData.hero || {};
+  const twinCard = contactData.twinCard || {};
+  const leftCard = twinCard.leftCard || {};
+  const rightCard = twinCard.rightCard || {};
+  const mapData = contactData.map || {};
+
   const [mapType, setMapType] = useState('hybrid');
   const [formData, setFormData] = useState({
     name: '',
@@ -33,13 +43,17 @@ export default function ContactPage() {
 
   const [copied, setCopied] = useState(false);
 
+  const targetEmail = leftCard.email || 'info@zmprintingbd.com';
+  const targetWhatsapp = leftCard.whatsappNumber || '+880 1818-724417';
+  const targetWhatsappUrl = leftCard.whatsappUrl || 'https://wa.me/8801818724417';
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleCopy = () => {
-    const textToCopy = `Inquiry for ZM Printing (info@zmprintingbd.com):
+    const textToCopy = `Inquiry for ZM Printing (${targetEmail}):
 Name: ${formData.name}
 Email: ${formData.email}
 WhatsApp/Phone: ${formData.whatsapp}
@@ -76,7 +90,7 @@ ${formData.message || 'Please contact me regarding your product catalog, strike-
 ---
 Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
 
-    const mailtoUrl = `mailto:info@zmprintingbd.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+    const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
 
     try {
       window.location.href = mailtoUrl;
@@ -97,32 +111,29 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
         <div className="container text-center hero-content-box">
           <div className="contact-hero-badge">
             <span className="badge-sparkle"><Sparkles size={13} /></span>
-            <span>DIRECT CORPORATE DESK</span>
-            <span className="badge-sep">•</span>
-            <span className="badge-highlight">FAST RESPONSE</span>
+            <span>{heroData.badge || 'DIRECT CORPORATE DESK • FAST RESPONSE'}</span>
           </div>
 
           <h1 className="contact-hero-h1">
-            Get in Touch with <span className="hero-gradient-text">ZM Printing</span>
+            {heroData.titleLine1 || 'Get in Touch with'}{' '}
+            <span className="hero-gradient-text">{heroData.titleHighlight || 'ZM Printing'}</span>
           </h1>
 
           <p className="contact-hero-p">
-            Have questions, need custom trim pricing, or requesting physical production samples? Connect directly with our merchandising desk or send a quick message below.
+            {heroData.subtitle || 'Have questions, need custom trim pricing, or requesting physical production samples? Connect directly with our merchandising desk or send a quick message below.'}
           </p>
 
           <div className="hero-trust-pills">
-            <span className="hero-trust-pill">
-              <CheckCircle2 size={13} className="text-emerald" />
-              <span>Ashulia Plant &amp; Head Office</span>
-            </span>
-            <span className="hero-trust-pill">
-              <CheckCircle2 size={13} className="text-emerald" />
-              <span>Direct WhatsApp Channel</span>
-            </span>
-            <span className="hero-trust-pill">
-              <CheckCircle2 size={13} className="text-emerald" />
-              <span>Verified Export Supplier</span>
-            </span>
+            {(heroData.trustPills || [
+              'Ashulia Plant & Head Office',
+              'Direct WhatsApp Channel',
+              'Verified Export Supplier'
+            ]).map((pill, idx) => (
+              <span key={idx} className="hero-trust-pill">
+                <CheckCircle2 size={13} className="text-emerald" />
+                <span>{pill}</span>
+              </span>
+            ))}
           </div>
         </div>
       </section>
@@ -137,19 +148,19 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
               <div className="twin-card-top">
                 <div className="card-badge badge-emerald">
                   <span className="pulse-dot dot-emerald" />
-                  <span>DIRECT DESK • FAST RESPONSE</span>
+                  <span>{leftCard.badge || 'DIRECT DESK • FAST RESPONSE'}</span>
                 </div>
 
-                <h2 className="twin-card-title">Contact Information</h2>
+                <h2 className="twin-card-title">{leftCard.title || 'Contact Information'}</h2>
                 <p className="twin-card-desc">
-                  Feel free to reach out through any channel below. Our team is ready to assist your garment manufacturing needs.
+                  {leftCard.desc || 'Feel free to reach out through any channel below. Our team is ready to assist your garment manufacturing needs.'}
                 </p>
 
                 {/* 3 Core Contact Channels */}
                 <div className="info-cards-stack">
                   {/* WhatsApp & Phone */}
                   <a 
-                    href="https://wa.me/8801818724417" 
+                    href={targetWhatsappUrl} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="twin-info-item"
@@ -161,15 +172,15 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
                     <div className="twin-info-text">
                       <div className="twin-info-label-row">
                         <span className="twin-info-label">WhatsApp &amp; Phone</span>
-                        <span className="twin-info-tag tag-green">Instant Reply</span>
+                        <span className="twin-info-tag tag-green">{leftCard.whatsappBadge || 'Instant Reply'}</span>
                       </div>
-                      <strong className="twin-info-value">+880 1818-724417</strong>
+                      <strong className="twin-info-value">{targetWhatsapp}</strong>
                     </div>
                   </a>
 
                   {/* Email */}
                   <a 
-                    href="mailto:info@zmprintingbd.com" 
+                    href={`mailto:${targetEmail}`} 
                     className="twin-info-item"
                     title="Official Email"
                   >
@@ -179,9 +190,9 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
                     <div className="twin-info-text">
                       <div className="twin-info-label-row">
                         <span className="twin-info-label">Official Email</span>
-                        <span className="twin-info-tag tag-blue">&lt; 2h SLA</span>
+                        <span className="twin-info-tag tag-blue">{leftCard.emailBadge || '< 2h SLA'}</span>
                       </div>
-                      <strong className="twin-info-value">info@zmprintingbd.com</strong>
+                      <strong className="twin-info-value">{targetEmail}</strong>
                     </div>
                   </a>
 
@@ -193,9 +204,9 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
                     <div className="twin-info-text">
                       <div className="twin-info-label-row">
                         <span className="twin-info-label">Factory &amp; Head Office</span>
-                        <span className="twin-info-tag tag-amber">Industrial Zone</span>
+                        <span className="twin-info-tag tag-amber">{leftCard.addressBadge || 'Industrial Zone'}</span>
                       </div>
-                      <strong className="twin-info-value">South Gazirchat, Ashulia, Savar, Dhaka-1349</strong>
+                      <strong className="twin-info-value">{leftCard.address || 'South Gazirchat, Ashulia, Savar, Dhaka-1349'}</strong>
                     </div>
                   </div>
                 </div>
@@ -209,11 +220,11 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
                   <div className="hours-grid">
                     <div className="hours-row">
                       <span className="hours-day">Saturday – Thursday</span>
-                      <span className="hours-time">8:30 AM – 7:00 PM (GMT+6)</span>
+                      <span className="hours-time">{leftCard.weekdayHours || '8:30 AM – 7:00 PM (GMT+6)'}</span>
                     </div>
                     <div className="hours-row">
                       <span className="hours-day">Friday</span>
-                      <span className="hours-time text-muted">Closed • WhatsApp Active</span>
+                      <span className="hours-time text-muted">{leftCard.fridayHours || 'Closed • WhatsApp Active'}</span>
                     </div>
                   </div>
                 </div>
@@ -222,13 +233,13 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
               {/* Bottom Action: WhatsApp CTA */}
               <div className="twin-card-bottom">
                 <a 
-                  href="https://wa.me/8801818724417" 
+                  href={targetWhatsappUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="btn-whatsapp-twin"
                 >
                   <MessageSquare size={18} />
-                  <span>Chat Directly on WhatsApp</span>
+                  <span>{leftCard.buttonText || 'Chat Directly on WhatsApp'}</span>
                   <ArrowRight size={16} className="btn-arrow" />
                 </a>
               </div>
@@ -241,28 +252,28 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
                   <div className="success-icon-pulse">
                     <CheckCircle2 size={48} className="text-emerald" />
                   </div>
-                  <h3 className="success-head">Inquiry Prepared for info@zmprintingbd.com!</h3>
+                  <h3 className="success-head">Inquiry Prepared for {targetEmail}!</h3>
                   <p className="success-sub">
-                    Thank you, <strong>{formData.name}</strong>. Your message has been prepared for our official commercial desk (<strong>info@zmprintingbd.com</strong>).
+                    Thank you, <strong>{formData.name}</strong>. Your message has been prepared for our official commercial desk (<strong>{targetEmail}</strong>).
                   </p>
 
                   <div className="success-actions-cluster">
                     <a 
-                      href={`mailto:info@zmprintingbd.com?subject=${encodeURIComponent(`New Garment Trims Inquiry - ${formData.name}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nWhatsApp/Phone: ${formData.whatsapp}\n\nMessage:\n${formData.message || 'Please send me details about your products and factory sampling.'}`)}`}
+                      href={`mailto:${targetEmail}?subject=${encodeURIComponent(`New Garment Trims Inquiry - ${formData.name}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nWhatsApp/Phone: ${formData.whatsapp}\n\nMessage:\n${formData.message || 'Please send me details about your products and factory sampling.'}`)}`}
                       className="btn-success-action btn-email-direct"
                     >
                       <Mail size={16} />
-                      <span>Open in Mail App (info@zmprintingbd.com)</span>
+                      <span>Open in Mail App ({targetEmail})</span>
                     </a>
 
                     <a 
-                      href={`https://wa.me/8801818724417?text=${encodeURIComponent(`Hello ZM Printing,\nName: ${formData.name}\nEmail: ${formData.email}\nWhatsApp: ${formData.whatsapp}\nInquiry: ${formData.message || 'Please provide details on your product range and factory pricing.'}`)}`}
+                      href={`https://wa.me/${targetWhatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hello ZM Printing,\nName: ${formData.name}\nEmail: ${formData.email}\nWhatsApp: ${formData.whatsapp}\nInquiry: ${formData.message || 'Please provide details on your product range and factory pricing.'}`)}`}
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="btn-success-action btn-wa-direct"
                     >
                       <MessageSquare size={16} />
-                      <span>Send via WhatsApp (+880 1818-724417)</span>
+                      <span>Send via WhatsApp ({targetWhatsapp})</span>
                     </a>
 
                     <button 
@@ -291,12 +302,12 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
                   <div className="twin-card-top">
                     <div className="card-badge badge-blue">
                       <span className="pulse-dot dot-blue" />
-                      <span>ONLINE INQUIRY • QUICK ROUTING</span>
+                      <span>{rightCard.badge || 'ONLINE INQUIRY • QUICK ROUTING'}</span>
                     </div>
 
-                    <h3 className="twin-card-title">Send Us a Message</h3>
+                    <h3 className="twin-card-title">{rightCard.title || 'Send Us a Message'}</h3>
                     <p className="twin-card-desc">
-                      Fill in the details below and we will get back to you promptly with sample or price details.
+                      {rightCard.desc || 'Fill in the details below and we will get back to you promptly with sample or price details.'}
                     </p>
 
                     {status.error && (
@@ -388,14 +399,14 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
                         </>
                       ) : (
                         <>
-                          <span>Send Message</span>
+                          <span>{rightCard.buttonText || 'Send Message'}</span>
                           <Send size={16} className="btn-arrow" />
                         </>
                       )}
                     </button>
                     <div className="form-privacy-note">
                       <ShieldCheck size={14} className="privacy-shield" />
-                      <span>Direct connection. Your information is kept completely confidential.</span>
+                      <span>{rightCard.privacyNote || 'Direct connection. Your information is kept completely confidential.'}</span>
                     </div>
                   </div>
                 </form>
@@ -412,13 +423,13 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
         <div className="gmap-floating-card">
           <div className="gmap-card-header">
             <div className="gmap-title-area">
-              <h3 className="gmap-business-title">ZM PRINTING &amp; DESIGN LTD.</h3>
-              <p className="gmap-business-address">W7HG+7PM, SOUTH, Gazirchat 1349, Bangladesh</p>
+              <h3 className="gmap-business-title">{mapData.businessTitle || 'ZM PRINTING & DESIGN LTD.'}</h3>
+              <p className="gmap-business-address">{mapData.businessAddress || 'W7HG+7PM, SOUTH, Gazirchat 1349, Bangladesh'}</p>
             </div>
 
             <div className="gmap-header-actions">
               <a 
-                href="https://www.google.com/maps/search/?api=1&query=ZM+PRINTING+%26+DESIGN+LTD.,+South+Gazirchat,+Ashulia+1349,+Bangladesh"
+                href={mapData.mapSearchUrl || 'https://www.google.com/maps/search/?api=1&query=ZM+PRINTING+%26+DESIGN+LTD.,+South+Gazirchat,+Ashulia+1349,+Bangladesh'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="gmap-square-btn"
@@ -429,7 +440,7 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
               </a>
 
               <a 
-                href="https://www.google.com/maps/dir/?api=1&destination=ZM+PRINTING+%26+DESIGN+LTD.,+South+Gazirchat,+Ashulia+1349,+Bangladesh"
+                href={mapData.directionsUrl || 'https://www.google.com/maps/dir/?api=1&destination=ZM+PRINTING+%26+DESIGN+LTD.,+South+Gazirchat,+Ashulia+1349,+Bangladesh'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="gmap-directions-btn"
@@ -444,7 +455,7 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
           </div>
 
           <div className="gmap-rating-bar">
-            <span className="gmap-score-text">4.1</span>
+            <span className="gmap-score-text">{mapData.rating || '4.1'}</span>
             <div className="gmap-star-group">
               <Star size={13} fill="#fbbc04" stroke="#fbbc04" />
               <Star size={13} fill="#fbbc04" stroke="#fbbc04" />
@@ -453,12 +464,12 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
               <Star size={13} stroke="#fbbc04" fill="none" />
             </div>
             <a 
-              href="https://www.google.com/maps/search/?api=1&query=ZM+PRINTING+%26+DESIGN+LTD.,+South+Gazirchat,+Ashulia+1349,+Bangladesh" 
+              href={mapData.mapSearchUrl || 'https://www.google.com/maps/search/?api=1&query=ZM+PRINTING+%26+DESIGN+LTD.,+South+Gazirchat,+Ashulia+1349,+Bangladesh'} 
               target="_blank" 
               rel="noopener noreferrer"
               className="gmap-review-count"
             >
-              (7)
+              ({mapData.reviewsCount || '7'})
             </a>
             <span className="gmap-info-icon" title="Verified Google Business Profile">
               <Info size={13} />
@@ -467,7 +478,7 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
 
           <div className="gmap-card-bottom">
             <a 
-              href="https://www.google.com/maps/search/?api=1&query=ZM+PRINTING+%26+DESIGN+LTD.,+South+Gazirchat,+Ashulia+1349,+Bangladesh"
+              href={mapData.mapSearchUrl || 'https://www.google.com/maps/search/?api=1&query=ZM+PRINTING+%26+DESIGN+LTD.,+South+Gazirchat,+Ashulia+1349,+Bangladesh'}
               target="_blank"
               rel="noopener noreferrer"
               className="gmap-larger-link"
@@ -475,7 +486,7 @@ Sent via ZM Printing & Design Ltd. Official Website (zmprintingbd.com)`;
               <span>View larger map</span>
               <ExternalLink size={12} style={{ marginLeft: '4px' }} />
             </a>
-            <span className="gmap-verified-tag">Unit 01 Plant</span>
+            <span className="gmap-verified-tag">{mapData.plantTag || 'Unit 01 Plant'}</span>
           </div>
         </div>
 
