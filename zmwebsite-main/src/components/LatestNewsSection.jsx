@@ -97,9 +97,16 @@ export default function LatestNewsSection({ navigate }) {
   const sectionTitle = newsSectionData.title || "Latest News";
   const exploreCtaText = newsSectionData.ctaText || "EXPLORE ALL NEWS";
   const exploreCtaLink = newsSectionData.ctaLink || "/news";
-  const activeNewsItems = (siteContent?.news?.articles && siteContent.news.articles.length > 0)
-    ? siteContent.news.articles
-    : newsItems;
+  const activeNewsItems = (newsSectionData.articles && newsSectionData.articles.length > 0)
+    ? newsSectionData.articles
+    : ((siteContent?.news?.articles && siteContent.news.articles.length > 0)
+      ? siteContent.news.articles
+      : newsItems);
+
+  const activeGallery = (newsSectionData.galleryStrip && newsSectionData.galleryStrip.length > 0)
+    ? newsSectionData.galleryStrip
+    : galleryStripImages;
+  const activeDuplicatedGallery = [...activeGallery, ...activeGallery];
 
   // Close modal on Escape key press and prevent background page scroll
   useEffect(() => {
@@ -196,7 +203,7 @@ export default function LatestNewsSection({ navigate }) {
       {/* Edge-to-Edge Full-Width Image Gallery Strip directly below news cards (Continuous Silk Smooth Auto-Scroll) */}
       <div className="news-gallery-strip-wrapper" aria-label="Company Gallery Strip">
         <div className="news-gallery-strip-track">
-          {duplicatedGallery.map((img, idx) => (
+          {activeDuplicatedGallery.map((img, idx) => (
             <div key={`${img.id}-${idx}`} className="gallery-strip-item">
               <img
                 src={img.src}

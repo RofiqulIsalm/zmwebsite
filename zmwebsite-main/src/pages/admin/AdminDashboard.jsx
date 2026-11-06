@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import ImageUploader from './components/ImageUploader';
 import DoubleCheckModal from './components/DoubleCheckModal';
+import HomePageEditor from './components/HomePageEditor';
 import { useSiteContent } from '../../context/SiteContentContext';
 
 // Website Navigation Menus / Pages Hierarchy
@@ -627,73 +628,35 @@ export default function AdminDashboard({ user, onLogout, navigate }) {
                 ))}
               </div>
 
-              {/* VIEW 1: HOME PAGE SECTION FLOW */}
+              {/* VIEW 1: HOME PAGE SECTION FLOW (Comprehensive Visual Builder) */}
               {selectedPageMenu === 'home' && (
-                <div className="admin-page-flow-wrapper">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                    <div>
-                      <h3 style={{ margin: 0, color: '#fff' }}>Home Page (`/`) — Section Flow in Live Sequence</h3>
-                      <p style={{ margin: '4px 0 0', color: 'var(--admin-text-dim)', fontSize: '0.85rem' }}>
-                        Each section below corresponds line-by-line with your live Homepage. Toggle visibility or edit text and media.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="admin-section-flow-list">
-                    {homeSections.map((sec) => (
-                      <div 
-                        key={sec.key} 
-                        className={`admin-section-card ${!sec.isActive ? 'is-hidden' : ''}`}
-                      >
-                        <div className="admin-section-card-left">
-                          <div className="admin-section-order-num">{sec.order}</div>
-                          <div className="admin-section-info">
-                            <h4>
-                              <span>{sec.name}</span>
-                              <span className={`admin-status-pill ${sec.isActive ? 'is-active' : 'is-inactive'}`}>
-                                {sec.isActive ? 'Active (Live)' : 'Hidden'}
-                              </span>
-                            </h4>
-                            <p>{sec.desc}</p>
-                            {sec.sharedNote && (
-                              <div className="admin-shared-notice-card">
-                                <p>{sec.sharedNote}</p>
-                                <button
-                                  type="button"
-                                  className="admin-btn admin-btn-sm admin-btn-secondary"
-                                  onClick={() => setSelectedPageMenu(sec.jumpTo)}
-                                >
-                                  Go to {sec.jumpTo.toUpperCase()} Editor &rarr;
-                                </button>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-
-                        <div className="admin-section-actions">
-                          <button
-                            type="button"
-                            className="admin-btn admin-btn-sm admin-btn-primary"
-                            onClick={() => handleOpenSectionEditor(sec)}
-                          >
-                            <Edit2 size={14} />
-                            <span>Edit Text & Media</span>
-                          </button>
-
-                          <button
-                            type="button"
-                            className={`admin-btn admin-btn-sm ${sec.isActive ? 'admin-btn-secondary' : 'admin-btn-outline'}`}
-                            onClick={() => handleToggleSection(sec.page, sec.key, sec.isActive)}
-                            title={sec.isActive ? 'Hide this section from visitors' : 'Make this section visible to visitors'}
-                          >
-                            {sec.isActive ? <EyeOff size={14} /> : <Eye size={14} />}
-                            <span>{sec.isActive ? 'Hide' : 'Show'}</span>
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <HomePageEditor
+                  content={content}
+                  onSaveSection={async (pageKey, sectionKey, sectionContent) => {
+                    setLoading(true);
+                    try {
+                      const res = await fetch('/api/content.php?action=save_section', {
+                        method: 'POST',
+                        headers: getAuthHeader(),
+                        body: JSON.stringify({
+                          page_key: pageKey,
+                          section_key: sectionKey,
+                          content: sectionContent
+                        })
+                      });
+                      const data = await res.json();
+                      if (!res.ok || !data.success) throw new Error(data.error || 'Failed to save');
+                      await refreshContent();
+                      showToast(`Home Section '${sectionKey}' saved & published live!`);
+                    } catch (err) {
+                      showToast(err.message, 'error');
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
+                  onToggleSection={handleToggleSection}
+                  loading={loading}
+                />
               )}
 
               {/* VIEW 2: ABOUT PAGE SECTION FLOW */}

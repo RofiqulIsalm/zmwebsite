@@ -305,7 +305,238 @@ export const websiteContent = {
         { id: 3, target: 10, symbol: "+", label: "Global Locations" },
         { id: 4, target: 100, symbol: "K+", label: "Products Produced Daily" }
       ]
-    }
+    },
+    commitment: {
+      "_isActive": true,
+      "heading": "ZM Printing & Design Ltd. \nCommitment",
+      "items": [
+            {
+                  "id": 1,
+                  "target": 100,
+                  "title": "Product Quality",
+                  "subtitle": "Protection"
+            },
+            {
+                  "id": 2,
+                  "target": 100,
+                  "title": "On-Time Delivery",
+                  "subtitle": "Protection"
+            },
+            {
+                  "id": 3,
+                  "target": 100,
+                  "title": "Payment",
+                  "subtitle": "Protection"
+            }
+      ]
+},
+
+    productsShowcase: {
+      "_isActive": true,
+      "title": "Products.",
+      "ctaText": "EXPLORE ALL PRODUCTS",
+      "ctaLink": "/products",
+      "badgeText": "All Items 8",
+      "items": [
+            {
+                  "id": "screen-printing",
+                  "title": "SCREEN PRINTING",
+                  "category": "SCREEN PRINTING",
+                  "image": "/images/home/card-screen-printing.jpg",
+                  "sectionSlug": "screen-printing",
+                  "link": "/section/screen-printing"
+            },
+            {
+                  "id": "sublimation-printing",
+                  "title": "SUBLIMATION PRINTING",
+                  "category": "SUBLIMATION PRINTING",
+                  "image": "/images/home/card-sublimation.jpg",
+                  "sectionSlug": "sublimation",
+                  "link": "/section/sublimation"
+            },
+            {
+                  "id": "dtf-sticker",
+                  "title": "DTF STICKER",
+                  "category": "DTF STICKER",
+                  "image": "/images/home/card-dtf-sticker.jpg",
+                  "sectionSlug": "dtf-section",
+                  "link": "/section/dtf-section"
+            },
+            {
+                  "id": "uv-printing",
+                  "title": "UV PRINTING",
+                  "category": "UV PRINTING",
+                  "image": "/images/home/card-uv-printing.jpg",
+                  "sectionSlug": "uv-digital",
+                  "link": "/section/uv-digital"
+            },
+            {
+                  "id": "vinyl-sticker",
+                  "title": "VINYL STICKER",
+                  "category": "VINYL STICKER",
+                  "image": "/images/home/card-vinyl-sticker.jpg",
+                  "sectionSlug": "heat-transfer",
+                  "link": "/section/heat-transfer"
+            },
+            {
+                  "id": "silicon-transfer",
+                  "title": "SILICON TRANSFER",
+                  "category": "SILICON TRANSFER",
+                  "image": "/images/home/card-silicon-transfer.jpg",
+                  "sectionSlug": "silicon-floor",
+                  "link": "/section/silicon-floor"
+            },
+            {
+                  "id": "silicon-badge",
+                  "title": "SILICON BADGE",
+                  "category": "SILICON BADGE",
+                  "image": "/images/home/card-silicon-badge.jpg",
+                  "sectionSlug": "silicon-floor",
+                  "link": "/section/silicon-floor"
+            },
+            {
+                  "id": "pvc-badge",
+                  "title": "PVC BADGE",
+                  "category": "PVC BADGE",
+                  "image": "/images/home/card-pvc-badge.jpg",
+                  "sectionSlug": "sonic-welding",
+                  "link": "/section/sonic-welding"
+            }
+      ]
+},
+
+    certificationsBanner: {
+      "_isActive": true,
+      "title": "OUR CERTIFICATIONS.",
+      "bgImage": "",
+      "badges": [
+            {
+                  "id": "sedex",
+                  "name": "SEDEX",
+                  "image": "/images/certifications/sedex-certification-service-500x500.png",
+                  "label": "Sedex Members Ethical Trade Audit (SMETA)",
+                  "desc": "Quality Management Systems Standard"
+            },
+            {
+                  "id": "bpamea",
+                  "name": "BPAMEA",
+                  "image": "/images/certifications/BPAMEA.png",
+                  "label": "Certified ISO 14001:2015 Company",
+                  "desc": "Environmental Management Systems Standard"
+            },
+            {
+                  "id": "oeko-tex",
+                  "name": "OEKO-TEX® STANDARD 100",
+                  "image": "/images/certifications/OEKO TEX STANDER.png",
+                  "label": "OEKO-TEX® Confidence in Textiles",
+                  "desc": "Tested for Harmful Substances & Clean Chemistry"
+            },
+            {
+                  "id": "bsci",
+                  "name": "amfori BSCI",
+                  "image": "/images/certifications/BSCI.png",
+                  "label": "amfori BSCI Trade with Purpose",
+                  "desc": "Social Compliance & Ethical Supply Chain Audit"
+            }
+      ]
+},
+
+    clientLogos: {
+      "_isActive": true,
+      "title": "Our Clients",
+      "badge": "Trusted Partnerships",
+      "subtitle": "Serving the highest standards of international retail brands with consistency, reliability, and certified compliance."
+},
+
+    latestNews: {
+      "_isActive": true,
+      "title": "Latest News",
+      "ctaText": "EXPLORE ALL NEWS",
+      "ctaLink": "/news",
+      "articles": [
+            {
+                  "id": "leed-platinum",
+                  "title": "ZM Printing & Design Ltd. Participates in Getexpo and Achieves Prestigious LEED Platinum Certification",
+                  "image": "/assets/images/0Y3A8898.webp",
+                  "category": "Achievement & Ecology",
+                  "date": "January 2026",
+                  "link": "/news/zm-printing-achieved-leed-platinum-certificate"
+            },
+            {
+                  "id": "expands-production",
+                  "title": "ZM Printing & Design Ltd. Expands Production to Meet Global Demand",
+                  "image": "/images/news/0Y3A8848.webp",
+                  "category": "Corporate Growth",
+                  "date": "January 2026",
+                  "link": "/news/zm-printing-expands-production-meet-global-demand"
+            },
+            {
+                  "id": "gapexpo-award",
+                  "title": "ZM Printing won the \"1st Prize for the best stall of GAPEXPO\"",
+                  "image": "/images/news/0Y3A8684.webp",
+                  "category": "Industry Award",
+                  "date": "December 2025",
+                  "link": "/news/zm-printing-won-1st-prize-gapexpo"
+            }
+      ],
+      "galleryStrip": [
+            {
+                  "id": 1,
+                  "src": "/images/run_news_image/0Y3A8333.jpg",
+                  "alt": "ZM Printing Exhibition Showcase"
+            },
+            {
+                  "id": 2,
+                  "src": "/images/run_news_image/_Y3A8416.jpg",
+                  "alt": "ZM Printing Expo Display & Products"
+            },
+            {
+                  "id": 3,
+                  "src": "/images/run_news_image/0Y3A8586.jpg",
+                  "alt": "ZM Printing Stall Presentation"
+            },
+            {
+                  "id": 4,
+                  "src": "/images/run_news_image/0Y3A8631.jpg",
+                  "alt": "ZM Printing Client Interaction & Trims"
+            },
+            {
+                  "id": 5,
+                  "src": "/images/run_news_image/0Y3A8674.jpg",
+                  "alt": "ZM Printing Exhibition Delegation"
+            },
+            {
+                  "id": 6,
+                  "src": "/images/run_news_image/0Y3A8679.jpg",
+                  "alt": "ZM Printing Business Opportunities Meeting"
+            },
+            {
+                  "id": 7,
+                  "src": "/images/run_news_image/0Y3A8697.jpg",
+                  "alt": "ZM Printing Event Highlights"
+            },
+            {
+                  "id": 8,
+                  "src": "/images/run_news_image/0Y3A8819.jpg",
+                  "alt": "ZM Printing Team & Accessories Exhibition"
+            },
+            {
+                  "id": 9,
+                  "src": "/images/run_news_image/0Y3A8848.jpg",
+                  "alt": "ZM Printing Advanced Production & Machinery"
+            },
+            {
+                  "id": 10,
+                  "src": "/images/run_news_image/0Y3A8867.jpg",
+                  "alt": "ZM Printing International Buyer Meet"
+            },
+            {
+                  "id": 11,
+                  "src": "/images/run_news_image/0Y3A8889.jpg",
+                  "alt": "ZM Printing Innovation & Quality Trims"
+            }
+      ]
+}
   },
 
   // ============================================================================

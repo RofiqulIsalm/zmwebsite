@@ -101,6 +101,9 @@ export default function OurCertificationsBanner({ navigate }) {
     return null;
   }
 
+  const activeBadges = (certData.badges && certData.badges.length > 0) ? certData.badges : certBadges;
+  const activeDuplicatedBadges = [...activeBadges, ...activeBadges, ...activeBadges];
+
   const handleBadgeClick = () => {
     if (navigate) {
       navigate('/certifications');
@@ -111,18 +114,22 @@ export default function OurCertificationsBanner({ navigate }) {
   return (
     <section className="our-certifications-full-section" aria-label="Our Certifications and Standards">
       {/* 100% Full Photo Background Covering Entire Section */}
-      <div className="section-full-bg-image" aria-hidden="true" />
+      <div 
+        className="section-full-bg-image" 
+        style={certData.bgImage ? { backgroundImage: `url(${certData.bgImage})` } : {}} 
+        aria-hidden="true" 
+      />
       <div className="section-bg-overlay" aria-hidden="true" />
 
       <div className="container relative-z">
         {/* Emerald Green Central Card Matching Reference Image */}
         <div className="certifications-card" data-reveal="scale">
-          <h2 className="certifications-title">OUR CERTIFICATIONS.</h2>
+          <h2 className="certifications-title">{certData.title || "OUR CERTIFICATIONS."}</h2>
 
           {/* Smooth Continuous Auto-Sliding Marquee Track */}
           <div className="certifications-slider-viewport">
             <div className="certifications-marquee-track">
-              {duplicatedBadges.map((cert, index) => (
+              {activeDuplicatedBadges.map((cert, index) => (
                 <div
                   key={`${cert.id}-${index}`}
                   className="cert-badge-tile"

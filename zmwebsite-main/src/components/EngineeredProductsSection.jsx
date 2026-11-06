@@ -119,13 +119,18 @@ export default function EngineeredProductsSection({ navigate }) {
     return () => observer.disconnect();
   }, []);
 
+  const rawItems = (showcaseData.items && showcaseData.items.length > 0) ? showcaseData.items : showcaseItems;
   const filteredItems = activeFilter === 'all'
-    ? showcaseItems
-    : showcaseItems.filter(item => item.group === activeFilter);
+    ? rawItems
+    : rawItems.filter(item => (item.group || item.category) === activeFilter);
 
-  const handleCardClick = (sectionSlug, e) => {
+  const handleCardClick = (target, e) => {
     if (e) e.preventDefault();
-    navigate(`/section/${sectionSlug}`);
+    if (typeof target === 'string' && target.startsWith('/')) {
+      navigate(target);
+    } else {
+      navigate(`/section/${target}`);
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -173,7 +178,7 @@ export default function EngineeredProductsSection({ navigate }) {
               aria-selected={activeFilter === 'all'}
             >
               <span>All Items</span>
-              <span className="filter-badge">8</span>
+              <span className="filter-badge">{showcaseData.badgeText ? showcaseData.badgeText.replace('All Items', '').trim() : filteredItems.length}</span>
             </button>
 
           </div>
