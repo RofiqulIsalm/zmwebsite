@@ -23,9 +23,15 @@ import {
   Utensils
 } from 'lucide-react';
 import { factorySectionsData } from '../data/factorySections';
+import { useSiteContent } from '../context/SiteContentContext';
 import './SectionPage.css';
 
 export default function SectionPage({ navigate, searchParams }) {
+  const { content } = useSiteContent();
+  const hero = content?.sectionPage?.hero;
+  const rawSections = content?.sections || factorySectionsData;
+  const sectionsList = Array.isArray(rawSections) ? rawSections : Object.values(rawSections);
+
   const getCategoryFromFilter = (filter) => {
     if (!filter) return 'all';
     if (['printing', 'sublimation', 'dtf', 'uv', 'dtg'].includes(filter)) return 'screen-digital';
@@ -39,14 +45,14 @@ export default function SectionPage({ navigate, searchParams }) {
     return getCategoryFromFilter(searchParams?.get('filter'));
   });
 
-  const pdfUrl = '/assets/docs/ZM_Printing_Factory_Profile.pdf';
+  const pdfUrl = hero?.pdfUrl || '/assets/docs/ZM_Printing_Factory_Profile.pdf';
 
   const sectionCategories = [
-    { id: 'all', label: 'All Sections', count: 16 },
-    { id: 'screen-digital', label: 'Screen & Digital Printing', count: 5 },
-    { id: 'silicon-sonic', label: 'Silicone & Sonic Welds', count: 4 },
-    { id: 'technical', label: 'Pre-Press & Technical Labs', count: 4 },
-    { id: 'welfare', label: 'Worker Welfare & Health', count: 3 }
+    { id: 'all', label: 'All Sections' },
+    { id: 'screen-digital', label: 'Screen & Digital Printing' },
+    { id: 'silicon-sonic', label: 'Silicone & Sonic Welds' },
+    { id: 'technical', label: 'Pre-Press & Technical Labs' },
+    { id: 'welfare', label: 'Worker Welfare & Health' }
   ];
 
   // Auto-filter and smooth-scroll if arrived with query param from navbar
@@ -70,8 +76,8 @@ export default function SectionPage({ navigate, searchParams }) {
 
   // Filter sections based on active category
   const filteredSections = activeCategory === 'all'
-    ? factorySectionsData
-    : factorySectionsData.filter(s => s.category === activeCategory);
+    ? sectionsList
+    : sectionsList.filter(s => s.category === activeCategory);
 
   const handleNavClick = (path, e) => {
     e.preventDefault();
@@ -113,17 +119,16 @@ export default function SectionPage({ navigate, searchParams }) {
           
           <div className="section-hero-badge" data-reveal="fade-down">
             <span className="pulse-indicator"></span>
-            <span>✦ ASHULIA COMPLEX • 30,000 SQFT PLANT INFRASTRUCTURE</span>
+            <span>{hero?.badge || '✦ ASHULIA COMPLEX • 30,000 SQFT PLANT INFRASTRUCTURE'}</span>
           </div>
 
           <h1 className="section-page-title" data-reveal="fade-up">
-            Factory Sections &amp; Production Floors <br />
-            <span className="text-emerald-glow">Technical Department Directory</span>
+            {hero?.titleLine1 || 'Factory Sections & Production Floors'} <br />
+            <span className="text-emerald-glow">{hero?.titleLine2 || 'Technical Department Directory'}</span>
           </h1>
 
           <p className="section-page-subtitle" data-reveal="fade-up">
-            Official architectural directory of our export-standard manufacturing facilities, digital printing wings, 
-            chemical labs, and social compliance amenities in South Gazirchat, Ashulia.
+            {hero?.subtitle || 'Official architectural directory of our export-standard manufacturing facilities, digital printing wings, chemical labs, and social compliance amenities in South Gazirchat, Ashulia.'}
           </p>
 
           <div className="section-hero-actions" data-reveal="fade-up">
@@ -133,14 +138,14 @@ export default function SectionPage({ navigate, searchParams }) {
               className="btn btn-primary"
             >
               <Download size={16} />
-              <span>Download Factory Profile (PDF)</span>
+              <span>{hero?.pdfButtonText || 'Download Factory Profile (PDF)'}</span>
             </a>
             <a 
               href="/contact" 
               onClick={(e) => handleNavClick('/contact', e)}
               className="btn btn-secondary"
             >
-              <span>Schedule Plant Inspection</span>
+              <span>{hero?.contactButtonText || 'Schedule Plant Inspection'}</span>
               <ArrowRight size={16} />
             </a>
           </div>
@@ -152,8 +157,8 @@ export default function SectionPage({ navigate, searchParams }) {
                 <Building2 size={22} />
               </div>
               <div className="metric-text-group">
-                <span className="metric-big-num">30,000 SQFT</span>
-                <span className="metric-label-txt">Total Facility Footprint</span>
+                <span className="metric-big-num">{hero?.stats?.[0]?.val || '30,000 SQFT'}</span>
+                <span className="metric-label-txt">{hero?.stats?.[0]?.label || 'Total Facility Footprint'}</span>
               </div>
             </div>
 
@@ -162,8 +167,8 @@ export default function SectionPage({ navigate, searchParams }) {
                 <Factory size={22} />
               </div>
               <div className="metric-text-group">
-                <span className="metric-big-num">04 Floors</span>
-                <span className="metric-label-txt">Specialized Production Levels</span>
+                <span className="metric-big-num">{hero?.stats?.[1]?.val || '04 Floors'}</span>
+                <span className="metric-label-txt">{hero?.stats?.[1]?.label || 'Specialized Production Levels'}</span>
               </div>
             </div>
 
@@ -172,8 +177,8 @@ export default function SectionPage({ navigate, searchParams }) {
                 <Cpu size={22} />
               </div>
               <div className="metric-text-group">
-                <span className="metric-big-num">2.33M+ Pcs</span>
-                <span className="metric-label-txt">Combined Monthly Capacity</span>
+                <span className="metric-big-num">{hero?.stats?.[2]?.val || '2.33M+ Pcs'}</span>
+                <span className="metric-label-txt">{hero?.stats?.[2]?.label || 'Combined Monthly Capacity'}</span>
               </div>
             </div>
 
@@ -182,8 +187,8 @@ export default function SectionPage({ navigate, searchParams }) {
                 <ShieldCheck size={22} />
               </div>
               <div className="metric-text-group">
-                <span className="metric-big-num">300 Workforce</span>
-                <span className="metric-label-txt">170 Female / 130 Male Specialists</span>
+                <span className="metric-big-num">{hero?.stats?.[3]?.val || '300 Workforce'}</span>
+                <span className="metric-label-txt">{hero?.stats?.[3]?.label || '170 Female / 130 Male Specialists'}</span>
               </div>
             </div>
           </div>
@@ -205,8 +210,8 @@ export default function SectionPage({ navigate, searchParams }) {
                 <span>{cat.label}</span>
                 <span className="tab-count-pill">
                   {cat.id === 'all'
-                    ? factorySectionsData.length
-                    : factorySectionsData.filter(s => s.category === cat.id).length}
+                    ? sectionsList.length
+                    : sectionsList.filter(s => s.category === cat.id).length}
                 </span>
               </button>
             ))}

@@ -9,11 +9,16 @@ import {
   Download
 } from 'lucide-react';
 import { factorySectionsData } from '../data/factorySections';
+import { useSiteContent } from '../context/SiteContentContext';
 import './SectionDetailPage.css';
 
 export default function SectionDetailPage({ slug, navigate }) {
+  const { content } = useSiteContent();
+  const rawSections = content?.sections || factorySectionsData;
+  const sectionsList = Array.isArray(rawSections) ? rawSections : Object.values(rawSections);
+
   // Find current section data by slug
-  const section = factorySectionsData.find(s => s.slug === slug) || factorySectionsData[0];
+  const section = sectionsList.find(s => s.slug === slug) || sectionsList[0];
 
   // Scroll to top on mount or when slug changes
   useEffect(() => {
@@ -21,7 +26,7 @@ export default function SectionDetailPage({ slug, navigate }) {
   }, [slug]);
 
   // Other sections to explore (excluding current)
-  const otherSections = factorySectionsData.filter(s => s.slug !== section.slug);
+  const otherSections = sectionsList.filter(s => s.slug !== section.slug);
 
   const handleNavClick = (path, e) => {
     e.preventDefault();
@@ -31,7 +36,7 @@ export default function SectionDetailPage({ slug, navigate }) {
     }
   };
 
-  const pdfUrl = '/assets/docs/ZM_Printing_Factory_Profile.pdf';
+  const pdfUrl = content?.sectionPage?.hero?.pdfUrl || '/assets/docs/ZM_Printing_Factory_Profile.pdf';
 
   return (
     <div className="section-detail-page">
@@ -131,44 +136,48 @@ export default function SectionDetailPage({ slug, navigate }) {
             <p className="overview-text">{section.detailedOverview}</p>
 
             {/* Quick Key Specs List */}
-            <div className="specs-pill-grid">
-              {section.specs.map((sp, idx) => (
-                <div key={idx} className="spec-pill-item">
-                  <span className="spec-pill-label">{sp.label}</span>
-                  <strong className="spec-pill-val">{sp.val}</strong>
-                </div>
-              ))}
-            </div>
+            {section.specs && section.specs.length > 0 && (
+              <div className="specs-pill-grid">
+                {section.specs.map((sp, idx) => (
+                  <div key={idx} className="spec-pill-item">
+                    <span className="spec-pill-label">{sp.label}</span>
+                    <strong className="spec-pill-val">{sp.val}</strong>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
 
       {/* 4. The Work We Do in This Section (Capabilities & Items) */}
-      <section className="section-detail-workcraft-section">
-        <div className="container">
-          <div className="workcraft-section-header">
-            <span className="sub-badge">Production Capabilities &amp; Workcraft</span>
-            <h2 className="section-block-title">The Work We Do in This Section</h2>
-            <p className="section-block-sub">
-              Detailed breakdown of print techniques, finishes, and apparel trims processed inside our {section.floorName}.
-            </p>
-          </div>
+      {section.workcraftItems && section.workcraftItems.length > 0 && (
+        <section className="section-detail-workcraft-section">
+          <div className="container">
+            <div className="workcraft-section-header">
+              <span className="sub-badge">Production Capabilities &amp; Workcraft</span>
+              <h2 className="section-block-title">The Work We Do in This Section</h2>
+              <p className="section-block-sub">
+                Detailed breakdown of print techniques, finishes, and apparel trims processed inside our {section.floorName}.
+              </p>
+            </div>
 
-          <div className="workcraft-items-grid">
-            {section.workcraftItems.map((item, idx) => (
-              <div key={idx} className="workcraft-item-card">
-                <div className="workcraft-item-header">
-                  <div className="check-icon-circle">
-                    <CheckCircle2 size={16} />
+            <div className="workcraft-items-grid">
+              {section.workcraftItems.map((item, idx) => (
+                <div key={idx} className="workcraft-item-card">
+                  <div className="workcraft-item-header">
+                    <div className="check-icon-circle">
+                      <CheckCircle2 size={16} />
+                    </div>
+                    <h4 className="workcraft-item-title">{item.name}</h4>
                   </div>
-                  <h4 className="workcraft-item-title">{item.name}</h4>
+                  <p className="workcraft-item-desc">{item.desc}</p>
                 </div>
-                <p className="workcraft-item-desc">{item.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 5. Machinery & Equipment Inventory (From Official Dossier) */}
       {section.machineryDetails && section.machineryDetails.length > 0 && (

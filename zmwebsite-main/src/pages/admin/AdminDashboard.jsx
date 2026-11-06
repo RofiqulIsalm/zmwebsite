@@ -14,6 +14,7 @@ import ClientsPageEditor from './components/ClientsPageEditor';
 import GalleryPageEditor from './components/GalleryPageEditor';
 import ProfilePageEditor from './components/ProfilePageEditor';
 import ContactPageEditor from './components/ContactPageEditor';
+import SectionPageEditor from './components/SectionPageEditor';
 import { useSiteContent } from '../../context/SiteContentContext';
 
 // Website Navigation Menus / Pages Hierarchy
@@ -750,31 +751,30 @@ export default function AdminDashboard({ user, onLogout, navigate }) {
                 />
               )}
 
-              {/* VIEW 5: SECTION (FACTORY FLOORS) */}
+              {/* VIEW: SECTION (FACTORY FLOORS & DIRECTORY VISUAL BUILDER) */}
               {selectedPageMenu === 'sections' && (
-                <div className="admin-page-flow-wrapper">
-                  <div className="admin-card">
-                    <h3>Factory Production Floors (`/section`)</h3>
-                    <p style={{ color: 'var(--admin-text-dim)', fontSize: '0.85rem' }}>
-                      All 16 production units and labs are configured and active.
-                    </p>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginTop: '16px' }}>
-                      {[
-                        { title: 'Silk Screen Printing Floor', desc: '534-ft printing tables & continuous curing' },
-                        { title: 'Sublimation & DTF Floor', desc: 'Industrial continuous roller sublimation press' },
-                        { title: 'Silicon Badge & 3D Molding Floor', desc: 'High-temperature curing & liquid silicone molding' },
-                        { title: 'High-Frequency Sonic Welding Floor', desc: 'Ultrasonic RF sonic welding & heat press' },
-                        { title: 'Automated Oval Screen Line', desc: 'High-speed multicolor automatic screen press' },
-                        { title: 'Computerized Color Lab', desc: 'Automated Pantone formulation & spectrophotometer' }
-                      ].map((f, idx) => (
-                        <div key={idx} style={{ background: '#09130c', padding: '16px', borderRadius: '10px', border: '1px solid var(--admin-border)' }}>
-                          <h4 style={{ margin: '0 0 4px', color: '#fff' }}>{f.title}</h4>
-                          <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--admin-text-dim)' }}>{f.desc}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                <SectionPageEditor
+                  content={content}
+                  onSaveSection={async (pageKey, sectionKey, sectionContent) => {
+                    setLoading(true);
+                    try {
+                      const res = await fetch('/api/content.php?action=save_section', {
+                        method: 'POST',
+                        headers: getAuthHeader(),
+                        body: JSON.stringify({ page_key: pageKey, section_key: sectionKey, content: sectionContent })
+                      });
+                      const data = await res.json();
+                      if (!res.ok || !data.success) throw new Error(data.error || 'Failed to save');
+                      await refreshContent();
+                      showToast(`Section '${sectionKey}' saved & published live!`);
+                    } catch (err) {
+                      showToast(err.message, 'error');
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
+                  loading={loading}
+                />
               )}
 
               {/* VIEW 5: GALLERY (Comprehensive Visual Builder) */}

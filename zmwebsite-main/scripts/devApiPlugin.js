@@ -153,6 +153,27 @@ export function devApiPlugin() {
 
           if (action === 'save_section') {
             const { page_key, section_key, content } = body;
+            
+            // Special handling for Factory Sections array
+            if (page_key === 'sections') {
+              if (section_key === 'items' && Array.isArray(content)) {
+                currentContent.sections = content;
+              } else if (Array.isArray(currentContent.sections)) {
+                const targetSlug = content?.slug || section_key;
+                const idx = currentContent.sections.findIndex(s => s.slug === targetSlug);
+                if (idx !== -1) {
+                  currentContent.sections[idx] = { ...currentContent.sections[idx], ...content };
+                } else {
+                  currentContent.sections.push(content);
+                }
+              } else {
+                currentContent.sections = [content];
+              }
+              writeContent(currentContent);
+              return res.end(JSON.stringify({ success: true, message: `Floor section '${section_key}' saved to content.json.` }));
+            }
+
+            // Normal page sections
             if (!currentContent[page_key]) currentContent[page_key] = {};
             if (Array.isArray(content)) {
               currentContent[page_key][section_key] = content;

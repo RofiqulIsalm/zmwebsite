@@ -46,6 +46,31 @@ function publish_content_json() {
         if (!empty($s['title'])) $cData['title'] = $s['title'];
         if (!empty($s['subtitle'])) $cData['subtitle'] = $s['subtitle'];
         
+        // Special handling for Factory Sections array
+        if ($pKey === 'sections') {
+            if ($sKey === 'items' && is_array($cData)) {
+                $masterContent['sections'] = $cData;
+                continue;
+            }
+            if (isset($masterContent['sections']) && is_array($masterContent['sections'])) {
+                $targetSlug = $cData['slug'] ?? $sKey;
+                $found = false;
+                foreach ($masterContent['sections'] as $idx => $floor) {
+                    if (is_array($floor) && isset($floor['slug']) && $floor['slug'] === $targetSlug) {
+                        $masterContent['sections'][$idx] = array_merge($floor, $cData);
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found) {
+                    $masterContent['sections'][] = $cData;
+                }
+            } else {
+                $masterContent['sections'] = [$cData];
+            }
+            continue;
+        }
+        
         if (!isset($masterContent[$pKey])) {
             $masterContent[$pKey] = [];
         }

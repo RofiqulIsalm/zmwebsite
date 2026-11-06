@@ -5822,5 +5822,38 @@
       "buttonSecondaryLink": "/assets/docs/ZM_Printing_Factory_Profile.pdf",
       "address": "Ariarar Mor, South Gazirchat, Ashulia, Savar, Dhaka-1349, Bangladesh"
     }
+  },
+  "sectionPage": {
+    "hero": {
+      "badge": "✦ ASHULIA COMPLEX • 30,000 SQFT PLANT INFRASTRUCTURE",
+      "titleLine1": "Factory Sections & Production Floors",
+      "titleLine2": "Technical Department Directory",
+      "subtitle": "Official architectural directory of our export-standard manufacturing facilities, digital printing wings, chemical labs, and social compliance amenities in South Gazirchat, Ashulia.",
+      "pdfUrl": "/assets/docs/ZM_Printing_Factory_Profile.pdf",
+      "pdfButtonText": "Download Factory Profile (PDF)",
+      "contactButtonText": "Schedule Plant Inspection",
+      "stats": [
+        {
+          "icon": "Building2",
+          "val": "30,000 SQFT",
+          "label": "Total Facility Footprint"
+        },
+        {
+          "icon": "Factory",
+          "val": "04 Floors",
+          "label": "Specialized Production Levels"
+        },
+        {
+          "icon": "Cpu",
+          "val": "2.33M+ Pcs",
+          "label": "Combined Monthly Capacity"
+        },
+        {
+          "icon": "ShieldCheck",
+          "val": "300 Workforce",
+          "label": "170 Female / 130 Male Specialists"
+        }
+      ]
+    }
   }
 }
