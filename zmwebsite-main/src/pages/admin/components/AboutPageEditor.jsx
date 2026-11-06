@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Save, Eye, EyeOff, Plus, Trash2, Image as ImageIcon,
-  ExternalLink, Sparkles, RefreshCw, Award, Users, Factory,
-  ShieldCheck, Quote, Clock, Building, HeartHandshake,
-  CheckCircle2, AlertCircle, FileText, ChevronRight
+  Save, Eye, EyeOff, Plus, Trash2,
+  ExternalLink, Sparkles, Award, Users, Factory,
+  ShieldCheck, HeartHandshake, CheckCircle2,
+  Building, Recycle, FileText
 } from 'lucide-react';
 import ImageUploader from './ImageUploader';
 
 const ABOUT_SECTIONS_TABS = [
-  { id: 'aboutHero', num: '01', icon: '🏛️', title: 'Hero & Credentials', subtitle: 'Title, Story, Spec Card & 4 Stats' },
-  { id: 'mdMessage', num: '02', icon: '👔', title: 'MD Leadership Vision', subtitle: 'Photo, Speech, Quote & Signature' },
-  { id: 'milestones', num: '03', icon: '⏳', title: 'Milestones Timeline', subtitle: '2013-2026 Inception to Now' },
+  { id: 'aboutHero', num: '01', icon: '🏛️', title: 'Hero & Counters', subtitle: 'Headline, Story & 4 Stats' },
+  { id: 'mdMessage', num: '02', icon: '👔', title: 'MD Leadership', subtitle: 'Photo, Speech, Quote & Signature' },
+  { id: 'milestones', num: '03', icon: '⏳', title: 'Milestones', subtitle: '2013-2026 Timeline Inception' },
   { id: 'missionValues', num: '04', icon: '🌱', title: 'Mission & Values', subtitle: 'Mission, Vision & Green Chemistry' },
   { id: 'facilityPhotos', num: '05', icon: '🏭', title: 'Factory Tour Photos', subtitle: '12-Photo Facility Mosaic' },
-  { id: 'leadershipTree', num: '06', icon: '👥', title: 'Executive Team Tree', subtitle: 'MD, Chairman, Directors & GM' },
-  { id: 'workerWelfare', num: '07', icon: '🩺', title: 'Workforce Welfare', subtitle: '4 Bento Photos & 4 Welfare Pillars' },
-  { id: 'companyRules', num: '08', icon: '📜', title: 'Code of Conduct', subtitle: '4 Operational Rules & Audits' },
-  { id: 'clientLogos', num: '09', icon: '🤝', title: 'Clients Marquee', subtitle: 'Approved Global Brands Marquee' },
+  { id: 'leadershipTree', num: '06', icon: '👥', title: 'Executive Team', subtitle: 'MD, Chairman, Directors & GM' },
+  { id: 'workerWelfare', num: '07', icon: '🩺', title: 'Workforce Welfare', subtitle: '4 Bento Photos & 4 Pillars' },
+  { id: 'companyRules', num: '08', icon: '📜', title: 'Code of Conduct', subtitle: '4 Operational Rules' },
+  { id: 'clientLogos', num: '09', icon: '🤝', title: 'Clients Marquee', subtitle: 'Brand Partners Marquee' },
   { id: 'ctaBanner', num: '10', icon: '🎯', title: 'Factory Visit CTA', subtitle: 'VIP Factory Tour Banner' }
 ];
 
-export default function AboutPageEditor({ content, onSaveSection, onToggleSection, loading }) {
-  const [activeTab, setActiveTab] = useState('aboutHero');
+export default function AboutPageEditor({ content, onSaveSection, loading }) {
+  const [activeTab, setActiveTab] = useState('workerWelfare'); // Default to what user is editing
 
-  // Form states for each section
+  // Form states for all 10 sections
   const [heroForm, setHeroForm] = useState(content?.about?.aboutHero || {});
   const [mdForm, setMdForm] = useState(content?.about?.mdMessage || {});
   const [milestonesForm, setMilestonesForm] = useState(content?.about?.milestones || {});
@@ -35,7 +35,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
   const [clientsForm, setClientsForm] = useState(content?.about?.clientLogos || {});
   const [ctaForm, setCtaForm] = useState(content?.about?.ctaBanner || {});
 
-  // Sync when content changes
+  // Keep state in sync with content updates
   useEffect(() => {
     if (content?.about?.aboutHero) setHeroForm(JSON.parse(JSON.stringify(content.about.aboutHero)));
     if (content?.about?.mdMessage) setMdForm(JSON.parse(JSON.stringify(content.about.mdMessage)));
@@ -60,11 +60,11 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
         <div className="builder-header-left">
           <div className="builder-badge">
             <Sparkles size={14} color="#4ade80" />
-            <span>ABOUT US VISUAL BUILDER</span>
+            <span>VISUAL ABOUT PAGE BUILDER</span>
           </div>
-          <h2>About Page Management Hub</h2>
+          <h2>About Us Management Hub</h2>
           <p>
-            Configure every story, leadership profile, timeline milestone, factory photo, worker welfare pillar, and operational rule across all 10 sections of the live About Us page.
+            Easily update and replace all texts, leadership photos, factory mosaic images, bento welfare photos, and operational rules across your entire About page.
           </p>
         </div>
 
@@ -76,7 +76,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
             className="admin-btn admin-btn-outline preview-live-btn"
           >
             <ExternalLink size={15} />
-            <span>Preview Live /about</span>
+            <span>Preview Live Site</span>
           </a>
         </div>
       </div>
@@ -109,24 +109,24 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                 <span className="tab-title">{tab.title}</span>
                 <span className="tab-sub">{tab.subtitle}</span>
               </div>
-              <span className={`tab-status-dot ${isSectionActive ? 'dot-active' : 'dot-hidden'}`} title={isSectionActive ? 'Visible on Live Site' : 'Hidden on Live Site'} />
+              <span className={`tab-status-dot ${isSectionActive ? 'dot-active' : 'dot-hidden'}`} />
             </button>
           );
         })}
       </div>
 
-      {/* 3. TAB PANELS */}
+      {/* 3. TAB BODIES */}
       <div className="home-builder-body">
 
         {/* ========================================================================= */}
-        {/* TAB 01: HERO & CREDENTIALS & 4 STATS                                     */}
+        {/* TAB 01: HERO BANNER & 4 STATS                                             */}
         {/* ========================================================================= */}
         {activeTab === 'aboutHero' && (
           <div className="builder-panel">
             <div className="panel-header-actions">
               <div className="panel-title-wrap">
-                <h3>01. Hero Banner, Production Credentials & 4 Highlight Counters</h3>
-                <p>Edit the main corporate heritage intro, the right-side operational spec card, and the 4 key operational statistics.</p>
+                <h3>01. Hero Banner, Story & 4 Highlight Counters</h3>
+                <p>Edit the corporate profile headline, story text, button labels, and 4 animated stats.</p>
               </div>
               <div className="panel-btn-group">
                 <button
@@ -154,9 +154,9 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
             </div>
 
             <div className="builder-grid-2col">
-              {/* Left Column: Headline, Story, Buttons */}
+              {/* Left Column: Headline & Story */}
               <div className="builder-subcard">
-                <h4>Left Column: Story & Call To Actions</h4>
+                <h4>Company Heritage Story & Buttons</h4>
                 
                 <div className="admin-form-group">
                   <label>Top Badge Text</label>
@@ -165,7 +165,6 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                     className="admin-input"
                     value={heroForm.badge || ''}
                     onChange={(e) => setHeroForm({ ...heroForm, badge: e.target.value })}
-                    placeholder="e.g. Corporate Profile & Heritage • Est. 2026"
                   />
                 </div>
 
@@ -176,18 +175,16 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                     className="admin-input"
                     value={heroForm.title || ''}
                     onChange={(e) => setHeroForm({ ...heroForm, title: e.target.value })}
-                    placeholder="e.g. About ZM Printing & Design Ltd."
                   />
                 </div>
 
                 <div className="admin-form-group">
-                  <label>Company Heritage & Overview Paragraph</label>
+                  <label>Corporate Heritage Story Paragraph</label>
                   <textarea
                     rows={6}
                     className="admin-input"
                     value={heroForm.subtitle || ''}
                     onChange={(e) => setHeroForm({ ...heroForm, subtitle: e.target.value })}
-                    placeholder="Enter full heritage and company overview text..."
                   />
                 </div>
 
@@ -202,18 +199,6 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                     />
                   </div>
                   <div className="admin-form-group">
-                    <label>Primary Button URL</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={heroForm.btnPrimaryUrl || ''}
-                      onChange={(e) => setHeroForm({ ...heroForm, btnPrimaryUrl: e.target.value })}
-                    />
-                  </div>
-                </div>
-
-                <div className="admin-grid-2">
-                  <div className="admin-form-group">
                     <label>Secondary Button Label</label>
                     <input
                       type="text"
@@ -222,24 +207,15 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                       onChange={(e) => setHeroForm({ ...heroForm, btnSecondaryText: e.target.value })}
                     />
                   </div>
-                  <div className="admin-form-group">
-                    <label>Secondary Button URL</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={heroForm.btnSecondaryUrl || ''}
-                      onChange={(e) => setHeroForm({ ...heroForm, btnSecondaryUrl: e.target.value })}
-                    />
-                  </div>
                 </div>
               </div>
 
               {/* Right Column: Production Credentials Card */}
               <div className="builder-subcard">
-                <h4>Right Column: Live Production Credentials Card</h4>
+                <h4>Right Column: Live Production Highlights</h4>
 
                 <div className="admin-form-group">
-                  <label>Operational Status Heading</label>
+                  <label>Production Status</label>
                   <input
                     type="text"
                     className="admin-input"
@@ -252,139 +228,57 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                 </div>
 
                 <div className="admin-form-group">
-                  <label>Plant Location Address</label>
+                  <label>Highlight 1 (Licenses)</label>
                   <input
                     type="text"
                     className="admin-input"
-                    value={heroForm.specCard?.location || ''}
+                    value={heroForm.specCard?.feature1Subtitle || ''}
                     onChange={(e) => setHeroForm({
                       ...heroForm,
-                      specCard: { ...(heroForm.specCard || {}), location: e.target.value }
+                      specCard: { ...(heroForm.specCard || {}), feature1Subtitle: e.target.value }
                     })}
                   />
                 </div>
 
-                <div className="admin-grid-2">
-                  <div className="admin-form-group">
-                    <label>Feature 1 Title</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={heroForm.specCard?.feature1Title || ''}
-                      onChange={(e) => setHeroForm({
-                        ...heroForm,
-                        specCard: { ...(heroForm.specCard || {}), feature1Title: e.target.value }
-                      })}
-                    />
-                  </div>
-                  <div className="admin-form-group">
-                    <label>Feature 1 Subtitle</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={heroForm.specCard?.feature1Subtitle || ''}
-                      onChange={(e) => setHeroForm({
-                        ...heroForm,
-                        specCard: { ...(heroForm.specCard || {}), feature1Subtitle: e.target.value }
-                      })}
-                    />
-                  </div>
+                <div className="admin-form-group">
+                  <label>Highlight 2 (Compliance Certifications)</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={heroForm.specCard?.feature2Subtitle || ''}
+                    onChange={(e) => setHeroForm({
+                      ...heroForm,
+                      specCard: { ...(heroForm.specCard || {}), feature2Subtitle: e.target.value }
+                    })}
+                  />
                 </div>
 
-                <div className="admin-grid-2">
-                  <div className="admin-form-group">
-                    <label>Feature 2 Title</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={heroForm.specCard?.feature2Title || ''}
-                      onChange={(e) => setHeroForm({
-                        ...heroForm,
-                        specCard: { ...(heroForm.specCard || {}), feature2Title: e.target.value }
-                      })}
-                    />
-                  </div>
-                  <div className="admin-form-group">
-                    <label>Feature 2 Subtitle</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={heroForm.specCard?.feature2Subtitle || ''}
-                      onChange={(e) => setHeroForm({
-                        ...heroForm,
-                        specCard: { ...(heroForm.specCard || {}), feature2Subtitle: e.target.value }
-                      })}
-                    />
-                  </div>
-                </div>
-
-                <div className="admin-grid-2">
-                  <div className="admin-form-group">
-                    <label>Feature 3 Title</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={heroForm.specCard?.feature3Title || ''}
-                      onChange={(e) => setHeroForm({
-                        ...heroForm,
-                        specCard: { ...(heroForm.specCard || {}), feature3Title: e.target.value }
-                      })}
-                    />
-                  </div>
-                  <div className="admin-form-group">
-                    <label>Feature 3 Subtitle</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={heroForm.specCard?.feature3Subtitle || ''}
-                      onChange={(e) => setHeroForm({
-                        ...heroForm,
-                        specCard: { ...(heroForm.specCard || {}), feature3Subtitle: e.target.value }
-                      })}
-                    />
-                  </div>
-                </div>
-
-                <div className="admin-grid-2">
-                  <div className="admin-form-group">
-                    <label>Tag 1</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={heroForm.specCard?.tag1 || ''}
-                      onChange={(e) => setHeroForm({
-                        ...heroForm,
-                        specCard: { ...(heroForm.specCard || {}), tag1: e.target.value }
-                      })}
-                    />
-                  </div>
-                  <div className="admin-form-group">
-                    <label>Tag 2</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={heroForm.specCard?.tag2 || ''}
-                      onChange={(e) => setHeroForm({
-                        ...heroForm,
-                        specCard: { ...(heroForm.specCard || {}), tag2: e.target.value }
-                      })}
-                    />
-                  </div>
+                <div className="admin-form-group">
+                  <label>Highlight 3 (Energy & Power)</label>
+                  <input
+                    type="text"
+                    className="admin-input"
+                    value={heroForm.specCard?.feature3Subtitle || ''}
+                    onChange={(e) => setHeroForm({
+                      ...heroForm,
+                      specCard: { ...(heroForm.specCard || {}), feature3Subtitle: e.target.value }
+                    })}
+                  />
                 </div>
               </div>
             </div>
 
             {/* 4 Bottom Highlight Stat Counters */}
             <div className="builder-subcard" style={{ marginTop: '20px' }}>
-              <h4>4 Animated Glassmorphic Stat Counters</h4>
+              <h4>4 Animated Stat Counters</h4>
               <div className="builder-grid-4col">
                 {(heroForm.stats || []).map((st, sIdx) => (
                   <div key={sIdx} className="stat-editor-box">
                     <div className="stat-editor-header">
-                      <span>Stat #{sIdx + 1}</span>
+                      <span>Counter #{sIdx + 1}</span>
                     </div>
                     <div className="admin-form-group">
-                      <label>Number / Metric</label>
+                      <label>Metric Value</label>
                       <input
                         type="text"
                         className="admin-input"
@@ -397,7 +291,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                       />
                     </div>
                     <div className="admin-form-group">
-                      <label>Label</label>
+                      <label>Title</label>
                       <input
                         type="text"
                         className="admin-input"
@@ -410,7 +304,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                       />
                     </div>
                     <div className="admin-form-group">
-                      <label>Subtitle / Subtext</label>
+                      <label>Subtext</label>
                       <input
                         type="text"
                         className="admin-input"
@@ -435,21 +329,21 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                 disabled={loading}
               >
                 <Save size={16} />
-                <span>Save Hero & Highlight Counters</span>
+                <span>Save Hero Section</span>
               </button>
             </div>
           </div>
         )}
 
         {/* ========================================================================= */}
-        {/* TAB 02: MD LEADERSHIP VISION                                             */}
+        {/* TAB 02: MD LEADERSHIP VISION (WITH PHOTO UPLOADER)                        */}
         {/* ========================================================================= */}
         {activeTab === 'mdMessage' && (
           <div className="builder-panel">
             <div className="panel-header-actions">
               <div className="panel-title-wrap">
                 <h3>02. Managing Director (MD) Leadership Vision</h3>
-                <p>Customize the MD portrait photo, quote, leadership statement paragraphs, and signature.</p>
+                <p>Upload MD portrait photo, edit quotes, speech paragraphs, and designation.</p>
               </div>
               <div className="panel-btn-group">
                 <button
@@ -477,17 +371,14 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
             </div>
 
             <div className="builder-grid-2col">
-              {/* Left Column: Photo Uploader & Identity */}
+              {/* Left Column: MD Photo Uploader & Identity */}
               <div className="builder-subcard">
-                <h4>MD Portrait & Identification</h4>
+                <h4>Managing Director Official Photo</h4>
                 
                 <div style={{ marginBottom: '16px' }}>
-                  <label style={{ display: 'block', fontSize: '0.85rem', color: '#a0aec0', marginBottom: '8px' }}>
-                    MD Portrait Photo
-                  </label>
                   <ImageUploader
                     currentImage={mdForm.image}
-                    onImageUploaded={(url) => setMdForm({ ...mdForm, image: url })}
+                    onSelectImage={(url) => setMdForm({ ...mdForm, image: url })}
                     label="MD Official Portrait"
                     compact={true}
                   />
@@ -504,7 +395,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                 </div>
 
                 <div className="admin-form-group">
-                  <label>Official Title / Designation</label>
+                  <label>Designation</label>
                   <input
                     type="text"
                     className="admin-input"
@@ -514,7 +405,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                 </div>
 
                 <div className="admin-form-group">
-                  <label>Signature Text (Script)</label>
+                  <label>Signature Text</label>
                   <input
                     type="text"
                     className="admin-input"
@@ -526,20 +417,10 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
 
               {/* Right Column: Statement, Quote & Speeches */}
               <div className="builder-subcard">
-                <h4>Speech & Vision Content</h4>
+                <h4>Speech & Vision Statement</h4>
 
                 <div className="admin-form-group">
-                  <label>Top Badge</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={mdForm.badge || ''}
-                    onChange={(e) => setMdForm({ ...mdForm, badge: e.target.value })}
-                  />
-                </div>
-
-                <div className="admin-form-group">
-                  <label>Main Heading</label>
+                  <label>Section Heading</label>
                   <input
                     type="text"
                     className="admin-input"
@@ -588,7 +469,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                 disabled={loading}
               >
                 <Save size={16} />
-                <span>Save MD Message Section</span>
+                <span>Save MD Vision Section</span>
               </button>
             </div>
           </div>
@@ -602,7 +483,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
             <div className="panel-header-actions">
               <div className="panel-title-wrap">
                 <h3>03. Milestones in Manufacturing Excellence (Timeline)</h3>
-                <p>Manage company milestones from founding year to modern automatic machinery.</p>
+                <p>Manage company milestones from founding year to modern machinery additions.</p>
               </div>
               <div className="panel-btn-group">
                 <button
@@ -629,18 +510,8 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               </div>
             </div>
 
-            {/* Header Settings */}
             <div className="builder-subcard" style={{ marginBottom: '20px' }}>
-              <div className="admin-grid-3">
-                <div className="admin-form-group">
-                  <label>Badge</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={milestonesForm.badge || ''}
-                    onChange={(e) => setMilestonesForm({ ...milestonesForm, badge: e.target.value })}
-                  />
-                </div>
+              <div className="admin-grid-2">
                 <div className="admin-form-group">
                   <label>Section Title</label>
                   <input
@@ -662,12 +533,12 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               </div>
             </div>
 
-            {/* Milestone List */}
+            {/* Timeline Milestones Cards */}
             <div className="timeline-editor-list">
               {(milestonesForm.items || []).map((item, idx) => (
                 <div key={idx} className="timeline-editor-item">
                   <div className="timeline-item-header">
-                    <span className="timeline-order-pill">#{idx + 1}</span>
+                    <span className="timeline-order-pill">Milestone #{idx + 1}</span>
                     <button
                       type="button"
                       className="circular-delete-btn"
@@ -711,7 +582,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                   </div>
 
                   <div className="admin-form-group">
-                    <label>Description / Technical Expansion</label>
+                    <label>Description & Technical Expansion</label>
                     <textarea
                       rows={3}
                       className="admin-input"
@@ -792,44 +663,12 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               </div>
             </div>
 
-            <div className="builder-subcard" style={{ marginBottom: '20px' }}>
-              <div className="admin-grid-3">
-                <div className="admin-form-group">
-                  <label>Section Badge</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={missionForm.badge || ''}
-                    onChange={(e) => setMissionForm({ ...missionForm, badge: e.target.value })}
-                  />
-                </div>
-                <div className="admin-form-group">
-                  <label>Section Title</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={missionForm.title || ''}
-                    onChange={(e) => setMissionForm({ ...missionForm, title: e.target.value })}
-                  />
-                </div>
-                <div className="admin-form-group">
-                  <label>Section Subtitle</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={missionForm.subtitle || ''}
-                    onChange={(e) => setMissionForm({ ...missionForm, subtitle: e.target.value })}
-                  />
-                </div>
-              </div>
-            </div>
-
             <div className="builder-grid-3col">
               {/* Mission Card */}
               <div className="builder-subcard">
                 <h4>Card 1: Our Mission</h4>
                 <div className="admin-form-group">
-                  <label>Card Title</label>
+                  <label>Title</label>
                   <input
                     type="text"
                     className="admin-input"
@@ -841,7 +680,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                   />
                 </div>
                 <div className="admin-form-group">
-                  <label>Description Paragraph</label>
+                  <label>Description</label>
                   <textarea
                     rows={8}
                     className="admin-input"
@@ -858,7 +697,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               <div className="builder-subcard">
                 <h4>Card 2: Our Vision</h4>
                 <div className="admin-form-group">
-                  <label>Card Title</label>
+                  <label>Title</label>
                   <input
                     type="text"
                     className="admin-input"
@@ -870,7 +709,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                   />
                 </div>
                 <div className="admin-form-group">
-                  <label>Description Paragraph</label>
+                  <label>Description</label>
                   <textarea
                     rows={8}
                     className="admin-input"
@@ -887,7 +726,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               <div className="builder-subcard">
                 <h4>Card 3: Green Chemistry</h4>
                 <div className="admin-form-group">
-                  <label>Card Title</label>
+                  <label>Title</label>
                   <input
                     type="text"
                     className="admin-input"
@@ -899,7 +738,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                   />
                 </div>
                 <div className="admin-form-group">
-                  <label>Description Paragraph</label>
+                  <label>Description</label>
                   <textarea
                     rows={8}
                     className="admin-input"
@@ -928,14 +767,14 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
         )}
 
         {/* ========================================================================= */}
-        {/* TAB 05: FACTORY & INFRASTRUCTURE PHOTOS (12 MOSAIC)                       */}
+        {/* TAB 05: FACTORY TOUR PHOTOS (12 PHOTOS WITH DIRECT UPLOADER)              */}
         {/* ========================================================================= */}
         {activeTab === 'facilityPhotos' && (
           <div className="builder-panel">
             <div className="panel-header-actions">
               <div className="panel-title-wrap">
-                <h3>05. Factory & Infrastructure Showcase (12 Mosaic Photos)</h3>
-                <p>Manage the 12 authentic facility photography tiles displayed in the interactive ZM letter mosaic.</p>
+                <h3>05. Factory & Infrastructure Showcase (12 Facility Photos)</h3>
+                <p>Click on any photo to upload a new one directly from your computer!</p>
               </div>
               <div className="panel-btn-group">
                 <button
@@ -962,45 +801,12 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               </div>
             </div>
 
-            {/* Header Settings */}
-            <div className="builder-subcard" style={{ marginBottom: '20px' }}>
-              <div className="admin-grid-3">
-                <div className="admin-form-group">
-                  <label>Section Badge</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={photosForm.badge || ''}
-                    onChange={(e) => setPhotosForm({ ...photosForm, badge: e.target.value })}
-                  />
-                </div>
-                <div className="admin-form-group">
-                  <label>Section Title</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={photosForm.title || ''}
-                    onChange={(e) => setPhotosForm({ ...photosForm, title: e.target.value })}
-                  />
-                </div>
-                <div className="admin-form-group">
-                  <label>Section Subtitle</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={photosForm.subtitle || ''}
-                    onChange={(e) => setPhotosForm({ ...photosForm, subtitle: e.target.value })}
-                  />
-                </div>
-              </div>
-            </div>
-
             {/* Photos Grid */}
             <div className="builder-grid-3col">
               {(photosForm.photos || []).map((p, pIdx) => (
                 <div key={p.id || pIdx} className="builder-subcard photo-card-compact">
                   <div className="photo-card-top-bar">
-                    <span className="photo-num-tag">Tile #{pIdx + 1}</span>
+                    <span className="photo-num-tag">Photo #{pIdx + 1}</span>
                     <button
                       type="button"
                       className="circular-delete-btn"
@@ -1014,10 +820,11 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                     </button>
                   </div>
 
+                  {/* Visual Image Uploader with Thumbnail Preview */}
                   <div style={{ marginBottom: '12px' }}>
                     <ImageUploader
                       currentImage={p.src}
-                      onImageUploaded={(url) => {
+                      onSelectImage={(url) => {
                         const newPhotos = [...photosForm.photos];
                         newPhotos[pIdx] = { ...newPhotos[pIdx], src: url };
                         setPhotosForm({ ...photosForm, photos: newPhotos });
@@ -1028,7 +835,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                   </div>
 
                   <div className="admin-form-group">
-                    <label>Room / Facility Title</label>
+                    <label>Facility Room / Floor Title</label>
                     <input
                       type="text"
                       className="admin-input"
@@ -1042,7 +849,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                   </div>
 
                   <div className="admin-form-group">
-                    <label>Subtitle / Equipment Description</label>
+                    <label>Equipment & Department Description</label>
                     <input
                       type="text"
                       className="admin-input"
@@ -1053,35 +860,6 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                         setPhotosForm({ ...photosForm, photos: newPhotos });
                       }}
                     />
-                  </div>
-
-                  <div className="admin-grid-2">
-                    <div className="admin-form-group">
-                      <label>Category Tag</label>
-                      <input
-                        type="text"
-                        className="admin-input"
-                        value={p.categoryLabel || ''}
-                        onChange={(e) => {
-                          const newPhotos = [...photosForm.photos];
-                          newPhotos[pIdx] = { ...newPhotos[pIdx], categoryLabel: e.target.value };
-                          setPhotosForm({ ...photosForm, photos: newPhotos });
-                        }}
-                      />
-                    </div>
-                    <div className="admin-form-group">
-                      <label>Internal Key</label>
-                      <input
-                        type="text"
-                        className="admin-input"
-                        value={p.category || ''}
-                        onChange={(e) => {
-                          const newPhotos = [...photosForm.photos];
-                          newPhotos[pIdx] = { ...newPhotos[pIdx], category: e.target.value };
-                          setPhotosForm({ ...photosForm, photos: newPhotos });
-                        }}
-                      />
-                    </div>
                   </div>
                 </div>
               ))}
@@ -1098,8 +876,8 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                     id: Date.now(),
                     category: 'production',
                     categoryLabel: 'Production Floor',
-                    title: 'New Production Floor',
-                    subtitle: 'Equipment & Room Description',
+                    title: 'New Factory Floor',
+                    subtitle: 'Modern Automated Equipment',
                     src: '/images/sections/printing-floor-1.jpg'
                   }
                 ];
@@ -1107,7 +885,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               }}
             >
               <Plus size={16} />
-              <span>Add Facility Photo Tile</span>
+              <span>Add Another Facility Photo Tile</span>
             </button>
 
             <div className="builder-save-bar">
@@ -1125,14 +903,14 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
         )}
 
         {/* ========================================================================= */}
-        {/* TAB 06: EXECUTIVE LEADERSHIP TREE (5 EXECUTIVES)                          */}
+        {/* TAB 06: EXECUTIVE LEADERSHIP TREE (ALL 5 WITH DIRECT UPLOADER)            */}
         {/* ========================================================================= */}
         {activeTab === 'leadershipTree' && (
           <div className="builder-panel">
             <div className="panel-header-actions">
               <div className="panel-title-wrap">
-                <h3>06. Executive Leadership Tree (Head of Board, Directors, GM)</h3>
-                <p>Manage the 5 executive profiles: Managing Director, Chairman, 2 Directors, and General Manager.</p>
+                <h3>06. Executive Leadership Tree (MD, Chairman, Directors, GM)</h3>
+                <p>Upload new photos and update bio/speeches for all 5 executive board members.</p>
               </div>
               <div className="panel-btn-group">
                 <button
@@ -1159,41 +937,8 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               </div>
             </div>
 
-            {/* Section Header Settings */}
-            <div className="builder-subcard" style={{ marginBottom: '20px' }}>
-              <div className="admin-grid-3">
-                <div className="admin-form-group">
-                  <label>Section Badge</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={teamForm.badge || ''}
-                    onChange={(e) => setTeamForm({ ...teamForm, badge: e.target.value })}
-                  />
-                </div>
-                <div className="admin-form-group">
-                  <label>Section Title</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={teamForm.title || ''}
-                    onChange={(e) => setTeamForm({ ...teamForm, title: e.target.value })}
-                  />
-                </div>
-                <div className="admin-form-group">
-                  <label>Section Subtitle</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={teamForm.subtitle || ''}
-                    onChange={(e) => setTeamForm({ ...teamForm, subtitle: e.target.value })}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Tier 1: Top Tier (MD & Chairman) */}
-            <h4 style={{ color: '#4ade80', margin: '20px 0 12px', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {/* Top Tier: MD and Chairman */}
+            <h4 style={{ color: '#4ade80', margin: '16px 0 12px', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Award size={18} /> Top Tier: Managing Director & Chairman of the Board
             </h4>
             <div className="builder-grid-2col" style={{ marginBottom: '24px' }}>
@@ -1201,13 +946,13 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                 <div key={leader.id || lIdx} className="builder-subcard">
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
                     <span className="builder-badge" style={{ margin: 0 }}>{leader.tag || `Leader #${lIdx + 1}`}</span>
-                    <span style={{ fontSize: '0.8rem', color: '#a0aec0' }}>Top Tier #{lIdx + 1}</span>
                   </div>
 
-                  <div style={{ marginBottom: '12px' }}>
+                  {/* Photo Uploader */}
+                  <div style={{ marginBottom: '14px' }}>
                     <ImageUploader
                       currentImage={leader.img}
-                      onImageUploaded={(url) => {
+                      onSelectImage={(url) => {
                         const newTop = [...teamForm.topTier];
                         newTop[lIdx] = { ...newTop[lIdx], img: url };
                         setTeamForm({ ...teamForm, topTier: newTop });
@@ -1247,7 +992,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                   </div>
 
                   <div className="admin-form-group">
-                    <label>Card Short Bio</label>
+                    <label>Card Bio Summary</label>
                     <textarea
                       rows={3}
                       className="admin-input"
@@ -1261,7 +1006,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                   </div>
 
                   <div className="admin-form-group">
-                    <label>Modal Vision Quote</label>
+                    <label>Leadership Vision Quote</label>
                     <textarea
                       rows={2}
                       className="admin-input"
@@ -1273,40 +1018,11 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                       }}
                     />
                   </div>
-
-                  <div className="admin-grid-2">
-                    <div className="admin-form-group">
-                      <label>Direct Phone</label>
-                      <input
-                        type="text"
-                        className="admin-input"
-                        value={leader.phone || ''}
-                        onChange={(e) => {
-                          const newTop = [...teamForm.topTier];
-                          newTop[lIdx] = { ...newTop[lIdx], phone: e.target.value };
-                          setTeamForm({ ...teamForm, topTier: newTop });
-                        }}
-                      />
-                    </div>
-                    <div className="admin-form-group">
-                      <label>Email Address</label>
-                      <input
-                        type="email"
-                        className="admin-input"
-                        value={leader.email || ''}
-                        onChange={(e) => {
-                          const newTop = [...teamForm.topTier];
-                          newTop[lIdx] = { ...newTop[lIdx], email: e.target.value };
-                          setTeamForm({ ...teamForm, topTier: newTop });
-                        }}
-                      />
-                    </div>
-                  </div>
                 </div>
               ))}
             </div>
 
-            {/* Tier 2: Directors (Left Wing) */}
+            {/* Tier 2: Directors */}
             <h4 style={{ color: '#38bdf8', margin: '20px 0 12px', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Users size={18} /> Tier 2: Directors (Operations & Finance)
             </h4>
@@ -1317,13 +1033,13 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                     <span className="builder-badge" style={{ margin: 0, background: 'rgba(56, 189, 248, 0.15)', borderColor: '#38bdf8', color: '#38bdf8' }}>
                       {dir.tag || `Director #${dIdx + 1}`}
                     </span>
-                    <span style={{ fontSize: '0.8rem', color: '#a0aec0' }}>Director #{dIdx + 1}</span>
                   </div>
 
-                  <div style={{ marginBottom: '12px' }}>
+                  {/* Photo Uploader */}
+                  <div style={{ marginBottom: '14px' }}>
                     <ImageUploader
                       currentImage={dir.img}
-                      onImageUploaded={(url) => {
+                      onSelectImage={(url) => {
                         const newDirs = [...teamForm.directorsTier];
                         newDirs[dIdx] = { ...newDirs[dIdx], img: url };
                         setTeamForm({ ...teamForm, directorsTier: newDirs });
@@ -1363,7 +1079,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                   </div>
 
                   <div className="admin-form-group">
-                    <label>Card Short Bio</label>
+                    <label>Card Bio Summary</label>
                     <textarea
                       rows={3}
                       className="admin-input"
@@ -1377,7 +1093,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                   </div>
 
                   <div className="admin-form-group">
-                    <label>Modal Vision Quote</label>
+                    <label>Leadership Vision Quote</label>
                     <textarea
                       rows={2}
                       className="admin-input"
@@ -1393,16 +1109,16 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               ))}
             </div>
 
-            {/* Tier 3: General Manager (Right Wing) */}
+            {/* Tier 3: General Manager (GM) */}
             <h4 style={{ color: '#2dd4bf', margin: '20px 0 12px', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Building size={18} /> Tier 3: General Manager (GM)
             </h4>
             <div className="builder-subcard">
               <div className="admin-grid-2">
-                <div style={{ marginBottom: '12px' }}>
+                <div style={{ marginBottom: '14px' }}>
                   <ImageUploader
                     currentImage={teamForm.gmProfile?.img}
-                    onImageUploaded={(url) => setTeamForm({
+                    onSelectImage={(url) => setTeamForm({
                       ...teamForm,
                       gmProfile: { ...(teamForm.gmProfile || {}), img: url }
                     })}
@@ -1435,37 +1151,11 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                       })}
                     />
                   </div>
-                  <div className="admin-grid-2">
-                    <div className="admin-form-group">
-                      <label>Phone</label>
-                      <input
-                        type="text"
-                        className="admin-input"
-                        value={teamForm.gmProfile?.phone || ''}
-                        onChange={(e) => setTeamForm({
-                          ...teamForm,
-                          gmProfile: { ...(teamForm.gmProfile || {}), phone: e.target.value }
-                        })}
-                      />
-                    </div>
-                    <div className="admin-form-group">
-                      <label>Email</label>
-                      <input
-                        type="email"
-                        className="admin-input"
-                        value={teamForm.gmProfile?.email || ''}
-                        onChange={(e) => setTeamForm({
-                          ...teamForm,
-                          gmProfile: { ...(teamForm.gmProfile || {}), email: e.target.value }
-                        })}
-                      />
-                    </div>
-                  </div>
                 </div>
               </div>
 
               <div className="admin-form-group">
-                <label>Card Short Bio</label>
+                <label>Card Bio Summary</label>
                 <textarea
                   rows={3}
                   className="admin-input"
@@ -1478,7 +1168,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               </div>
 
               <div className="admin-form-group">
-                <label>Modal Vision Quote</label>
+                <label>Leadership Vision Quote</label>
                 <textarea
                   rows={2}
                   className="admin-input"
@@ -1499,21 +1189,21 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                 disabled={loading}
               >
                 <Save size={16} />
-                <span>Save Executive Leadership Tree</span>
+                <span>Save Leadership Tree</span>
               </button>
             </div>
           </div>
         )}
 
         {/* ========================================================================= */}
-        {/* TAB 07: WORKFORCE SAFETY & 4 WELFARE PERKS                                */}
+        {/* TAB 07: WORKFORCE WELFARE (4 BENTO PHOTOS WITH DIRECT UPLOADER)           */}
         {/* ========================================================================= */}
         {activeTab === 'workerWelfare' && (
           <div className="builder-panel">
             <div className="panel-header-actions">
               <div className="panel-title-wrap">
                 <h3>07. Workforce Safety, Dignity & Welfare</h3>
-                <p>Edit the 4 bento photos (Floor, Clinic, Daycare, Dining) and the 4 worker welfare pillar commitments.</p>
+                <p>Click on any of the 4 Bento Photos to replace it with a new photo from your device!</p>
               </div>
               <div className="panel-btn-group">
                 <button
@@ -1540,30 +1230,19 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               </div>
             </div>
 
-            {/* Header & Subtitle */}
+            {/* Headline and Description */}
             <div className="builder-subcard" style={{ marginBottom: '20px' }}>
-              <div className="admin-grid-3">
-                <div className="admin-form-group">
-                  <label>Section Badge</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={welfareForm.badge || ''}
-                    onChange={(e) => setWelfareForm({ ...welfareForm, badge: e.target.value })}
-                  />
-                </div>
-                <div className="admin-form-group" style={{ gridColumn: 'span 2' }}>
-                  <label>Section Headline</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={welfareForm.title || ''}
-                    onChange={(e) => setWelfareForm({ ...welfareForm, title: e.target.value })}
-                  />
-                </div>
+              <div className="admin-form-group">
+                <label>Section Headline</label>
+                <input
+                  type="text"
+                  className="admin-input"
+                  value={welfareForm.title || ''}
+                  onChange={(e) => setWelfareForm({ ...welfareForm, title: e.target.value })}
+                />
               </div>
               <div className="admin-form-group">
-                <label>Story Subtitle Paragraph</label>
+                <label>Story Paragraph</label>
                 <textarea
                   rows={3}
                   className="admin-input"
@@ -1573,21 +1252,22 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               </div>
             </div>
 
-            {/* 4 Bento Photos */}
+            {/* 4 Bento Photos with Direct Visual Uploaders */}
             <h4 style={{ color: '#4ade80', margin: '20px 0 12px', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <ImageIcon size={18} /> 4 Facility Bento Photos (Floor, Clinic, Child Care, Dining)
+              📸 4 Facility Bento Photos (Floor, Medical Clinic, Child Care, Dining Hall)
             </h4>
             <div className="builder-grid-4col" style={{ marginBottom: '24px' }}>
               {(welfareForm.bentoPhotos || []).map((bp, bIdx) => (
                 <div key={bp.id || bIdx} className="builder-subcard photo-card-compact">
                   <div className="photo-card-top-bar">
-                    <span className="photo-num-tag">Bento #{bIdx + 1}</span>
+                    <span className="photo-num-tag">Bento Slot #{bIdx + 1}</span>
                   </div>
 
+                  {/* Visual Image Uploader */}
                   <div style={{ marginBottom: '12px' }}>
                     <ImageUploader
                       currentImage={bp.src}
-                      onImageUploaded={(url) => {
+                      onSelectImage={(url) => {
                         const newBento = [...welfareForm.bentoPhotos];
                         newBento[bIdx] = { ...newBento[bIdx], src: url };
                         setWelfareForm({ ...welfareForm, bentoPhotos: newBento });
@@ -1598,7 +1278,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                   </div>
 
                   <div className="admin-form-group">
-                    <label>Badge Label</label>
+                    <label>Badge Label on Photo</label>
                     <input
                       type="text"
                       className="admin-input"
@@ -1610,25 +1290,11 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                       }}
                     />
                   </div>
-
-                  <div className="admin-form-group">
-                    <label>Hover Tooltip</label>
-                    <input
-                      type="text"
-                      className="admin-input"
-                      value={bp.subtitle || ''}
-                      onChange={(e) => {
-                        const newBento = [...welfareForm.bentoPhotos];
-                        newBento[bIdx] = { ...newBento[bIdx], subtitle: e.target.value };
-                        setWelfareForm({ ...welfareForm, bentoPhotos: newBento });
-                      }}
-                    />
-                  </div>
                 </div>
               ))}
             </div>
 
-            {/* 4 Welfare Perks */}
+            {/* 4 Welfare Commitment Pillars */}
             <h4 style={{ color: '#38bdf8', margin: '20px 0 12px', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <HeartHandshake size={18} /> 4 Welfare Commitment Pillars
             </h4>
@@ -1715,40 +1381,6 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               </div>
             </div>
 
-            {/* Header Settings */}
-            <div className="builder-subcard" style={{ marginBottom: '20px' }}>
-              <div className="admin-grid-3">
-                <div className="admin-form-group">
-                  <label>Section Badge</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={rulesForm.badge || ''}
-                    onChange={(e) => setRulesForm({ ...rulesForm, badge: e.target.value })}
-                  />
-                </div>
-                <div className="admin-form-group">
-                  <label>Section Title</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={rulesForm.title || ''}
-                    onChange={(e) => setRulesForm({ ...rulesForm, title: e.target.value })}
-                  />
-                </div>
-                <div className="admin-form-group">
-                  <label>Section Subtitle</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={rulesForm.subtitle || ''}
-                    onChange={(e) => setRulesForm({ ...rulesForm, subtitle: e.target.value })}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* 4 Rule Cards */}
             <div className="builder-grid-2col">
               {(rulesForm.rules || []).map((rule, rIdx) => (
                 <div key={rIdx} className="builder-subcard">
@@ -1756,37 +1388,22 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                     <span className="photo-num-tag">{rule.number || `RULE 0${rIdx + 1}`}</span>
                   </div>
 
-                  <div className="admin-grid-3" style={{ marginBottom: '12px' }}>
-                    <div className="admin-form-group">
-                      <label>Rule Number</label>
-                      <input
-                        type="text"
-                        className="admin-input"
-                        value={rule.number || ''}
-                        onChange={(e) => {
-                          const newRules = [...rulesForm.rules];
-                          newRules[rIdx] = { ...newRules[rIdx], number: e.target.value };
-                          setRulesForm({ ...rulesForm, rules: newRules });
-                        }}
-                      />
-                    </div>
-                    <div className="admin-form-group" style={{ gridColumn: 'span 2' }}>
-                      <label>Rule Title</label>
-                      <input
-                        type="text"
-                        className="admin-input"
-                        value={rule.title || ''}
-                        onChange={(e) => {
-                          const newRules = [...rulesForm.rules];
-                          newRules[rIdx] = { ...newRules[rIdx], title: e.target.value };
-                          setRulesForm({ ...rulesForm, rules: newRules });
-                        }}
-                      />
-                    </div>
+                  <div className="admin-form-group">
+                    <label>Rule Title</label>
+                    <input
+                      type="text"
+                      className="admin-input"
+                      value={rule.title || ''}
+                      onChange={(e) => {
+                        const newRules = [...rulesForm.rules];
+                        newRules[rIdx] = { ...newRules[rIdx], title: e.target.value };
+                        setRulesForm({ ...rulesForm, rules: newRules });
+                      }}
+                    />
                   </div>
 
                   <div className="admin-form-group">
-                    <label>Rule Details & Compliance Policy</label>
+                    <label>Compliance Policy Description</label>
                     <textarea
                       rows={4}
                       className="admin-input"
@@ -1817,7 +1434,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
         )}
 
         {/* ========================================================================= */}
-        {/* TAB 09: CLIENTS MARQUEE (SYNCED WITH CENTRAL HUB)                        */}
+        {/* TAB 09: CLIENTS MARQUEE (CENTRAL HUB SYNC)                               */}
         {/* ========================================================================= */}
         {activeTab === 'clientLogos' && (
           <div className="builder-panel">
@@ -1851,24 +1468,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               </div>
             </div>
 
-            <div className="admin-alert admin-alert-info" style={{ marginBottom: '20px' }}>
-              <AlertCircle size={18} />
-              <span>
-                <strong>Single Source of Truth:</strong> The actual client partner brand logos and trust metrics shown here are automatically synchronized from your central <strong>Clients Hub</strong>. Updating brand logos in the Clients menu updates them across Home, About, and All-Product pages simultaneously!
-              </span>
-            </div>
-
             <div className="builder-subcard">
-              <div className="admin-form-group">
-                <label>Section Badge</label>
-                <input
-                  type="text"
-                  className="admin-input"
-                  value={clientsForm.badge || ''}
-                  onChange={(e) => setClientsForm({ ...clientsForm, badge: e.target.value })}
-                />
-              </div>
-
               <div className="admin-form-group">
                 <label>Section Title</label>
                 <input
@@ -1898,14 +1498,14 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                 disabled={loading}
               >
                 <Save size={16} />
-                <span>Save About Clients Header</span>
+                <span>Save Clients Header</span>
               </button>
             </div>
           </div>
         )}
 
         {/* ========================================================================= */}
-        {/* TAB 10: VIP FACTORY TOUR & CTA BANNER                                     */}
+        {/* TAB 10: VIP FACTORY TOUR CTA BANNER                                       */}
         {/* ========================================================================= */}
         {activeTab === 'ctaBanner' && (
           <div className="builder-panel">
@@ -1941,17 +1541,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
 
             <div className="builder-subcard">
               <div className="admin-form-group">
-                <label>Top Badge</label>
-                <input
-                  type="text"
-                  className="admin-input"
-                  value={ctaForm.badge || ''}
-                  onChange={(e) => setCtaForm({ ...ctaForm, badge: e.target.value })}
-                />
-              </div>
-
-              <div className="admin-form-group">
-                <label>Main Headline</label>
+                <label>Banner Headline</label>
                 <input
                   type="text"
                   className="admin-input"
@@ -1961,7 +1551,7 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
               </div>
 
               <div className="admin-form-group">
-                <label>Subtitle / Invitation Paragraph</label>
+                <label>Invitation Paragraph</label>
                 <textarea
                   rows={3}
                   className="admin-input"
@@ -1981,54 +1571,12 @@ export default function AboutPageEditor({ content, onSaveSection, onToggleSectio
                   />
                 </div>
                 <div className="admin-form-group">
-                  <label>Primary Button URL</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={ctaForm.btnPrimaryUrl || ''}
-                    onChange={(e) => setCtaForm({ ...ctaForm, btnPrimaryUrl: e.target.value })}
-                  />
-                </div>
-              </div>
-
-              <div className="admin-grid-2">
-                <div className="admin-form-group">
                   <label>Secondary Button Label</label>
                   <input
                     type="text"
                     className="admin-input"
                     value={ctaForm.btnSecondaryText || ''}
                     onChange={(e) => setCtaForm({ ...ctaForm, btnSecondaryText: e.target.value })}
-                  />
-                </div>
-                <div className="admin-form-group">
-                  <label>Secondary Button URL</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={ctaForm.btnSecondaryUrl || ''}
-                    onChange={(e) => setCtaForm({ ...ctaForm, btnSecondaryUrl: e.target.value })}
-                  />
-                </div>
-              </div>
-
-              <div className="admin-grid-2">
-                <div className="admin-form-group">
-                  <label>Feature Highlight 1</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={ctaForm.feature1 || ''}
-                    onChange={(e) => setCtaForm({ ...ctaForm, feature1: e.target.value })}
-                  />
-                </div>
-                <div className="admin-form-group">
-                  <label>Feature Highlight 2</label>
-                  <input
-                    type="text"
-                    className="admin-input"
-                    value={ctaForm.feature2 || ''}
-                    onChange={(e) => setCtaForm({ ...ctaForm, feature2: e.target.value })}
                   />
                 </div>
               </div>

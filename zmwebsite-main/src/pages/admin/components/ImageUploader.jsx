@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { UploadCloud, CheckCircle, Image as ImageIcon, AlertCircle, RefreshCw, X, Link as LinkIcon } from 'lucide-react';
+import { UploadCloud, CheckCircle, Image as ImageIcon, AlertCircle, RefreshCw, Camera } from 'lucide-react';
 
 export default function ImageUploader({ 
   onSelectImage, 
+  onImageUploaded,
   currentImage, 
   label = "Upload Image", 
   compact = false,
@@ -13,13 +14,16 @@ export default function ImageUploader({
   const [uploadProgress, setUploadProgress] = useState(null);
   const [error, setError] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(currentImage || '');
-  const [manualUrl, setManualUrl] = useState('');
-  const [showUrlInput, setShowUrlInput] = useState(false);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
     setPreviewUrl(currentImage || '');
   }, [currentImage]);
+
+  const notifyChange = (url) => {
+    if (onSelectImage) onSelectImage(url);
+    if (onImageUploaded) onImageUploaded(url);
+  };
 
   const handleFileChange = async (e) => {
     const file = e.target.files?.[0];
@@ -30,14 +34,14 @@ export default function ImageUploader({
       return;
     }
 
-    if (file.size > 15 * 1024 * 1024) {
-      setError('File size exceeds the 15MB limit.');
+    if (file.size > 20 * 1024 * 1024) {
+      setError('File size exceeds the 20MB limit.');
       return;
     }
 
     setError(null);
     setUploading(true);
-    setUploadProgress('Optimizing WebP...');
+    setUploadProgress('Uploading image...');
 
     const formData = new FormData();
     formData.append('image', file);
@@ -59,33 +63,23 @@ export default function ImageUploader({
       }
 
       setPreviewUrl(result.url);
-      setUploadProgress(`Uploaded WebP (${Math.round(result.fileSize / 1024)} KB)`);
+      setUploadProgress('Photo updated successfully!');
       setTimeout(() => setUploadProgress(null), 3000);
-      if (onSelectImage) {
-        onSelectImage(result.url);
-      }
+      notifyChange(result.url);
     } catch (err) {
       setError(err.message);
       setUploadProgress(null);
     } finally {
       setUploading(false);
+      // Reset input so same file can be re-uploaded if desired
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
-  const handleManualUrlSubmit = (e) => {
-    e.preventDefault();
-    if (manualUrl.trim()) {
-      setPreviewUrl(manualUrl.trim());
-      if (onSelectImage) onSelectImage(manualUrl.trim());
-      setShowUrlInput(false);
-      setManualUrl('');
-    }
-  };
-
-  // Compact Mode (used inside photo grid tiles or cards)
+  // Compact Card Mode (Used in grid tiles like Factory Photos, Leaders, Bento Grid)
   if (compact) {
     return (
-      <div className="admin-uploader-compact">
+      <div className="admin-uploader-card-mode">
         <input 
           ref={fileInputRef}
           type="file" 
@@ -94,54 +88,64 @@ export default function ImageUploader({
           onChange={handleFileChange}
           disabled={uploading}
         />
-        <button
-          type="button"
-          className="admin-compact-upload-btn"
+
+        <div 
+          className="admin-card-thumbnail-box"
           onClick={() => fileInputRef.current?.click()}
-          disabled={uploading}
-          title="Click to replace photo"
+          title="Click to select and upload new image"
         >
-          <RefreshCw size={11} className={uploading ? 'spin' : ''} />
-          <span>{uploading ? 'Uploading...' : 'Replace'}</span>
-        </button>
+          {previewUrl ? (
+            <img 
+              src={previewUrl} 
+              alt={label || "Preview"} 
+              className="admin-card-thumb-img"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          ) : (
+            <div className="admin-card-thumb-empty">
+              <ImageIcon size={28} color="#4ade80" />
+              <span>No image chosen</span>
+            </div>
+          )}
+
+          <div className="admin-card-thumb-overlay">
+            {uploading ? (
+              <div className="upload-state-wrap">
+                <RefreshCw size={18} className="spin" color="#4ade80" />
+                <span>Uploading...</span>
+              </div>
+            ) : (
+              <div className="upload-state-wrap">
+                <Camera size={16} />
+                <span>{previewUrl ? 'Change Photo' : 'Upload Photo'}</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {uploadProgress && (
+          <div className="admin-thumb-status success">
+            <CheckCircle size={12} />
+            <span>{uploadProgress}</span>
+          </div>
+        )}
+
+        {error && (
+          <div className="admin-thumb-status error">
+            <AlertCircle size={12} />
+            <span>{error}</span>
+          </div>
+        )}
       </div>
     );
   }
 
-  // Full / Standard Mode
+  // Full Dropzone Mode
   return (
     <div className="admin-uploader-wrapper">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-        {label && <label className="admin-label" style={{ margin: 0 }}>{label}</label>}
-        <button
-          type="button"
-          className="admin-url-toggle-btn"
-          onClick={() => setShowUrlInput(!showUrlInput)}
-        >
-          <LinkIcon size={12} />
-          <span>{showUrlInput ? 'Hide URL input' : 'Paste link'}</span>
-        </button>
-      </div>
-
-      {showUrlInput && (
-        <div style={{ display: 'flex', gap: '6px', marginBottom: '10px' }}>
-          <input
-            type="text"
-            className="admin-input"
-            style={{ fontSize: '0.85rem', padding: '6px 10px' }}
-            placeholder="Paste direct image path e.g. /images/home/my-photo.webp"
-            value={manualUrl}
-            onChange={(e) => setManualUrl(e.target.value)}
-          />
-          <button
-            type="button"
-            className="admin-btn admin-btn-sm admin-btn-primary"
-            onClick={handleManualUrlSubmit}
-          >
-            Apply
-          </button>
-        </div>
-      )}
+      {label && <label className="admin-label">{label}</label>}
 
       <div 
         className={`admin-dropzone ${uploading ? 'is-uploading' : ''} ${previewUrl ? 'has-preview' : ''}`}
@@ -162,18 +166,18 @@ export default function ImageUploader({
             <img src={previewUrl} alt="Preview" />
             <div className="admin-uploader-overlay">
               <RefreshCw size={22} className={uploading ? 'spin' : ''} />
-              <span>{uploading ? 'Optimizing & Uploading...' : 'Click to replace photo'}</span>
+              <span>{uploading ? 'Uploading Photo...' : 'Click to Replace Image'}</span>
               <small>Auto-converts to WebP</small>
             </div>
           </div>
         ) : (
           <div className="admin-dropzone-empty">
-            <UploadCloud size={32} color="#22c55e" />
+            <UploadCloud size={34} color="#4ade80" />
             <p className="admin-dropzone-prompt">
               <strong>Click to upload</strong> or drag & drop image
             </p>
             <span className="admin-dropzone-hint">
-              JPG, PNG, WebP or SVG (Auto-compressed to WebP)
+              JPG, PNG, WebP or SVG (Auto-optimized)
             </span>
           </div>
         )}
@@ -190,12 +194,6 @@ export default function ImageUploader({
         <div className="admin-alert admin-alert-danger" style={{ marginTop: '8px', padding: '6px 12px', fontSize: '0.8rem' }}>
           <AlertCircle size={14} />
           <span>{error}</span>
-        </div>
-      )}
-
-      {showUrl && previewUrl && (
-        <div className="admin-image-url-display" style={{ marginTop: '6px' }}>
-          <code title={previewUrl}>{previewUrl}</code>
         </div>
       )}
     </div>

@@ -555,6 +555,18 @@ export default function AboutPage({ navigate }) {
               {/* Left Bento Grid */}
               <div className="worker-bento-column" data-reveal="scale">
                 <div className="worker-bento-grid">
+                  {/* SVG Definitions for the rounded L-shaped clip path */}
+                  <svg
+                    style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <clipPath id="worker-l-bento-clip" clipPathUnits="objectBoundingBox">
+                        <path d="M 0.05,0 H 0.95 A 0.05,0.05 0 0 1 1,0.05 V 0.45 A 0.05,0.05 0 0 1 0.95,0.5 H 0.726 A 0.05,0.05 0 0 0 0.676,0.55 V 0.95 A 0.05,0.05 0 0 1 0.626,1 H 0.05 A 0.05,0.05 0 0 1 0,0.95 V 0.05 A 0.05,0.05 0 0 1 0.05,0 Z" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+
                   <div className="worker-bento-canvas">
                     {/* Slot 1: Top-Left L-shaped compartment */}
                     <div className="bento-slot bento-slot-1" title={welfareData.bentoPhotos?.[0]?.subtitle || "300+ Dedicated Workforce (Ashulia Plant)"}>

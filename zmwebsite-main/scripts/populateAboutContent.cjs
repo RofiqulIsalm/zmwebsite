@@ -386,3 +386,4 @@ content.about = {
 
 fs.writeFileSync(contentJsonPath, JSON.stringify(content, null, 2), 'utf8');
 console.log('Successfully populated content.about in content.json with all 10 sections!');
+
