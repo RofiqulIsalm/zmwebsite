@@ -10,6 +10,7 @@ import DoubleCheckModal from './components/DoubleCheckModal';
 import HomePageEditor from './components/HomePageEditor';
 import AboutPageEditor from './components/AboutPageEditor';
 import ProductsPageEditor from './components/ProductsPageEditor';
+import ClientsPageEditor from './components/ClientsPageEditor';
 import { useSiteContent } from '../../context/SiteContentContext';
 
 // Website Navigation Menus / Pages Hierarchy
@@ -692,180 +693,31 @@ export default function AdminDashboard({ user, onLogout, navigate }) {
                 />
               )}
 
-              {/* VIEW 3: CLIENTS HUB (CENTRAL SOURCE OF TRUTH) */}
+              {/* VIEW 3: CLIENTS HUB (Comprehensive Visual Builder) */}
               {selectedPageMenu === 'clients' && (
-                <div className="admin-page-flow-wrapper">
-                  <div className="admin-alert admin-alert-info" style={{ marginBottom: '20px' }}>
-                    <ShieldCheck size={20} />
-                    <div>
-                      <strong>Global Clients Hub (Single Source of Truth)</strong>
-                      <p style={{ margin: '4px 0 0', fontSize: '0.85rem' }}>
-                        All client brand partner logos and statements edited here will automatically sync across both the <code>/clients</code> page AND the Homepage Client Logos slider in real time!
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Clients Header Form */}
-                  <div className="admin-card" style={{ marginBottom: '20px' }}>
-                    <h3>Clients Section Header & Trust Statement</h3>
-                    <form onSubmit={handleSaveClientsHeader} className="admin-form" style={{ marginTop: '16px' }}>
-                      <div className="admin-form-row">
-                        <div className="admin-form-group">
-                          <label>Badge Text</label>
-                          <input 
-                            type="text" 
-                            className="admin-input" 
-                            value={clientsHeader.badge || ''}
-                            onChange={(e) => setClientsHeader({ ...clientsHeader, badge: e.target.value })}
-                          />
-                        </div>
-                        <div className="admin-form-group">
-                          <label>Title</label>
-                          <input 
-                            type="text" 
-                            className="admin-input" 
-                            value={clientsHeader.title || ''}
-                            onChange={(e) => setClientsHeader({ ...clientsHeader, title: e.target.value })}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="admin-form-group">
-                        <label>Subtitle</label>
-                        <textarea 
-                          rows={2} 
-                          className="admin-input" 
-                          value={clientsHeader.subtitle || ''}
-                          onChange={(e) => setClientsHeader({ ...clientsHeader, subtitle: e.target.value })}
-                        />
-                      </div>
-
-                      <div className="admin-form-group">
-                        <label>Global Buyer Trust Statement</label>
-                        <textarea 
-                          rows={3} 
-                          className="admin-input" 
-                          value={clientsHeader.trustStatement || ''}
-                          onChange={(e) => setClientsHeader({ ...clientsHeader, trustStatement: e.target.value })}
-                        />
-                      </div>
-
-                      <button type="submit" className="admin-btn admin-btn-primary" disabled={loading}>
-                        <Save size={16} /> Save Header & Trust Statement
-                      </button>
-                    </form>
-                  </div>
-
-                  {/* Client Brands List */}
-                  <div className="admin-card">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                      <div>
-                        <h3 style={{ margin: 0 }}>Client Brand Logos (Auto-Sliding Strip)</h3>
-                        <p style={{ margin: '4px 0 0', color: 'var(--admin-text-dim)', fontSize: '0.85rem' }}>
-                          Add, edit or update client brand logos that slide across the Homepage and Clients page.
-                        </p>
-                      </div>
-                      <button 
-                        type="button" 
-                        className="admin-btn admin-btn-primary"
-                        onClick={() => setEditingClientBrand({ name: '', tier: 'International Fashion Brand', image: '' })}
-                      >
-                        <Plus size={16} /> Add New Client Brand
-                      </button>
-                    </div>
-
-                    {/* Edit Client Brand Modal */}
-                    {editingClientBrand && (
-                      <div className="admin-modal-backdrop">
-                        <div className="admin-modal-content" style={{ maxWidth: '540px', textAlign: 'left' }}>
-                          <h3>{editingClientBrand.id ? 'Edit Client Brand' : 'Add New Client Brand'}</h3>
-                          <form onSubmit={handleSaveClientBrand} className="admin-form">
-                            <div className="admin-form-group">
-                              <label>Brand Name (e.g. New Era, Richardson)</label>
-                              <input 
-                                type="text" 
-                                className="admin-input" 
-                                value={editingClientBrand.name || ''}
-                                onChange={(e) => setEditingClientBrand({ ...editingClientBrand, name: e.target.value })}
-                                required
-                              />
-                            </div>
-                            <div className="admin-form-group">
-                              <label>Tier / Tagline (e.g. Global Headwear Icon)</label>
-                              <input 
-                                type="text" 
-                                className="admin-input" 
-                                value={editingClientBrand.tier || ''}
-                                onChange={(e) => setEditingClientBrand({ ...editingClientBrand, tier: e.target.value })}
-                              />
-                            </div>
-
-                            <ImageUploader 
-                              label="Brand Logo Image (PNG / WebP / SVG)"
-                              currentImage={editingClientBrand.image}
-                              onSelectImage={(url) => setEditingClientBrand({ ...editingClientBrand, image: url })}
-                            />
-
-                            <div className="admin-modal-actions" style={{ marginTop: '20px' }}>
-                              <button type="button" className="admin-btn admin-btn-secondary" onClick={() => setEditingClientBrand(null)}>
-                                Cancel
-                              </button>
-                              <button type="submit" className="admin-btn admin-btn-primary" disabled={loading}>
-                                <Save size={16} /> Save Brand
-                              </button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="admin-table-wrapper">
-                      <table className="admin-table">
-                        <thead>
-                          <tr>
-                            <th>Logo</th>
-                            <th>Brand Name</th>
-                            <th>Tier / Market</th>
-                            <th>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {clientsList.map((brand, idx) => (
-                            <tr key={brand.id || idx}>
-                              <td style={{ width: '80px', background: '#ffffff', textAlign: 'center', borderRadius: '4px' }}>
-                                <img 
-                                  src={brand.image || brand.logo} 
-                                  alt={brand.name} 
-                                  style={{ maxHeight: '36px', maxWidth: '70px', objectFit: 'contain' }}
-                                />
-                              </td>
-                              <td><strong>{brand.name}</strong></td>
-                              <td><span className="admin-badge">{brand.tier || 'Client Partner'}</span></td>
-                              <td>
-                                <div style={{ display: 'flex', gap: '8px' }}>
-                                  <button 
-                                    type="button" 
-                                    className="admin-btn admin-btn-sm admin-btn-secondary"
-                                    onClick={() => setEditingClientBrand(brand)}
-                                  >
-                                    <Edit2 size={14} /> Edit
-                                  </button>
-                                  <button 
-                                    type="button" 
-                                    className="admin-btn admin-btn-sm admin-btn-danger"
-                                    onClick={() => handleDeleteClientBrand(brand.id)}
-                                  >
-                                    <Trash2 size={14} /> Remove
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
+                <ClientsPageEditor
+                  content={content}
+                  onSaveSection={async (pageKey, sectionKey, sectionContent) => {
+                    setLoading(true);
+                    try {
+                      const res = await fetch('/api/content.php?action=save_section', {
+                        method: 'POST',
+                        headers: getAuthHeader(),
+                        body: JSON.stringify({ page_key: pageKey, section_key: sectionKey, content: sectionContent })
+                      });
+                      const data = await res.json();
+                      if (!res.ok || !data.success) throw new Error(data.error || 'Failed to save');
+                      await refreshContent();
+                      showToast(`Clients section '${sectionKey}' saved & published live!`);
+                    } catch (err) {
+                      showToast(err.message, 'error');
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
+                  onToggleSection={handleToggleSection}
+                  loading={loading}
+                />
               )}
 
               {/* VIEW 4: ALL-PRODUCT (Comprehensive Visual Builder) */}

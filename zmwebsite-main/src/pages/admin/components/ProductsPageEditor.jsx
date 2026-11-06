@@ -1192,3 +1192,4 @@ export default function ProductsPageEditor({ content, onSaveSection, loading }) 
     </div>
   );
 }
+

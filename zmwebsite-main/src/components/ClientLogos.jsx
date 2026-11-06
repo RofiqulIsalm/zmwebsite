@@ -20,9 +20,11 @@ export default function ClientLogos({
     return null;
   }
 
-  const brandsList = (clientsData?.brands && clientsData.brands.length > 0)
-    ? clientsData.brands
-    : clientBrands;
+  const brandsList = (clientsData?.brandProfiles && clientsData.brandProfiles.length > 0)
+    ? clientsData.brandProfiles
+    : (clientsData?.brands && clientsData.brands.length > 0)
+      ? clientsData.brands
+      : clientBrands;
   const marqueeBrands = [...brandsList, ...brandsList, ...brandsList];
 
   const sectionTitle = homeClientLogos.title || clientsData.title || title;

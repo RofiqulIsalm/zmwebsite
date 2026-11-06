@@ -4485,7 +4485,413 @@
         "logo": "/assets/images/logo_26.jpg"
       }
     ],
-    "trustStatement": "Trusted by leading garment manufacturers, apparel exporters, and global fashion buying houses worldwide. Our trims and precision prints power major fashion retailers across Europe, North America, and international markets."
+    "trustStatement": "Trusted by leading garment manufacturers, apparel exporters, and global fashion buying houses worldwide. Our trims and precision prints power major fashion retailers across Europe, North America, and international markets.",
+    "hero": {
+      "_isActive": true,
+      "badge": "✦ GLOBAL APPAREL PARTNERSHIPS",
+      "titleLine1": "Trusted by the World’s Leading",
+      "titleLine2": "Fashion & Apparel Brands",
+      "description": "Supplying export-standard screen printing, 3D silicone badges, tagless heat transfers, and certified apparel trims to Tier-1 garment buying houses and international retail labels across Europe, North America, and Asia since 2013.",
+      "btnPrimaryText": "Explore Nominated Brands",
+      "btnSecondaryText": "Request Brand Trims Catalog",
+      "btnSecondaryUrl": "/contact",
+      "stats": [
+        {
+          "id": "cs1",
+          "value": "15+ Brands",
+          "label": "Nominated Tier-1 Supplier"
+        },
+        {
+          "id": "cs2",
+          "value": "100% Audit Pass",
+          "label": "OEKO-TEX®, BSCI & SEDEX"
+        },
+        {
+          "id": "cs3",
+          "value": "48h Rapid Sampling",
+          "label": "Direct CAD & Print Cell"
+        },
+        {
+          "id": "cs4",
+          "value": "25M+ Trims/Year",
+          "label": "AQL 1.0 Zero Defect Gate"
+        }
+      ]
+    },
+    "marquee": {
+      "_isActive": true,
+      "label": "OFFICIAL TRIMS SUPPLIER TO RENOWNED GLOBAL BRANDS & BUYING HOUSES"
+    },
+    "portfolioHeader": {
+      "_isActive": true,
+      "badge": "Brand Portfolio",
+      "title": "Verified Brand Deployments",
+      "subtitle": "Inspect our production credentials, specialized trim categories, and verified compliance parameters for major international fashion houses."
+    },
+    "brandProfiles": [
+      {
+        "id": "new-era",
+        "name": "New Era",
+        "category": "headwear",
+        "group": "New Era Cap LLC",
+        "country": "USA / Worldwide",
+        "status": "Nominated Supplier",
+        "image": "/images/clients/new-era-logo-png_seeklogo-173919.png",
+        "products": [
+          "High-Definition 3D Embroidery",
+          "Sonic Welded Badges",
+          "Precision Screen Prints"
+        ],
+        "compliance": "OEKO-TEX Class 1 • AQL 1.0 Inspected",
+        "leadTime": "48h Sampling / 5-7d Bulk",
+        "highlight": "Official trims and precision engineered components for iconic headwear and athletic caps."
+      },
+      {
+        "id": "richardson",
+        "name": "Richardson",
+        "category": "headwear",
+        "group": "Richardson Sports",
+        "country": "United States",
+        "status": "Performance Partner",
+        "image": "/images/clients/Richardson.png",
+        "products": [
+          "Micro-Injection Rubber Patches",
+          "Woven Badges",
+          "Dye-Sublimated Headbands"
+        ],
+        "compliance": "REACH Compliant • Phthalate Free",
+        "leadTime": "48h Sampling / 5-7d Bulk",
+        "highlight": "Engineered custom patches and heat transfers with high wash durability for team headwear."
+      },
+      {
+        "id": "flexfit",
+        "name": "Flexfit",
+        "category": "headwear",
+        "group": "Yupoong Inc.",
+        "country": "Global / USA",
+        "status": "Tier-1 Supplier",
+        "image": "/images/clients/flexfit-logo-png_seeklogo-207071.png",
+        "products": [
+          "Liquid Silicone Heat Transfers",
+          "Laser Cut Appliqués",
+          "Seamless Inner Tapes"
+        ],
+        "compliance": "OEKO-TEX Standard 100 • ISO 9001",
+        "leadTime": "48h Sampling / 6d Bulk",
+        "highlight": "Advanced elastic silicone and flexible heat transfers tailored for fitted cap technologies."
+      },
+      {
+        "id": "brixton",
+        "name": "Brixton",
+        "category": "headwear",
+        "group": "Brixton LLC",
+        "country": "USA / Europe",
+        "status": "Lifestyle Partner",
+        "image": "/images/clients/BRIXTON.png",
+        "products": [
+          "Vintage Distressed Screen Prints",
+          "Embossed Faux Leather Patches",
+          "Cotton Twill Labels"
+        ],
+        "compliance": "Sedex SMETA 4-Pillar • REACH",
+        "leadTime": "48h Sampling / 6d Bulk",
+        "highlight": "Crafted lifestyle apparel trims combining vintage aesthetics with modern durability."
+      },
+      {
+        "id": "outdoor-cap",
+        "name": "Outdoor Cap",
+        "category": "headwear",
+        "group": "Outdoor Cap Company",
+        "country": "United States",
+        "status": "High-Volume Partner",
+        "image": "/images/clients/otto-logo.png",
+        "products": [
+          "Camo Screen Printing",
+          "High-Frequency Sonic Welds",
+          "Weatherproof Rubber Labels"
+        ],
+        "compliance": "OEKO-TEX Class 1 • WRAP Certified",
+        "leadTime": "Rapid Turnaround / Bulk",
+        "highlight": "Heavy-duty outdoor apparel and hunting headwear trims tested for UV and moisture resistance."
+      },
+      {
+        "id": "atlanta-cap",
+        "name": "Atlanta Cap",
+        "category": "headwear",
+        "group": "Atlanta Cap Co.",
+        "country": "United States",
+        "status": "Custom Supplier",
+        "image": "/images/clients/47-Brand-logo.png",
+        "products": [
+          "Multi-Color Screen Prints",
+          "Reinforced Front Buckram Badges",
+          "Printed Sweatbands"
+        ],
+        "compliance": "ISO 9001:2015 • Strict AQL 1.0",
+        "leadTime": "48h Sampling / 5-7d Bulk",
+        "highlight": "Precision custom headwear components manufactured to exacting buyer specifications."
+      },
+      {
+        "id": "walmart",
+        "name": "Walmart",
+        "category": "retail",
+        "group": "Walmart Inc.",
+        "country": "USA / Global",
+        "status": "Audited Vendor",
+        "image": "/images/clients/walmart-2008-2025-logo.png",
+        "products": [
+          "Tagless Heat Transfer Labels",
+          "Eco-Friendly Paper Hangtags",
+          "UPC Barcode Trims"
+        ],
+        "compliance": "Walmart Responsible Sourcing • OEKO-TEX",
+        "leadTime": "High-Speed Automated Capacity",
+        "highlight": "Mass-volume retail apparel trims with verified supply-chain traceability and toxic-free inks."
+      },
+      {
+        "id": "target",
+        "name": "Target",
+        "category": "retail",
+        "group": "Target Corporation",
+        "country": "USA / Worldwide",
+        "status": "Nominated Vendor",
+        "image": "/images/clients/100-Years-Target-Logo.png",
+        "products": [
+          "Infant-Safe Water-Based Inks",
+          "Recycled Polyester Labels",
+          "FSC Certified Cards"
+        ],
+        "compliance": "Target Standards of Vendor Conduct • Infant Class 1",
+        "leadTime": "48h Sampling / 5-7d Bulk",
+        "highlight": "Clean chemistry certifications exceeding US CPSIA standards for children and babywear lines."
+      },
+      {
+        "id": "perry-ellis",
+        "name": "Perry Ellis",
+        "category": "retail",
+        "group": "Perry Ellis International",
+        "country": "United States",
+        "status": "Designer Trim Partner",
+        "image": "/images/clients/marca-perry-ellis-logo-png_seeklogo-216216.png",
+        "products": [
+          "High-Density Silicone Logos",
+          "Satin Woven Care Labels",
+          "Matte Heat Seals"
+        ],
+        "compliance": "REACH Compliant • BSCI A-Grade",
+        "leadTime": "48h Sampling / 6-7d Bulk",
+        "highlight": "Sophisticated menswear and tailored apparel trims meeting luxury tactile standards."
+      },
+      {
+        "id": "concept-one",
+        "name": "Concept One",
+        "category": "retail",
+        "group": "Concept One Accessories",
+        "country": "USA / Global",
+        "status": "Licensed Accessories Partner",
+        "image": "/images/clients/yupoong-logo.png",
+        "products": [
+          "Dye-Sublimated Patches",
+          "Metallic Foil Prints",
+          "Sonic Welded Keyrings & Badges"
+        ],
+        "compliance": "Licensed Product Safety • OEKO-TEX",
+        "leadTime": "48h Sampling / 6d Bulk",
+        "highlight": "Global licensed entertainment and fashion accessories manufactured with strict character integrity."
+      },
+      {
+        "id": "perfect-game",
+        "name": "Perfect Game",
+        "category": "sports",
+        "group": "Perfect Game USA",
+        "country": "United States",
+        "status": "Athletic Wear Partner",
+        "image": "/images/clients/Richardson.png",
+        "products": [
+          "Sweat-Resistant Heat Transfers",
+          "3D Silicone Chest Badges",
+          "Reflective Performance Tapes"
+        ],
+        "compliance": "Strict Wash Test (50+ Cycles) • ISO 9001",
+        "leadTime": "48h Sampling / 5-7d Bulk",
+        "highlight": "Premier baseball athletic trims engineered to withstand intense friction and repetitive washing."
+      },
+      {
+        "id": "6th-sense",
+        "name": "6th Sense",
+        "category": "sports",
+        "group": "6th Sense Fishing",
+        "country": "United States",
+        "status": "Performance Partner",
+        "image": "/images/clients/flexfit-logo-png_seeklogo-207071.png",
+        "products": [
+          "UV-Resistant Screen Prints",
+          "Silicone Rubber Pullers",
+          "Waterproof Heat Transfer Graphics"
+        ],
+        "compliance": "Outdoor Grade Fastness • REACH Safe",
+        "leadTime": "48h Sampling / 6d Bulk",
+        "highlight": "Technical angling and marine performance apparel trims engineered for saltwater exposure."
+      },
+      {
+        "id": "mv-agusta",
+        "name": "MV Agusta",
+        "category": "sports",
+        "group": "MV Agusta Motor S.p.A.",
+        "country": "Italy / Global",
+        "status": "Motorsports Luxury Partner",
+        "image": "/images/clients/new-era-logo-png_seeklogo-173919.png",
+        "products": [
+          "High-Frequency 3D Sonic Badges",
+          "Metallic Rubber Emblems",
+          "Laser-Cut PU Patches"
+        ],
+        "compliance": "Luxury European Standards • AQL 1.0",
+        "leadTime": "48h Sampling / 7d Bulk",
+        "highlight": "Ultra-high-definition motorsport branding crafted for premium apparel and motorcycle gear."
+      }
+    ],
+    "compliance": {
+      "_isActive": true,
+      "badge": "Audited Compliance",
+      "title": "Zero Risk Compliance for Global Fashion Retailers",
+      "description": "Every batch of printing inks, silicone compounds, and packaging substrates is tested and verified to satisfy Europe and North America's strictest consumer safety mandates.",
+      "certificates": [
+        {
+          "id": "oeko-tex",
+          "title": "OEKO-TEX® Standard 100 (Class I)",
+          "tag": "Class I Infant-Safe",
+          "image": "/assets/images/cert-oekotex.svg",
+          "desc": "Free from formaldehyde, phthalates, and heavy metals. Certified completely safe for babies and sensitive skin.",
+          "scope": "Tested for over 300 harmful substances; strictly compliant with EU REACH Annex XVII, US CPSIA, and GB 18401 Class A."
+        },
+        {
+          "id": "bsci-sedex",
+          "title": "BSCI & SEDEX SMETA 4-Pillar",
+          "tag": "Social & Ethical Audit",
+          "image": "/assets/images/cert-bsci-sedex.svg",
+          "desc": "Full social, ethical, and labor compliance guaranteeing fair wages, safe working premises, and zero child labor.",
+          "scope": "Full 4-Pillar audit across Labor Standards, Health & Safety, Environmental Management, and Business Ethics."
+        },
+        {
+          "id": "aql-audit",
+          "title": "AQL 1.0 Strict Pre-Shipment Audit",
+          "tag": "Zero-Defect Quality Gate",
+          "image": "/assets/images/cert-aql.svg",
+          "desc": "Rigorous four-stage quality gate inspecting color fastness, adhesion, peel strength, and dimensional tolerances.",
+          "scope": "Strict pre-shipment sampling under ISO 2859-1 standards guaranteeing zero critical defect release."
+        },
+        {
+          "id": "fsc",
+          "title": "FSC® Certified Packaging Substrates",
+          "tag": "Responsible Forestry",
+          "image": "/assets/images/cert-fsc.svg",
+          "desc": "All paper tags, cartons, and hangtags sourced from certified responsibly managed sustainable forests.",
+          "scope": "FSC Chain-of-Custody (CoC) certified paperboards ensuring zero deforestation and verified circular traceability."
+        }
+      ]
+    },
+    "globalReach": {
+      "_isActive": true,
+      "badge": "Global Sourcing Reach",
+      "title": "Where Garments Featuring ZM Trims Travel",
+      "description": "From our state-of-the-art facilities in Ashulia, Savar, we supply trims directly to export garment manufacturing facilities in Bangladesh. Finished garments are then exported to leading retail stores across major global economies.",
+      "markets": [
+        {
+          "name": "🇪🇺 Europe & United Kingdom",
+          "percent": "55%",
+          "percentNum": 55,
+          "subtext": "Key markets: Spain, Germany, UK, France, Scandinavia (Inditex, H&M, Next, C&A)"
+        },
+        {
+          "name": "🇺🇸 North America (USA & Canada)",
+          "percent": "30%",
+          "percentNum": 30,
+          "subtext": "Key markets: New York, California, Montreal (PVH/Tommy, Gildan, Retail Brands)"
+        },
+        {
+          "name": "🌏 Asia-Pacific & Domestic Direct Exporters",
+          "percent": "15%",
+          "percentNum": 15,
+          "subtext": "Supplying Top-50 export RMG conglomerates across Savar, Gazipur & Chittagong EPZ"
+        }
+      ],
+      "epzTitle": "Direct Garment EPZ Delivery",
+      "epzSubtitle": "Daily logistics fleets covering major apparel corridors",
+      "epzRoutes": [
+        "Ashulia & Baipail Hub (Same-Day)",
+        "Savar Industrial Zone (Same-Day)",
+        "Gazipur & Konabari Corridor (Daily)",
+        "Narayanganj Knitwear Cluster (Daily)",
+        "Chittagong CEPZ & KEPZ (Scheduled Express)",
+        "Dhaka Airport Cargo Direct (Air Cargo Express)"
+      ],
+      "metric1Value": "99.4%",
+      "metric1Label": "On-Time JIT Dispatch",
+      "metric2Value": "Zero Delay",
+      "metric2Label": "Airfreight Penalty Guarantee"
+    },
+    "supplyChain": {
+      "_isActive": true,
+      "badge": "Seamless Supply Chain",
+      "title": "How We Partner with Garment Factories & Buying Houses",
+      "subtitle": "Whether you are an apparel exporter needing urgent trims for a looming shipment date or a brand design office developing seasonal tech packs.",
+      "steps": [
+        {
+          "num": "01",
+          "title": "Tech Pack & CAD Review",
+          "desc": "Direct digital liaison with brand technical designers or garment factory merchandisers. Color separation, vector verification, and fabric stretch analysis completed within 4 business hours.",
+          "tag": "Turnaround: 4 Hours"
+        },
+        {
+          "num": "02",
+          "title": "48h Rapid Sampling",
+          "desc": "Fast physical strike-offs, CNC tooling, and Pantone lab dips delivered within 48 hours to meet tight buyer approval windows without costly delay cycles.",
+          "tag": "Speed: 48 Hours Guarantee"
+        },
+        {
+          "num": "03",
+          "title": "AQL 1.0 Bulk Manufacturing",
+          "desc": "Precision automated production on European & Japanese equipment. 100% inline inspection for wash fastness, tensile stretch, and rub resistance under ISO 9001 protocols.",
+          "tag": "Quality: AQL 1.0 Gate"
+        },
+        {
+          "num": "04",
+          "title": "Factory-Floor Delivery",
+          "desc": "Same-day localized logistics directly to garment manufacturing floors across Gazipur, Savar, Ashulia, Narayanganj, and Chittagong with digital delivery acknowledgments.",
+          "tag": "Dispatch: Same-Day Fleet"
+        }
+      ]
+    },
+    "faqs": [
+      {
+        "q": "How fast can ZM Printing deliver physical counter-samples for urgent buyer approval?",
+        "a": "We operate a dedicated 48-hour Rapid Sampling Cell. Upon receiving your artwork or physical swatch, digital CAD proofs are generated within 4 hours, and physical screen print strike-offs, pantone lab dips, or CNC silicone mold samples are dispatched within 24 to 48 hours directly to your merchandising team."
+      },
+      {
+        "q": "Are your printing inks and trims officially nominated or compliant with major brands?",
+        "a": "Yes. We are an audited and nominated trims vendor for numerous European and US retail groups, including Inditex (Zara, Pull&Bear, Bershka), H&M, PVH Corp, and Next UK. Our raw materials are OEKO-TEX® Standard 100 Class I certified (safe for infant wear) and strictly adhere to REACH and ZDHC chemical compliance."
+      },
+      {
+        "q": "What is your minimum order quantity (MOQ) for custom garment accessories?",
+        "a": "We offer flexible MOQs tailored for both seasonal sample runs and high-volume production. For standard heat transfers, care labels, and screen printing, we accommodate initial development orders as low as 500-1,000 units, scaling seamlessly up to multi-million unit high-speed production runs."
+      },
+      {
+        "q": "Do you provide direct factory-floor delivery across Bangladesh garment industrial zones?",
+        "a": "Yes. ZM Printing operates its own direct delivery fleet providing daily JIT (Just-In-Time) dispatches to garment manufacturing facilities across Savar, Ashulia, Gazipur, Konabari, Narayanganj, and the Chittagong Export Processing Zone (EPZ)."
+      }
+    ],
+    "ctaBanner": {
+      "_isActive": true,
+      "badge": "PARTNER WITH ZM PRINTING & DESIGN",
+      "title": "Ready to Upgrade Your Garment Trims Supply Chain?",
+      "desc": "Connect directly with our corporate merchandising desk in Ashulia, Savar. Request physical brand sample swatches, factory audit profiles, or customized price matrixes.",
+      "btnPrimaryText": "Connect with Merchandising Desk",
+      "btnPrimaryUrl": "/contact",
+      "btnSecondaryText": "View Full Factory Profile",
+      "btnSecondaryUrl": "/profile",
+      "trustNote": "NDA & Confidential Tech Pack handling guaranteed for international fashion brands."
+    }
   },
   "news": [
     {
