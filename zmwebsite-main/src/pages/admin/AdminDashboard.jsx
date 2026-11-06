@@ -23,6 +23,7 @@ export default function AdminDashboard({ user, onLogout, navigate }) {
   // Modals
   const [editingProduct, setEditingProduct] = useState(null);
   const [editingTeamMember, setEditingTeamMember] = useState(null);
+  const [editingSectionModal, setEditingSectionModal] = useState(null);
   const [deleteModalState, setDeleteModalState] = useState({ isOpen: false, type: '', id: null, title: '' });
 
   // Password state
@@ -34,15 +35,15 @@ export default function AdminDashboard({ user, onLogout, navigate }) {
     if (content?.products?.items) setProductsList(content.products.items);
     if (content?.about?.leadership?.members) setTeamList(content.about.leadership.members);
     
-    // Construct sections list
+    // Construct sections list with live active status
     const secs = [
-      { key: 'hero', page: 'home', name: 'Home Hero Slides', isActive: true },
-      { key: 'commitment', page: 'home', name: 'Commitment & Speed Strip', isActive: true },
-      { key: 'story', page: 'home', name: 'Company Story & Heritage', isActive: true },
-      { key: 'productsShowcase', page: 'home', name: 'Engineered Products Showcase', isActive: true },
-      { key: 'certificationsBanner', page: 'home', name: 'Certifications Carousel Strip', isActive: true },
-      { key: 'clientLogos', page: 'home', name: 'Global Brand Partner Slider', isActive: true },
-      { key: 'latestNews', page: 'home', name: 'Latest News & Photo Strip', isActive: true }
+      { key: 'story', page: 'home', name: 'Company Story & Heritage (Green Box)', isActive: content?.home?.companyStory?._isActive !== false },
+      { key: 'hero', page: 'home', name: 'Home Hero Slides', isActive: content?.home?.hero?._isActive !== false },
+      { key: 'commitment', page: 'home', name: 'Commitment & Speed Strip', isActive: content?.home?.commitment?._isActive !== false },
+      { key: 'productsShowcase', page: 'home', name: 'Engineered Products Showcase', isActive: content?.home?.productsShowcase?._isActive !== false },
+      { key: 'certificationsBanner', page: 'home', name: 'Certifications Carousel Strip', isActive: content?.home?.certificationsBanner?._isActive !== false },
+      { key: 'clientLogos', page: 'home', name: 'Global Brand Partner Slider', isActive: content?.home?.clientLogos?._isActive !== false },
+      { key: 'latestNews', page: 'home', name: 'Latest News & Photo Strip', isActive: content?.home?.latestNews?._isActive !== false }
     ];
     setSectionsList(secs);
   }, [content]);
@@ -98,7 +99,8 @@ export default function AdminDashboard({ user, onLogout, navigate }) {
   };
 
   // 3. TOGGLE SECTION
-  const handleToggleSection = async (pageKey, sectionKey, currentActive) => {
+  const handleToggleSection = async (pageKey, rawKey, currentActive) => {
+    const sectionKey = rawKey === 'story' ? 'companyStory' : rawKey;
     try {
       const res = await fetch('/api/content.php?action=toggle_section', {
         method: 'POST',
@@ -109,12 +111,52 @@ export default function AdminDashboard({ user, onLogout, navigate }) {
       if (!res.ok || !data.success) throw new Error(data.error || 'Failed to toggle');
       
       setSectionsList(prev => prev.map(s => 
-        s.key === sectionKey ? { ...s, isActive: !currentActive } : s
+        s.key === rawKey ? { ...s, isActive: !currentActive } : s
       ));
       await refreshContent();
-      showToast(`Section ${sectionKey} is now ${!currentActive ? 'Visible' : 'Hidden'} on live site.`);
+      showToast(`Section '${rawKey}' is now ${!currentActive ? 'Visible' : 'Hidden'} on live site.`);
     } catch (err) {
       showToast(err.message, 'error');
+    }
+  };
+
+  // 3b. OPEN SECTION CONTENT EDITOR
+  const handleOpenSectionEditor = (sec) => {
+    const pageKey = sec.page;
+    const sectionKey = sec.key === 'story' ? 'companyStory' : sec.key;
+    const rawData = content?.[pageKey]?.[sectionKey] || {};
+    setEditingSectionModal({
+      sec,
+      pageKey,
+      sectionKey,
+      data: JSON.parse(JSON.stringify(rawData))
+    });
+  };
+
+  // 3c. SAVE SECTION CONTENT
+  const handleSaveSectionContent = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const { pageKey, sectionKey, data, sec } = editingSectionModal;
+      const res = await fetch('/api/content.php?action=save_section', {
+        method: 'POST',
+        headers: getAuthHeader(),
+        body: JSON.stringify({
+          page_key: pageKey,
+          section_key: sectionKey,
+          content: data
+        })
+      });
+      const result = await res.json();
+      if (!res.ok || !result.success) throw new Error(result.error || 'Failed to save section');
+      await refreshContent();
+      setEditingSectionModal(null);
+      showToast(`Section '${sec.name}' updated & published live!`);
+    } catch (err) {
+      showToast(err.message, 'error');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -491,7 +533,7 @@ export default function AdminDashboard({ user, onLogout, navigate }) {
                       <th>Section Name</th>
                       <th>Identifier</th>
                       <th>Live Status</th>
-                      <th>Toggle Action</th>
+                      <th>Manage Content & Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -505,20 +547,313 @@ export default function AdminDashboard({ user, onLogout, navigate }) {
                           </span>
                         </td>
                         <td>
-                          <button
-                            type="button"
-                            className={`admin-btn admin-btn-sm ${sec.isActive ? 'admin-btn-secondary' : 'admin-btn-primary'}`}
-                            onClick={() => handleToggleSection(sec.page, sec.key, sec.isActive)}
-                          >
-                            {sec.isActive ? <EyeOff size={14} /> : <Eye size={14} />}
-                            <span>{sec.isActive ? 'Hide Section' : 'Make Visible'}</span>
-                          </button>
+                          <div style={{ display: 'flex', gap: '8px' }}>
+                            <button
+                              type="button"
+                              className="admin-btn admin-btn-sm admin-btn-primary"
+                              onClick={() => handleOpenSectionEditor(sec)}
+                            >
+                              <Edit2 size={14} />
+                              <span>Edit Text & Media</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              className={`admin-btn admin-btn-sm ${sec.isActive ? 'admin-btn-secondary' : 'admin-btn-outline'}`}
+                              onClick={() => handleToggleSection(sec.page, sec.key, sec.isActive)}
+                              title={sec.isActive ? 'Hide this section from visitors' : 'Make this section visible to visitors'}
+                            >
+                              {sec.isActive ? <EyeOff size={14} /> : <Eye size={14} />}
+                              <span>{sec.isActive ? 'Hide' : 'Show'}</span>
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
+
+              {/* SECTION CONTENT EDITOR MODAL */}
+              {editingSectionModal && (
+                <div className="admin-modal-backdrop" onClick={() => setEditingSectionModal(null)}>
+                  <div 
+                    className="admin-modal-content" 
+                    style={{ maxWidth: '820px', maxHeight: '90vh', overflowY: 'auto', textAlign: 'left' }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', borderBottom: '1px solid var(--admin-border)', paddingBottom: '12px' }}>
+                      <div>
+                        <h3 style={{ margin: 0, color: '#fff' }}>Edit Section: {editingSectionModal.sec.name}</h3>
+                        <p style={{ margin: '4px 0 0', color: 'var(--admin-text-dim)', fontSize: '0.85rem' }}>
+                          Update texts, descriptions, buttons, and media without editing code.
+                        </p>
+                      </div>
+                      <button 
+                        type="button" 
+                        className="admin-modal-close-btn" 
+                        onClick={() => setEditingSectionModal(null)}
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    <form onSubmit={handleSaveSectionContent} className="admin-form">
+                      {/* COMPANY STORY SECTION (Exact Section from Screenshot) */}
+                      {editingSectionModal.sectionKey === 'companyStory' && (
+                        <>
+                          <div className="admin-form-group">
+                            <label>Right Green Box Main Heading</label>
+                            <textarea
+                              rows={3}
+                              className="admin-input"
+                              value={editingSectionModal.data.title || ''}
+                              onChange={(e) => setEditingSectionModal({
+                                ...editingSectionModal,
+                                data: { ...editingSectionModal.data, title: e.target.value }
+                              })}
+                              placeholder="e.g. Precision Screen Printing & Premium Garments Printing Accessories Solutions."
+                            />
+                          </div>
+
+                          <div className="admin-form-group" style={{ background: 'rgba(72, 187, 120, 0.08)', padding: '16px', borderRadius: '8px', border: '1px solid rgba(72, 187, 120, 0.3)' }}>
+                            <label style={{ color: '#48bb78', fontSize: '0.95rem' }}>
+                              <strong>🔴 Story & History Description (Red Marked Text in Screenshot)</strong>
+                            </label>
+                            <textarea
+                              rows={6}
+                              className="admin-input"
+                              style={{ lineHeight: '1.6', fontSize: '0.95rem', marginTop: '6px' }}
+                              value={editingSectionModal.data.description || ''}
+                              onChange={(e) => setEditingSectionModal({
+                                ...editingSectionModal,
+                                data: { ...editingSectionModal.data, description: e.target.value }
+                              })}
+                              placeholder="Enter the full description text here..."
+                            />
+                            <span style={{ fontSize: '0.8rem', color: '#86efac', display: 'block', marginTop: '6px' }}>
+                              ✍️ You can change "Established in 2013" or any other words, dates, or addresses directly above!
+                            </span>
+                          </div>
+
+                          <div className="admin-form-row">
+                            <div className="admin-form-group">
+                              <label>Button Label Text</label>
+                              <input
+                                type="text"
+                                className="admin-input"
+                                value={editingSectionModal.data.ctaText || 'MORE ABOUT ZM'}
+                                onChange={(e) => setEditingSectionModal({
+                                  ...editingSectionModal,
+                                  data: { ...editingSectionModal.data, ctaText: e.target.value }
+                                })}
+                              />
+                            </div>
+                            <div className="admin-form-group">
+                              <label>Button Target URL</label>
+                              <input
+                                type="text"
+                                className="admin-input"
+                                value={editingSectionModal.data.ctaLink || '/about'}
+                                onChange={(e) => setEditingSectionModal({
+                                  ...editingSectionModal,
+                                  data: { ...editingSectionModal.data, ctaLink: e.target.value }
+                                })}
+                              />
+                            </div>
+                          </div>
+
+                          <ImageUploader
+                            label="Left Video Poster / Thumbnail Image"
+                            currentImage={editingSectionModal.data.videoPoster || '/images/home/story-factory-poster.jpg'}
+                            onSelectImage={(url) => setEditingSectionModal({
+                              ...editingSectionModal,
+                              data: { ...editingSectionModal.data, videoPoster: url }
+                            })}
+                          />
+
+                          <div className="admin-form-group">
+                            <label>Background Video URL</label>
+                            <input
+                              type="text"
+                              className="admin-input"
+                              value={editingSectionModal.data.videoUrl || '/assets/videos/ZM Printing 1.mp4'}
+                              onChange={(e) => setEditingSectionModal({
+                                ...editingSectionModal,
+                                data: { ...editingSectionModal.data, videoUrl: e.target.value }
+                              })}
+                            />
+                          </div>
+
+                          <h4 style={{ margin: '16px 0 8px', color: '#fff', fontSize: '1rem' }}>Statistics Row (Numbers & Labels)</h4>
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '12px' }}>
+                            {(editingSectionModal.data.stats || [
+                              { id: 1, target: 13, symbol: "+", label: "Years of Experience" },
+                              { id: 2, target: 300, symbol: "+", label: "Employees" },
+                              { id: 3, target: 10, symbol: "+", label: "Global Locations" },
+                              { id: 4, target: 100, symbol: "K+", label: "Products Produced Daily" }
+                            ]).map((st, sIdx) => (
+                              <div key={st.id || sIdx} style={{ background: '#09130c', padding: '12px', borderRadius: '8px', border: '1px solid var(--admin-border)' }}>
+                                <label style={{ fontSize: '0.8rem', color: 'var(--admin-text-dim)' }}>{st.label}</label>
+                                <div style={{ display: 'flex', gap: '6px', marginTop: '6px' }}>
+                                  <input
+                                    type="number"
+                                    className="admin-input"
+                                    style={{ padding: '6px' }}
+                                    value={st.target}
+                                    onChange={(e) => {
+                                      const newStats = [...(editingSectionModal.data.stats || [
+                                        { id: 1, target: 13, symbol: "+", label: "Years of Experience" },
+                                        { id: 2, target: 300, symbol: "+", label: "Employees" },
+                                        { id: 3, target: 10, symbol: "+", label: "Global Locations" },
+                                        { id: 4, target: 100, symbol: "K+", label: "Products Produced Daily" }
+                                      ])];
+                                      newStats[sIdx] = { ...newStats[sIdx], target: Number(e.target.value) };
+                                      setEditingSectionModal({
+                                        ...editingSectionModal,
+                                        data: { ...editingSectionModal.data, stats: newStats }
+                                      });
+                                    }}
+                                  />
+                                  <input
+                                    type="text"
+                                    className="admin-input"
+                                    style={{ width: '50px', padding: '6px', textAlign: 'center' }}
+                                    value={st.symbol}
+                                    onChange={(e) => {
+                                      const newStats = [...(editingSectionModal.data.stats || [
+                                        { id: 1, target: 13, symbol: "+", label: "Years of Experience" },
+                                        { id: 2, target: 300, symbol: "+", label: "Employees" },
+                                        { id: 3, target: 10, symbol: "+", label: "Global Locations" },
+                                        { id: 4, target: 100, symbol: "K+", label: "Products Produced Daily" }
+                                      ])];
+                                      newStats[sIdx] = { ...newStats[sIdx], symbol: e.target.value };
+                                      setEditingSectionModal({
+                                        ...editingSectionModal,
+                                        data: { ...editingSectionModal.data, stats: newStats }
+                                      });
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      )}
+
+                      {/* HERO SLIDER SECTION */}
+                      {editingSectionModal.sectionKey === 'hero' && (
+                        <>
+                          <div className="admin-form-group">
+                            <label>Slide Rotation Duration (Milliseconds)</label>
+                            <input
+                              type="number"
+                              className="admin-input"
+                              value={editingSectionModal.data.duration || 6000}
+                              onChange={(e) => setEditingSectionModal({
+                                ...editingSectionModal,
+                                data: { ...editingSectionModal.data, duration: Number(e.target.value) }
+                              })}
+                            />
+                          </div>
+
+                          <h4 style={{ margin: '16px 0 8px', color: '#fff' }}>Hero Slides</h4>
+                          {(editingSectionModal.data.slides || []).map((slide, sIdx) => (
+                            <div key={slide.id || sIdx} style={{ background: '#09130c', padding: '16px', borderRadius: '10px', border: '1px solid var(--admin-border)', marginBottom: '14px' }}>
+                              <strong style={{ display: 'block', marginBottom: '8px', color: 'var(--admin-accent)' }}>Slide #{sIdx + 1}</strong>
+                              <div className="admin-form-group">
+                                <label>Kicker / Badge</label>
+                                <input
+                                  type="text"
+                                  className="admin-input"
+                                  value={slide.kicker || ''}
+                                  onChange={(e) => {
+                                    const newSlides = [...editingSectionModal.data.slides];
+                                    newSlides[sIdx] = { ...newSlides[sIdx], kicker: e.target.value };
+                                    setEditingSectionModal({ ...editingSectionModal, data: { ...editingSectionModal.data, slides: newSlides } });
+                                  }}
+                                />
+                              </div>
+                              <div className="admin-form-group" style={{ marginTop: '8px' }}>
+                                <label>Slide Main Title</label>
+                                <textarea
+                                  rows={2}
+                                  className="admin-input"
+                                  value={slide.title || ''}
+                                  onChange={(e) => {
+                                    const newSlides = [...editingSectionModal.data.slides];
+                                    newSlides[sIdx] = { ...newSlides[sIdx], title: e.target.value };
+                                    setEditingSectionModal({ ...editingSectionModal, data: { ...editingSectionModal.data, slides: newSlides } });
+                                  }}
+                                />
+                              </div>
+                              <div style={{ marginTop: '10px' }}>
+                                <ImageUploader
+                                  label="Slide Background Image"
+                                  currentImage={slide.image}
+                                  onSelectImage={(url) => {
+                                    const newSlides = [...editingSectionModal.data.slides];
+                                    newSlides[sIdx] = { ...newSlides[sIdx], image: url };
+                                    setEditingSectionModal({ ...editingSectionModal, data: { ...editingSectionModal.data, slides: newSlides } });
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          ))}
+                        </>
+                      )}
+
+                      {/* OTHER SECTIONS (ProductsShowcase, Commitment, Certifications, etc.) */}
+                      {editingSectionModal.sectionKey !== 'companyStory' && editingSectionModal.sectionKey !== 'hero' && (
+                        <>
+                          <div className="admin-form-group">
+                            <label>Section Title / Heading</label>
+                            <input
+                              type="text"
+                              className="admin-input"
+                              value={editingSectionModal.data.title || editingSectionModal.data.heading || ''}
+                              onChange={(e) => setEditingSectionModal({
+                                ...editingSectionModal,
+                                data: { ...editingSectionModal.data, title: e.target.value }
+                              })}
+                            />
+                          </div>
+                          <div className="admin-form-group">
+                            <label>Section Subtitle / Description</label>
+                            <textarea
+                              rows={4}
+                              className="admin-input"
+                              value={editingSectionModal.data.subtitle || editingSectionModal.data.description || ''}
+                              onChange={(e) => setEditingSectionModal({
+                                ...editingSectionModal,
+                                data: { ...editingSectionModal.data, subtitle: e.target.value }
+                              })}
+                            />
+                          </div>
+                        </>
+                      )}
+
+                      <div className="admin-modal-actions" style={{ marginTop: '24px' }}>
+                        <button 
+                          type="button" 
+                          className="admin-btn admin-btn-secondary" 
+                          onClick={() => setEditingSectionModal(null)}
+                        >
+                          Cancel
+                        </button>
+                        <button 
+                          type="submit" 
+                          className="admin-btn admin-btn-primary" 
+                          disabled={loading}
+                        >
+                          <Save size={16} />
+                          {loading ? 'Saving & Publishing...' : 'Save & Publish Live'}
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

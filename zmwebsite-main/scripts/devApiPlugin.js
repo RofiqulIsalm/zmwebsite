@@ -151,6 +151,17 @@ export function devApiPlugin() {
             return res.end(JSON.stringify({ success: true, message: 'Site settings updated and saved to content.json' }));
           }
 
+          if (action === 'save_section') {
+            const { page_key, section_key, content } = body;
+            if (!currentContent[page_key]) currentContent[page_key] = {};
+            currentContent[page_key][section_key] = {
+              ...(currentContent[page_key][section_key] || {}),
+              ...content
+            };
+            writeContent(currentContent);
+            return res.end(JSON.stringify({ success: true, message: `Section '${section_key}' saved to content.json.` }));
+          }
+
           if (action === 'toggle_section') {
             const { page_key, section_key, is_active } = body;
             if (currentContent[page_key] && currentContent[page_key][section_key]) {
@@ -271,3 +282,4 @@ export function devApiPlugin() {
     }
   };
 }
+

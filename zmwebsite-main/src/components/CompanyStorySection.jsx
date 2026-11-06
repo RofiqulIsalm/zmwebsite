@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause } from 'lucide-react';
+import { useSiteContent } from '../context/SiteContentContext';
 
 const statsData = [
   {
@@ -83,10 +84,26 @@ function StatCounterItem({ stat, index, isVisible }) {
 }
 
 export default function CompanyStorySection({ navigate }) {
+  const { content } = useSiteContent();
   const [isPlaying, setIsPlaying] = useState(true);
   const [isRowVisible, setIsRowVisible] = useState(false);
   const videoRef = useRef(null);
   const statsRowRef = useRef(null);
+
+  const story = content?.home?.companyStory || {};
+
+  // If section is toggled off from admin, hide it
+  if (story._isActive === false) {
+    return null;
+  }
+
+  const mainTitle = story.title || "Precision Screen Printing \n& Premium Garments Printing Accessories \nSolutions.";
+  const descriptionText = story.description || "ZM Printing & Design Ltd. is a modern, state-of-the-art 'one-stop solution' for high-quality screen printing, apparel trims, and accessories. Established in 2013 under dedicated engineering leadership, our advanced production in Ariara Mor,South Gazirchat,Ashulia, Savar delivers reliable backward linkage support to empower Bangladesh’s export-oriented garment industries with exceptional precision and quality.";
+  const buttonText = story.ctaText || "MORE ABOUT ZM";
+  const buttonLink = story.ctaLink || "/about";
+  const videoPoster = story.videoPoster || "/images/home/story-factory-poster.jpg";
+  const videoUrl = story.videoUrl || "/assets/videos/ZM Printing 1.mp4";
+  const activeStats = (story.stats && story.stats.length > 0) ? story.stats : statsData;
 
   useEffect(() => {
     const el = statsRowRef.current;
@@ -135,7 +152,7 @@ export default function CompanyStorySection({ navigate }) {
           <div className="story-video-side">
             <video
               ref={videoRef}
-              poster="/images/home/story-factory-poster.jpg"
+              poster={videoPoster}
               autoPlay
               loop
               muted
@@ -143,7 +160,7 @@ export default function CompanyStorySection({ navigate }) {
               className="story-bg-video"
               aria-label="ZM Printing Factory Operations and High Precision Production"
             >
-              <source src="/assets/videos/ZM Printing 1.mp4" type="video/mp4" />
+              <source src={videoUrl} type="video/mp4" />
             </video>
 
             {/* Bottom-left Caption Badges (Matching Screenshot 1 exactly) */}
@@ -169,23 +186,21 @@ export default function CompanyStorySection({ navigate }) {
 
           {/* Right: Solid Forest Green Box (Matching Screenshot 1) */}
           <div className="story-content-side">
-            <h2 className="story-main-title">
-              Precision Screen Printing <br />
-              & Premium Garments Printing Accessories <br />
-              Solutions.
+            <h2 className="story-main-title" style={{ whiteSpace: 'pre-line' }}>
+              {mainTitle}
             </h2>
 
             <p className="story-description-text">
-              ZM Printing & Design Ltd. is a modern, state-of-the-art 'one-stop solution' for high-quality screen printing, apparel trims, and accessories. Established in 2013 under dedicated engineering leadership, our advanced production in Ariara Mor,South Gazirchat,Ashulia, Savar delivers reliable backward linkage support to empower Bangladesh’s export-oriented garment industries with exceptional precision and quality.
+              {descriptionText}
             </p>
 
             <div className="story-btn-wrap">
               <a
-                href="/about"
-                onClick={(e) => { e.preventDefault(); navigate('/about'); }}
+                href={buttonLink}
+                onClick={(e) => { e.preventDefault(); navigate(buttonLink); }}
                 className="story-more-btn"
               >
-                MORE ABOUT ZM
+                {buttonText}
               </a>
             </div>
           </div>
@@ -197,7 +212,7 @@ export default function CompanyStorySection({ navigate }) {
           data-reveal-group
           className={`story-stats-row ${isRowVisible ? 'row-visible' : ''}`}
         >
-          {statsData.map((stat, idx) => (
+          {activeStats.map((stat, idx) => (
             <StatCounterItem
               key={stat.id}
               stat={stat}

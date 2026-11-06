@@ -1,15 +1,21 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { homePageContent } from '../data/homePage';
-
-const SLIDE_DURATION = homePageContent?.hero?.duration || 6000;
-const slides = homePageContent?.hero?.slides || [];
+import { useSiteContent } from '../context/SiteContentContext';
 
 export default function Hero({ navigate }) {
+  const { content } = useSiteContent();
+  const heroData = content?.home?.hero || homePageContent?.hero || {};
+
+  const slides = (heroData.slides && heroData.slides.length > 0) ? heroData.slides : (homePageContent?.hero?.slides || []);
+  const SLIDE_DURATION = heroData.duration || 6000;
+
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [progressKey, setProgressKey] = useState(0); // For resetting CSS progress animation
   const autoPlayTimerRef = useRef(null);
+
+  if (heroData._isActive === false) return null;
 
   const nextSlide = useCallback(() => {
     setCurrent((prev) => (prev + 1) % slides.length);

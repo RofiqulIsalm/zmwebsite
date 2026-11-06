@@ -447,16 +447,41 @@
       }
     ],
     "companyStory": {
+      "_isActive": true,
       "badge": "Factory Heritage",
-      "title": "Rooted in Savar Industrial Hub, Engineered for Global Fashion Brands",
-      "description": "From single silk-screen setups in 2013 to a fully compliant multi-floor manufacturing complex in Ariara Mor,South Gazirchat,Ashulia,Savar,Dhaka,Bangladesh. ZM Printing & Design Ltd. delivers end-to-end trims and printing engineering under one roof.",
-      "highlights": [
-        "In-House CAD, CNC Tooling & 24-Hour Strike-Off Sampling",
-        "OEKO-TEX Standard 100, BSCI & Sedex 4-Pillar Certified",
-        "Zero Toxic Chemistry: Phthalate-free & GOTS-compliant Water-based Inks"
-      ],
-      "ctaText": "Discover Our History",
-      "ctaLink": "/about"
+      "title": "Precision Screen Printing \n& Premium Garments Printing Accessories \nSolutions.",
+      "description": "ZM Printing & Design Ltd. is a modern, state-of-the-art 'one-stop solution' for high-quality screen printing, apparel trims, and accessories. Established in 2013 under dedicated engineering leadership, our advanced production in Ariara Mor,South Gazirchat,Ashulia, Savar delivers reliable backward linkage support to empower Bangladesh’s export-oriented garment industries with exceptional precision and quality.",
+      "ctaText": "MORE ABOUT ZM",
+      "ctaLink": "/about",
+      "videoPoster": "/images/home/story-factory-poster.jpg",
+      "videoUrl": "/assets/videos/ZM Printing 1.mp4",
+      "stats": [
+        {
+          "id": 1,
+          "target": 13,
+          "symbol": "+",
+          "label": "Years of Experience"
+        },
+        {
+          "id": 2,
+          "target": 300,
+          "symbol": "+",
+          "isFormatted": false,
+          "label": "Employees"
+        },
+        {
+          "id": 3,
+          "target": 10,
+          "symbol": "+",
+          "label": "Global Locations"
+        },
+        {
+          "id": 4,
+          "target": 100,
+          "symbol": "K+",
+          "label": "Products Produced Daily"
+        }
+      ]
     }
   },
   "about": {

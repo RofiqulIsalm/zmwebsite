@@ -150,11 +150,12 @@ if ($action === 'save_section' && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $pageKey    = trim($input['page_key'] ?? '');
     $sectionKey = trim($input['section_key'] ?? '');
-    $title      = trim($input['title'] ?? '');
-    $subtitle   = trim($input['subtitle'] ?? '');
-    $contentJson= isset($input['content_json']) ? json_encode($input['content_json']) : '{}';
-    $isActive   = isset($input['is_active']) ? (int)$input['is_active'] : 1;
-    $sortOrder  = isset($input['sort_order']) ? (int)$input['sort_order'] : 0;
+    $title       = trim($input['title'] ?? '');
+    $subtitle    = trim($input['subtitle'] ?? '');
+    $contentData = $input['content'] ?? $input['content_json'] ?? [];
+    $contentJson = is_array($contentData) ? json_encode($contentData) : (string)$contentData;
+    $isActive    = isset($input['is_active']) ? (int)$input['is_active'] : 1;
+    $sortOrder   = isset($input['sort_order']) ? (int)$input['sort_order'] : 0;
 
     if (empty($pageKey) || empty($sectionKey)) {
         send_error("page_key and section_key are required.", 400);
