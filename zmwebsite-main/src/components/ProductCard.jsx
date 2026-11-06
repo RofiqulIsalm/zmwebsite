@@ -13,8 +13,8 @@ export default function ProductCard({ product, navigate }) {
       {/* Media Frame */}
       <div className="product-card-image-wrap">
         <img 
-          src={product.image} 
-          alt={product.name} 
+          src={product.image || product.image_url} 
+          alt={product.name || product.title} 
           className="product-card-img"
           loading="lazy"
           onError={(e) => { e.currentTarget.src = '/images/home/card-screen-printing.jpg'; }}
@@ -27,7 +27,7 @@ export default function ProductCard({ product, navigate }) {
 
       {/* Content Body */}
       <div className="product-card-body">
-        <h3 className="product-card-title">{product.name}</h3>
+        <h3 className="product-card-title">{product.name || product.title}</h3>
         <p className="product-card-desc">{product.shortDesc}</p>
 
         {/* Quick Specs Tags */}

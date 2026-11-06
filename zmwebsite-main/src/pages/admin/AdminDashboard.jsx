@@ -9,6 +9,7 @@ import ImageUploader from './components/ImageUploader';
 import DoubleCheckModal from './components/DoubleCheckModal';
 import HomePageEditor from './components/HomePageEditor';
 import AboutPageEditor from './components/AboutPageEditor';
+import ProductsPageEditor from './components/ProductsPageEditor';
 import { useSiteContent } from '../../context/SiteContentContext';
 
 // Website Navigation Menus / Pages Hierarchy
@@ -867,70 +868,31 @@ export default function AdminDashboard({ user, onLogout, navigate }) {
                 </div>
               )}
 
-              {/* VIEW 4: ALL-PRODUCT (SWITCH TO PRODUCTS TAB) */}
+              {/* VIEW 4: ALL-PRODUCT (Comprehensive Visual Builder) */}
               {selectedPageMenu === 'products' && (
-                <div className="admin-page-flow-wrapper">
-                  <div className="admin-alert admin-alert-info" style={{ marginBottom: '16px' }}>
-                    <Package size={20} />
-                    <span>Managing all garment accessories & trims. Edits here automatically feed into Homepage showcase!</span>
-                  </div>
-                  <div className="admin-card">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                      <h3>All Products Catalog</h3>
-                      <button 
-                        type="button" 
-                        className="admin-btn admin-btn-primary"
-                        onClick={() => setEditingProduct({ title: '', category: 'Garment Accessories', summary: '', description: '', image_url: '', is_featured: false })}
-                      >
-                        <Plus size={16} /> Add Product
-                      </button>
-                    </div>
-
-                    <div className="admin-table-wrapper">
-                      <table className="admin-table">
-                        <thead>
-                          <tr>
-                            <th>Image</th>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {productsList.map((prod, idx) => (
-                            <tr key={prod.id || idx}>
-                              <td style={{ width: '60px' }}>
-                                <img 
-                                  src={prod.image || prod.image_url} 
-                                  alt={prod.title} 
-                                  style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '6px' }} 
-                                />
-                              </td>
-                              <td><strong>{prod.title}</strong></td>
-                              <td><span className="admin-badge">{prod.category}</span></td>
-                              <td>
-                                <div style={{ display: 'flex', gap: '8px' }}>
-                                  <button 
-                                    className="admin-btn admin-btn-sm admin-btn-secondary"
-                                    onClick={() => setEditingProduct(prod)}
-                                  >
-                                    <Edit2 size={14} /> Edit
-                                  </button>
-                                  <button 
-                                    className="admin-btn admin-btn-sm admin-btn-danger"
-                                    onClick={() => setDeleteModalState({ isOpen: true, type: 'product', id: prod.id, title: prod.title })}
-                                  >
-                                    <Trash2 size={14} /> Delete
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
+                <ProductsPageEditor
+                  content={content}
+                  onSaveSection={async (pageKey, sectionKey, sectionContent) => {
+                    setLoading(true);
+                    try {
+                      const res = await fetch('/api/content.php?action=save_section', {
+                        method: 'POST',
+                        headers: getAuthHeader(),
+                        body: JSON.stringify({ page_key: pageKey, section_key: sectionKey, content: sectionContent })
+                      });
+                      const data = await res.json();
+                      if (!res.ok || !data.success) throw new Error(data.error || 'Failed to save');
+                      await refreshContent();
+                      showToast(`Products section '${sectionKey}' saved & published live!`);
+                    } catch (err) {
+                      showToast(err.message, 'error');
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
+                  onToggleSection={handleToggleSection}
+                  loading={loading}
+                />
               )}
 
               {/* VIEW 5: SECTION (FACTORY FLOORS) */}
@@ -1278,122 +1240,29 @@ export default function AdminDashboard({ user, onLogout, navigate }) {
 
           {/* TAB 4: PRODUCTS */}
           {activeTab === 'products' && (
-            <div className="admin-panel">
-              <div className="admin-panel-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div>
-                  <h2>Products Catalog</h2>
-                  <p>Add, edit, or remove garment trims and accessories. Changes sync with the Homepage showcase.</p>
-                </div>
-                <button 
-                  className="admin-btn admin-btn-primary"
-                  onClick={() => setEditingProduct({ title: '', category: 'Garment Accessories', summary: '', description: '', image_url: '', is_featured: false })}
-                >
-                  <Plus size={16} /> Add New Product
-                </button>
-              </div>
-
-              {/* Product Edit / Add Form Modal */}
-              {editingProduct && (
-                <div className="admin-modal-backdrop">
-                  <div className="admin-modal-content" style={{ maxWidth: '650px', textAlign: 'left' }}>
-                    <h3>{editingProduct.id ? 'Edit Product' : 'Add New Product'}</h3>
-                    <form onSubmit={handleSaveProduct} className="admin-form">
-                      <div className="admin-form-group">
-                        <label>Product Title</label>
-                        <input 
-                          type="text" 
-                          className="admin-input" 
-                          value={editingProduct.title || ''}
-                          onChange={(e) => setEditingProduct({ ...editingProduct, title: e.target.value })}
-                          required
-                        />
-                      </div>
-
-                      <div className="admin-form-group">
-                        <label>Category</label>
-                        <input 
-                          type="text" 
-                          className="admin-input" 
-                          value={editingProduct.category || ''}
-                          onChange={(e) => setEditingProduct({ ...editingProduct, category: e.target.value })}
-                          required
-                        />
-                      </div>
-
-                      <div className="admin-form-group">
-                        <label>Short Summary</label>
-                        <input 
-                          type="text" 
-                          className="admin-input" 
-                          value={editingProduct.summary || ''}
-                          onChange={(e) => setEditingProduct({ ...editingProduct, summary: e.target.value })}
-                        />
-                      </div>
-
-                      <ImageUploader 
-                        label="Product Main Image (WebP)"
-                        currentImage={editingProduct.image_url || editingProduct.image}
-                        onSelectImage={(url) => setEditingProduct({ ...editingProduct, image_url: url })}
-                      />
-
-                      <div className="admin-modal-actions" style={{ marginTop: '20px' }}>
-                        <button type="button" className="admin-btn admin-btn-secondary" onClick={() => setEditingProduct(null)}>
-                          Cancel
-                        </button>
-                        <button type="submit" className="admin-btn admin-btn-primary" disabled={loading}>
-                          <Save size={16} /> Save Product
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              )}
-
-              {/* Products List Table */}
-              <div className="admin-table-wrapper">
-                <table className="admin-table">
-                  <thead>
-                    <tr>
-                      <th>Image</th>
-                      <th>Title</th>
-                      <th>Category</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {productsList.map((prod, idx) => (
-                      <tr key={prod.id || idx}>
-                        <td style={{ width: '60px' }}>
-                          <img 
-                            src={prod.image || prod.image_url} 
-                            alt={prod.title} 
-                            style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '6px' }} 
-                          />
-                        </td>
-                        <td><strong>{prod.title}</strong></td>
-                        <td><span className="admin-badge">{prod.category}</span></td>
-                        <td>
-                          <div style={{ display: 'flex', gap: '8px' }}>
-                            <button 
-                              className="admin-btn admin-btn-sm admin-btn-secondary"
-                              onClick={() => setEditingProduct(prod)}
-                            >
-                              <Edit2 size={14} /> Edit
-                            </button>
-                            <button 
-                              className="admin-btn admin-btn-sm admin-btn-danger"
-                              onClick={() => setDeleteModalState({ isOpen: true, type: 'product', id: prod.id, title: prod.title })}
-                            >
-                              <Trash2 size={14} /> Delete
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            <ProductsPageEditor
+              content={content}
+              onSaveSection={async (pageKey, sectionKey, sectionContent) => {
+                setLoading(true);
+                try {
+                  const res = await fetch('/api/content.php?action=save_section', {
+                    method: 'POST',
+                    headers: getAuthHeader(),
+                    body: JSON.stringify({ page_key: pageKey, section_key: sectionKey, content: sectionContent })
+                  });
+                  const data = await res.json();
+                  if (!res.ok || !data.success) throw new Error(data.error || 'Failed to save');
+                  await refreshContent();
+                  showToast(`Products section '${sectionKey}' saved & published live!`);
+                } catch (err) {
+                  showToast(err.message, 'error');
+                } finally {
+                  setLoading(false);
+                }
+              }}
+              onToggleSection={handleToggleSection}
+              loading={loading}
+            />
           )}
 
           {/* TAB 5: LEADERSHIP TEAM */}

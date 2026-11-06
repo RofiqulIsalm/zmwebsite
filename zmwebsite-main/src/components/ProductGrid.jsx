@@ -1,25 +1,43 @@
 import React, { useState } from 'react';
 import { Search, ArrowRight } from 'lucide-react';
 import ProductCard from './ProductCard';
-import { categories, products } from '../data/products';
+import { categories as defaultCategories, products as defaultProducts } from '../data/products';
+import { useSiteContent } from '../context/SiteContentContext';
 
 export default function ProductGrid({ 
   navigate, 
   initialCategory = 'all', 
   limit = null,
   showFilters = true,
-  title = "Our Product Solutions",
-  subtitle = "Engineered for international garment brands, export factories, and buying houses."
+  title = null,
+  subtitle = null,
+  badge = null
 }) {
+  const { content } = useSiteContent();
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredProducts = products.filter((product) => {
+  const catalogHeader = content?.products?.catalogHeader || {};
+  const sectionBadge = badge || catalogHeader.badge || "Verified Manufacturing Range";
+  const sectionTitle = title || catalogHeader.title || "Verified Product Catalog";
+  const sectionSubtitle = subtitle || catalogHeader.subtitle || "Filter by manufacturing division or search specific apparel techniques and trims.";
+
+  const dynamicCategories = (content?.products?.categories && content.products.categories.length > 0)
+    ? content.products.categories 
+    : defaultCategories;
+
+  const dynamicProducts = (content?.products?.items && content.products.items.length > 0)
+    ? content.products.items 
+    : defaultProducts;
+
+  const filteredProducts = dynamicProducts.filter((product) => {
     const matchesCategory = selectedCategory === 'all' || product.categoryId === selectedCategory;
+    const searchLower = searchQuery.toLowerCase();
     const matchesSearch = searchQuery === '' || 
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.shortDesc.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.materials.some(m => m.toLowerCase().includes(searchQuery.toLowerCase()));
+      (product.name && product.name.toLowerCase().includes(searchLower)) ||
+      (product.title && product.title.toLowerCase().includes(searchLower)) ||
+      (product.shortDesc && product.shortDesc.toLowerCase().includes(searchLower)) ||
+      (product.materials && Array.isArray(product.materials) && product.materials.some(m => m.toLowerCase().includes(searchLower)));
     return matchesCategory && matchesSearch;
   });
 
@@ -30,9 +48,9 @@ export default function ProductGrid({
       <div className="container">
         {/* Section Header */}
         <div className="section-header-center">
-          <span className="section-badge">Verified Manufacturing Range</span>
-          <h2 className="section-title">{title}</h2>
-          <p className="section-subtitle">{subtitle}</p>
+          <span className="section-badge">{sectionBadge}</span>
+          <h2 className="section-title">{sectionTitle}</h2>
+          <p className="section-subtitle">{sectionSubtitle}</p>
         </div>
 
         {/* Filter & Search Bar */}
@@ -47,11 +65,11 @@ export default function ProductGrid({
                 onClick={() => setSelectedCategory('all')}
               >
                 <span>All Solutions</span>
-                <span className="cat-count">({products.length})</span>
+                <span className="cat-count">({dynamicProducts.length})</span>
               </button>
 
-              {categories.map((cat) => {
-                const count = products.filter(p => p.categoryId === cat.id).length;
+              {dynamicCategories.map((cat) => {
+                const count = dynamicProducts.filter(p => p.categoryId === cat.id).length;
                 return (
                   <button 
                     key={cat.id}

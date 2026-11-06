@@ -2896,48 +2896,31 @@
     "categories": [
       {
         "id": "screen-printing",
-        "numericId": 14,
         "name": "Screen Printing",
         "tagline": "Industrial Silk Screen, Plastisol, High-Density & Specialty Finishes",
         "description": "Multi-color automated carousels and manual long-table printing lines capable of water-based, plastisol, discharge, reflective, and 3D high-density effects on cotton, poly-blends, and headwear.",
-        "image": "/assets/images/cat_14.png",
-        "count": 6
+        "image": "/images/products/cat_14.png"
       },
       {
         "id": "sublimation",
-        "numericId": 15,
         "name": "Sublimation Printing",
         "tagline": "High-Resolution Roll-to-Roll & Engineered Piece Transfer",
         "description": "EPSON precision dye-sublimation printers paired with industrial continuous rotary calendars and flatbed heat presses for activewear, sportswear jerseys, and seamless cap graphics.",
-        "image": "/assets/images/cat_15.png",
-        "count": 6
+        "image": "/images/products/cat_15.png"
       },
       {
         "id": "rubber-nxp-sonic",
-        "numericId": 16,
         "name": "Rubber Patch & Sonic NXP",
         "tagline": "High-Frequency Sonic Welds, Liquid Silicone & 3D Molded Patches",
         "description": "Precision CNC steel and copper tooling for multi-color micro-injected PVC, soft-touch liquid silicone, and high-frequency NXP ultrasonic heat welds for outerwear and denim.",
-        "image": "/assets/images/cat_16.png",
-        "count": 8
+        "image": "/images/products/cat_16.png"
       },
       {
-        "id": "trims-fasteners",
-        "numericId": 17,
-        "name": "Trims & Fasteners",
-        "tagline": "High-Tenacity Threads, Metal/Resin Buttons, Zippers & Hangers",
-        "description": "Complete apparel accessory lines supplying spun polyester sewing threads, custom-cast alloy buttons, snap fasteners, smooth sliding zippers, and GRS-certified display hangers.",
-        "image": "/images/products/product-15.jpg",
-        "count": 4
-      },
-      {
-        "id": "labels-packaging",
-        "numericId": 18,
-        "name": "Labels, Patches & Packaging",
-        "tagline": "Offset Hangtags, Sustainable Polybags, TPU Pouches & Leather Patches",
-        "description": "Commercial Heidelberg offset hangtags, eco-friendly biodegradable polybags, ultrasonic welded waterproof TPU pouches, and deep-embossed genuine leather denim waist patches.",
-        "image": "/images/products/product-11.jpg",
-        "count": 4
+        "id": "leather-patches",
+        "name": "PU & Leather Patches",
+        "tagline": "Thermal Debossed, Foil Stamped & Laser-Engraved Badges",
+        "description": "Denim and outerwear waist badges made through heat-debossing, foil stamping, screen printing, and laser engraving on genuine and PU leather.",
+        "image": "/images/products/prod_27.png"
       }
     ],
     "items": [
@@ -3873,7 +3856,77 @@
         "leadTime": "Sample: 3-4 Days | Bulk: 7-10 Days",
         "featured": true
       }
-    ]
+    ],
+    "hero": {
+      "_isActive": true,
+      "badge": "✦ OFFICIAL EXPORT RANGE • ASHULIA INDUSTRIAL COMPLEX",
+      "titleLine1": "All Products & Solutions",
+      "titleLine2": "Factory Profile Catalog",
+      "subtitle": "Comprehensive export-standard apparel trims, silk screen prints, roll-to-roll dye sublimation, 3D liquid silicone badges, NXP ultrasonic welds, and packaging solutions manufactured at our Ashulia complex.",
+      "pdfButtonText": "Download Product Profile (PDF)",
+      "pdfButtonUrl": "/assets/docs/ZM_Printing_Factory_Profile.pdf",
+      "sampleButtonText": "Request Custom Samples",
+      "sampleButtonUrl": "/contact",
+      "metrics": [
+        {
+          "id": "metric-1",
+          "icon": "Layers",
+          "value": "28+ Lines",
+          "label": "Verified Product Capabilities"
+        },
+        {
+          "id": "metric-2",
+          "icon": "Factory",
+          "value": "2.33M+ Pcs",
+          "label": "Combined Monthly Capacity"
+        },
+        {
+          "id": "metric-3",
+          "icon": "ShieldCheck",
+          "value": "AQL 1.5",
+          "label": "Export Pre-Shipment Gate"
+        },
+        {
+          "id": "metric-4",
+          "icon": "Award",
+          "value": "100% Eco",
+          "label": "OEKO-TEX & ZDHC Level 3"
+        }
+      ]
+    },
+    "catalogHeader": {
+      "_isActive": true,
+      "badge": "VERIFIED MANUFACTURING RANGE",
+      "title": "Verified Product Catalog",
+      "subtitle": "Filter by manufacturing division or search specific apparel techniques and trims."
+    },
+    "ctaBanner": {
+      "_isActive": true,
+      "pill": "Direct Factory Sourcing",
+      "heading": "Need Customized Samples for Your Tech Pack?",
+      "subtitle": "Submit your tech pack or vector artwork for rapid 48-hour physical strike-offs, pricing matrices, or schedule a formal buyer plant audit in Ashulia.",
+      "btnPrimaryText": "Request Product Strike-Off",
+      "btnPrimaryUrl": "/contact",
+      "btnOutlineText": "Download Profile PDF",
+      "btnOutlineUrl": "/assets/docs/ZM_Printing_Factory_Profile.pdf",
+      "features": [
+        {
+          "icon": "⚡",
+          "title": "48-Hour Rapid Strike-Offs",
+          "desc": "Dedicated sampling lines for urgent buyer tech pack approvals"
+        },
+        {
+          "icon": "🛡️",
+          "title": "Export Grade Compliance",
+          "desc": "OEKO-TEX® Standard 100 Class 1 & ZDHC Level 3 certified"
+        },
+        {
+          "icon": "🏭",
+          "title": "Ashulia Plant Visits Welcome",
+          "desc": "Direct inspection of all 4 production floors & testing lab"
+        }
+      ]
+    }
   },
   "gallery": {
     "header": {

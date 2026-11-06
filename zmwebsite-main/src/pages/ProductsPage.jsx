@@ -1,10 +1,40 @@
 import React from 'react';
 import ProductGrid from '../components/ProductGrid';
 import { ArrowRight, Download, ShieldCheck, Factory, Award, Layers } from 'lucide-react';
+import { useSiteContent } from '../context/SiteContentContext';
 
 export default function ProductsPage({ navigate, searchParams }) {
+  const { content } = useSiteContent();
   const categoryParam = searchParams.get('category') || 'all';
-  const pdfUrl = '/assets/docs/ZM_Printing_Factory_Profile.pdf';
+
+  const productsData = content?.products || {};
+  const heroData = productsData.hero || {};
+  const catalogHeaderData = productsData.catalogHeader || {};
+  const ctaData = productsData.ctaBanner || {};
+
+  const pdfUrl = heroData.pdfButtonUrl || '/assets/docs/ZM_Printing_Factory_Profile.pdf';
+  const ctaPdfUrl = ctaData.btnOutlineUrl || pdfUrl;
+
+  const defaultMetrics = [
+    { icon: Layers, value: '28+ Lines', label: 'Verified Product Capabilities' },
+    { icon: Factory, value: '2.33M+ Pcs', label: 'Combined Monthly Capacity' },
+    { icon: ShieldCheck, value: 'AQL 1.5', label: 'Export Pre-Shipment Gate' },
+    { icon: Award, value: '100% Eco', label: 'OEKO-TEX & ZDHC Level 3' }
+  ];
+
+  const metrics = heroData.metrics && heroData.metrics.length > 0 
+    ? heroData.metrics.map((m, idx) => ({
+        icon: defaultMetrics[idx % defaultMetrics.length].icon,
+        value: m.value,
+        label: m.label
+      }))
+    : defaultMetrics;
+
+  const ctaFeatures = ctaData.features && ctaData.features.length > 0 ? ctaData.features : [
+    { icon: '⚡', title: '48-Hour Rapid Strike-Offs', desc: 'Dedicated sampling lines for urgent buyer tech pack approvals' },
+    { icon: '🛡️', title: 'Export Grade Compliance', desc: 'OEKO-TEX® Standard 100 Class 1 & ZDHC Level 3 certified' },
+    { icon: '🏭', title: 'Ashulia Plant Visits Welcome', desc: 'Direct inspection of all 4 production floors & testing lab' }
+  ];
 
   const handleNavClick = (path, e) => {
     e.preventDefault();
@@ -13,162 +43,130 @@ export default function ProductsPage({ navigate, searchParams }) {
 
   return (
     <div className="products-page">
-      {/* 1. Solo Page Clean Hero Banner - Exact match to website.zmprintingbd.com/products */}
-      <section className="products-hero-section text-center">
-        <div className="container products-hero-container">
-          
-          {/* Green Badge with dot */}
-          <div className="products-hero-badge" data-reveal="fade-down">
-            <span className="products-badge-dot"></span>
-            <span>✦ OFFICIAL EXPORT RANGE • ASHULIA INDUSTRIAL COMPLEX</span>
+      {/* 1. Solo Page Clean Hero Banner - Dynamic & Editable */}
+      {heroData._isActive !== false && (
+        <section className="products-hero-section text-center">
+          <div className="container products-hero-container">
+            
+            {/* Green Badge with dot */}
+            <div className="products-hero-badge" data-reveal="fade-down">
+              <span className="products-badge-dot"></span>
+              <span>{heroData.badge || '✦ OFFICIAL EXPORT RANGE • ASHULIA INDUSTRIAL COMPLEX'}</span>
+            </div>
+
+            {/* Heading: Line 1 Navy, Line 2 Green */}
+            <h1 className="products-hero-title" data-reveal="fade-up">
+              {heroData.titleLine1 || 'All Products & Solutions'} <br />
+              <span className="products-hero-title-green">{heroData.titleLine2 || 'Factory Profile Catalog'}</span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="products-hero-subtitle" data-reveal="fade-up">
+              {heroData.subtitle || 'Comprehensive export-standard apparel trims, silk screen prints, roll-to-roll dye sublimation, 3D liquid silicone badges, NXP ultrasonic welds, and packaging solutions manufactured at our Ashulia complex.'}
+            </p>
+
+            {/* Action Buttons */}
+            <div className="products-hero-actions" data-reveal="fade-up">
+              <a 
+                href={pdfUrl} 
+                download="ZM_Printing_Factory_Profile.pdf"
+                className="btn-download-pdf"
+              >
+                <Download size={16} />
+                <span>{heroData.pdfButtonText || 'Download Product Profile (PDF)'}</span>
+              </a>
+              <a 
+                href={heroData.sampleButtonUrl || '/contact'} 
+                onClick={(e) => handleNavClick(heroData.sampleButtonUrl || '/contact', e)}
+                className="btn-request-samples"
+              >
+                <span>{heroData.sampleButtonText || 'Request Custom Samples'}</span>
+                <ArrowRight size={16} />
+              </a>
+            </div>
+
+            {/* 4 Core Plant Footprint Metrics Cards */}
+            <div className="products-metrics-grid" data-reveal="fade-up">
+              {metrics.map((m, idx) => {
+                const IconComponent = m.icon;
+                return (
+                  <div key={idx} className="products-metric-card">
+                    <div className="products-metric-icon">
+                      <IconComponent size={22} />
+                    </div>
+                    <div className="products-metric-text">
+                      <span className="products-metric-value">{m.value}</span>
+                      <span className="products-metric-label">{m.label}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
           </div>
-
-          {/* Heading: Line 1 Navy, Line 2 Green */}
-          <h1 className="products-hero-title" data-reveal="fade-up">
-            All Products &amp; Solutions <br />
-            <span className="products-hero-title-green">Factory Profile Catalog</span>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="products-hero-subtitle" data-reveal="fade-up">
-            Comprehensive export-standard apparel trims, silk screen prints, roll-to-roll dye sublimation, 
-            3D liquid silicone badges, NXP ultrasonic welds, and packaging solutions manufactured at our Ashulia complex.
-          </p>
-
-          {/* Action Buttons */}
-          <div className="products-hero-actions" data-reveal="fade-up">
-            <a 
-              href={pdfUrl} 
-              download="ZM_Printing_Factory_Profile.pdf"
-              className="btn-download-pdf"
-            >
-              <Download size={16} />
-              <span>Download Product Profile (PDF)</span>
-            </a>
-            <a 
-              href="/contact" 
-              onClick={(e) => handleNavClick('/contact', e)}
-              className="btn-request-samples"
-            >
-              <span>Request Custom Samples</span>
-              <ArrowRight size={16} />
-            </a>
-          </div>
-
-          {/* 4 Core Plant Footprint Metrics Cards - Exact 1:1 match to screenshot */}
-          <div className="products-metrics-grid" data-reveal="fade-up">
-            <div className="products-metric-card">
-              <div className="products-metric-icon">
-                <Layers size={22} />
-              </div>
-              <div className="products-metric-text">
-                <span className="products-metric-value">28+ Lines</span>
-                <span className="products-metric-label">Verified Product Capabilities</span>
-              </div>
-            </div>
-
-            <div className="products-metric-card">
-              <div className="products-metric-icon">
-                <Factory size={22} />
-              </div>
-              <div className="products-metric-text">
-                <span className="products-metric-value">2.33M+ Pcs</span>
-                <span className="products-metric-label">Combined Monthly Capacity</span>
-              </div>
-            </div>
-
-            <div className="products-metric-card">
-              <div className="products-metric-icon">
-                <ShieldCheck size={22} />
-              </div>
-              <div className="products-metric-text">
-                <span className="products-metric-value">AQL 1.5</span>
-                <span className="products-metric-label">Export Pre-Shipment Gate</span>
-              </div>
-            </div>
-
-            <div className="products-metric-card">
-              <div className="products-metric-icon">
-                <Award size={22} />
-              </div>
-              <div className="products-metric-text">
-                <span className="products-metric-value">100% Eco</span>
-                <span className="products-metric-label">OEKO-TEX &amp; ZDHC Level 3</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 2. Main Filterable Product Catalog Grid */}
-      <ProductGrid 
-        navigate={navigate} 
-        initialCategory={categoryParam}
-        showFilters={true}
-        title="Verified Product Catalog"
-        subtitle="Filter by manufacturing division or search specific apparel techniques and trims."
-      />
+      {catalogHeaderData._isActive !== false && (
+        <ProductGrid 
+          navigate={navigate} 
+          initialCategory={categoryParam}
+          showFilters={true}
+          title={catalogHeaderData.title || "Verified Product Catalog"}
+          subtitle={catalogHeaderData.subtitle || "Filter by manufacturing division or search specific apparel techniques and trims."}
+        />
+      )}
 
       {/* 3. Bottom CTA Banner (Consistent 2-column balanced design) */}
-      <section className="section-detail-cta">
-        <div className="container">
-          <div className="cta-inner-card">
-            <div className="cta-content">
-              <span className="cta-pill">Direct Factory Sourcing</span>
-              <h3 className="cta-title">Need Customized Samples for Your Tech Pack?</h3>
-              <p className="cta-desc">
-                Submit your tech pack or vector artwork for rapid 48-hour physical strike-offs, pricing matrices, or schedule a formal buyer plant audit in Ashulia.
-              </p>
+      {ctaData._isActive !== false && (
+        <section className="section-detail-cta">
+          <div className="container">
+            <div className="cta-inner-card">
+              <div className="cta-content">
+                <span className="cta-pill">{ctaData.pill || 'Direct Factory Sourcing'}</span>
+                <h3 className="cta-title">{ctaData.heading || 'Need Customized Samples for Your Tech Pack?'}</h3>
+                <p className="cta-desc">
+                  {ctaData.subtitle || 'Submit your tech pack or vector artwork for rapid 48-hour physical strike-offs, pricing matrices, or schedule a formal buyer plant audit in Ashulia.'}
+                </p>
 
-              <div className="cta-actions">
-                <a 
-                  href="/contact" 
-                  onClick={(e) => handleNavClick('/contact', e)}
-                  className="btn-cta-primary"
-                >
-                  <span>Request Product Strike-Off</span>
-                  <ArrowRight size={16} />
-                </a>
-                <a 
-                  href={pdfUrl}
-                  download="ZM_Printing_Factory_Profile.pdf"
-                  className="btn-cta-outline"
-                >
-                  <Download size={16} />
-                  <span>Download Profile PDF</span>
-                </a>
+                <div className="cta-actions">
+                  <a 
+                    href={ctaData.btnPrimaryUrl || '/contact'} 
+                    onClick={(e) => handleNavClick(ctaData.btnPrimaryUrl || '/contact', e)}
+                    className="btn-cta-primary"
+                  >
+                    <span>{ctaData.btnPrimaryText || 'Request Product Strike-Off'}</span>
+                    <ArrowRight size={16} />
+                  </a>
+                  <a 
+                    href={ctaPdfUrl}
+                    download="ZM_Printing_Factory_Profile.pdf"
+                    className="btn-cta-outline"
+                  >
+                    <Download size={16} />
+                    <span>{ctaData.btnOutlineText || 'Download Profile PDF'}</span>
+                  </a>
+                </div>
               </div>
+
+              {/* Right Column: Key Guarantees Panel */}
+              <div className="cta-features-panel">
+                {ctaFeatures.map((feat, fIdx) => (
+                  <div key={fIdx} className="cta-feature-row">
+                    <div className="cta-feat-icon">{feat.icon}</div>
+                    <div>
+                      <strong>{feat.title}</strong>
+                      <p>{feat.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
             </div>
-
-            {/* Right Column: Key Guarantees Panel */}
-            <div className="cta-features-panel">
-              <div className="cta-feature-row">
-                <div className="cta-feat-icon">⚡</div>
-                <div>
-                  <strong>48-Hour Rapid Strike-Offs</strong>
-                  <p>Dedicated sampling lines for urgent buyer tech pack approvals</p>
-                </div>
-              </div>
-              <div className="cta-feature-row">
-                <div className="cta-feat-icon">🛡️</div>
-                <div>
-                  <strong>Export Grade Compliance</strong>
-                  <p>OEKO-TEX® Standard 100 Class 1 &amp; ZDHC Level 3 certified</p>
-                </div>
-              </div>
-              <div className="cta-feature-row">
-                <div className="cta-feat-icon">🏭</div>
-                <div>
-                  <strong>Ashulia Plant Visits Welcome</strong>
-                  <p>Direct inspection of all 4 production floors &amp; testing lab</p>
-                </div>
-              </div>
-            </div>
-
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <style>{`
         /* ========================================================

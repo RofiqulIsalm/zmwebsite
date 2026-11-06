@@ -1,22 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ProductCard from '../components/ProductCard';
 import QuoteWizard from '../components/QuoteWizard';
-import { products } from '../data/products';
+import { products as defaultProducts } from '../data/products';
+import { useSiteContent } from '../context/SiteContentContext';
 import { CheckCircle2, Send } from 'lucide-react';
 
 export default function ProductDetailPage({ slug, navigate }) {
-  const product = products.find((p) => p.slug === slug) || products[0];
-  const [activeImage, setActiveImage] = useState(product.image);
+  const { content } = useSiteContent();
+  const dynamicProducts = (content?.products?.items && content.products.items.length > 0)
+    ? content.products.items 
+    : defaultProducts;
 
-  const relatedProducts = products
-    .filter((p) => p.categoryId === product.categoryId && p.slug !== product.slug)
+  const product = dynamicProducts.find((p) => p.slug === slug || String(p.id) === String(slug)) || dynamicProducts[0];
+  const [activeImage, setActiveImage] = useState(product?.image || product?.image_url);
+
+  useEffect(() => {
+    if (product) {
+      setActiveImage(product.image || product.image_url);
+    }
+  }, [product]);
+
+  const relatedProducts = dynamicProducts
+    .filter((p) => p.categoryId === product?.categoryId && p.slug !== product?.slug)
     .slice(0, 3);
 
   const breadcrumbs = [
     { label: 'Products', path: '/products' },
-    { label: product.category, path: `/products?category=${product.categoryId}` },
-    { label: product.name }
+    { label: product?.category || 'Catalog', path: `/products?category=${product?.categoryId || 'all'}` },
+    { label: product?.name || product?.title || 'Product Detail' }
   ];
 
   return (
