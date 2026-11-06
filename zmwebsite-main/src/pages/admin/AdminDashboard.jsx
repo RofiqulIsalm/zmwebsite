@@ -8,6 +8,7 @@ import {
 import ImageUploader from './components/ImageUploader';
 import DoubleCheckModal from './components/DoubleCheckModal';
 import HomePageEditor from './components/HomePageEditor';
+import AboutPageEditor from './components/AboutPageEditor';
 import { useSiteContent } from '../../context/SiteContentContext';
 
 // Website Navigation Menus / Pages Hierarchy
@@ -659,69 +660,35 @@ export default function AdminDashboard({ user, onLogout, navigate }) {
                 />
               )}
 
-              {/* VIEW 2: ABOUT PAGE SECTION FLOW */}
+              {/* VIEW 2: ABOUT PAGE SECTION FLOW (Comprehensive Visual Builder) */}
               {selectedPageMenu === 'about' && (
-                <div className="admin-page-flow-wrapper">
-                  <div style={{ marginBottom: '16px' }}>
-                    <h3 style={{ margin: 0, color: '#fff' }}>About Us Page (`/about`) — Section Flow in Live Sequence</h3>
-                    <p style={{ margin: '4px 0 0', color: 'var(--admin-text-dim)', fontSize: '0.85rem' }}>
-                      Configure the heritage story, executive leadership, milestones timeline, and authentic factory photos.
-                    </p>
-                  </div>
-
-                  <div className="admin-section-flow-list">
-                    {aboutSections.map((sec) => (
-                      <div 
-                        key={sec.key} 
-                        className={`admin-section-card ${!sec.isActive ? 'is-hidden' : ''}`}
-                      >
-                        <div className="admin-section-card-left">
-                          <div className="admin-section-order-num">{sec.order}</div>
-                          <div className="admin-section-info">
-                            <h4>
-                              <span>{sec.name}</span>
-                              <span className={`admin-status-pill ${sec.isActive ? 'is-active' : 'is-inactive'}`}>
-                                {sec.isActive ? 'Active (Live)' : 'Hidden'}
-                              </span>
-                            </h4>
-                            <p>{sec.desc}</p>
-                          </div>
-                        </div>
-
-                        <div className="admin-section-actions">
-                          {sec.jumpToTab ? (
-                            <button
-                              type="button"
-                              className="admin-btn admin-btn-sm admin-btn-primary"
-                              onClick={() => setActiveTab(sec.jumpToTab)}
-                            >
-                              <Users size={14} />
-                              <span>Manage Leadership</span>
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              className="admin-btn admin-btn-sm admin-btn-primary"
-                              onClick={() => handleOpenSectionEditor(sec)}
-                            >
-                              <Edit2 size={14} />
-                              <span>Edit Text & Media</span>
-                            </button>
-                          )}
-
-                          <button
-                            type="button"
-                            className={`admin-btn admin-btn-sm ${sec.isActive ? 'admin-btn-secondary' : 'admin-btn-outline'}`}
-                            onClick={() => handleToggleSection(sec.page, sec.key, sec.isActive)}
-                          >
-                            {sec.isActive ? <EyeOff size={14} /> : <Eye size={14} />}
-                            <span>{sec.isActive ? 'Hide' : 'Show'}</span>
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <AboutPageEditor
+                  content={content}
+                  onSaveSection={async (pageKey, sectionKey, sectionContent) => {
+                    setLoading(true);
+                    try {
+                      const res = await fetch('/api/content.php?action=save_section', {
+                        method: 'POST',
+                        headers: getAuthHeader(),
+                        body: JSON.stringify({
+                          page_key: pageKey,
+                          section_key: sectionKey,
+                          content: sectionContent
+                        })
+                      });
+                      const data = await res.json();
+                      if (!res.ok || !data.success) throw new Error(data.error || 'Failed to save');
+                      await refreshContent();
+                      showToast(`About Section '${sectionKey}' saved & published live!`);
+                    } catch (err) {
+                      showToast(err.message, 'error');
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
+                  onToggleSection={handleToggleSection}
+                  loading={loading}
+                />
               )}
 
               {/* VIEW 3: CLIENTS HUB (CENTRAL SOURCE OF TRUTH) */}

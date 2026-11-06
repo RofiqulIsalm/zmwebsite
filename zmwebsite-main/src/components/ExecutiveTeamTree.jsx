@@ -3,112 +3,113 @@ import { Award, ShieldCheck, Briefcase } from 'lucide-react';
 import LeadershipVisionModal from './LeadershipVisionModal';
 import './ExecutiveTeamTree.css';
 
-export default function ExecutiveTeamTree() {
+const defaultTopTier = [
+  {
+    id: 'md',
+    tag: 'Managing Director',
+    name: 'MD. ABDUL KADER ZILANI',
+    role: 'Managing Director',
+    desc: 'Leading overall business operations, strategic planning, production excellence, and sustainable growth in garment printing and customized accessories.',
+    img: '/images/team/md-abdul-kader-zilani.webp',
+    badge: 'Executive Leadership',
+    modalBadge: 'Leadership Vision',
+    heading: 'A Word From Our Managing Director',
+    quote: 'True craftsmanship in apparel branding and accessories manufacturing is not merely about machinery; it is about passion, ecological responsibility, and keeping promises to global fashion creators.',
+    paragraphs: [
+      'When we laid the foundation of ZM Printing & Design Ltd., our ambition was clear: to engineer world-class screen printing, sublimation, PVC and silicon badges, heat transfers, and specialized patches right here that surpass international standards in precision and durability.',
+      'We invest continuously in advanced technology, green chemistry, and most importantly, our people. Today, as a trusted partner to premier apparel brands across the globe, we remain committed to zero-defect quality and ethical sustainability every single day.',
+      'With our 30,000 SQFT eco-friendly manufacturing base in Ashulia, rigorous AQL inspection regimes, and a dedicated workforce of 300+ artisans and technicians, we guarantee reliable lead times, flawless print execution, and long-term value for every partner.'
+    ],
+    signature: 'Md. Abdul Kader Zilani',
+    phone: '+8801322-881470',
+    email: 'zilani@zmprintingbd.com'
+  },
+  {
+    id: 'chairman',
+    tag: 'Chairman of the Board',
+    name: 'MST. ROJINA',
+    role: 'Chairman of the Board',
+    desc: 'Providing strategic leadership and vision to drive business growth, manufacturing excellence, product innovation, and long-term success in garment printing and accessories.',
+    img: '/images/about/chairman-mst-rojina.jpg',
+    badge: 'Board Governance',
+    modalBadge: 'Board Governance & Vision',
+    heading: 'A Word From Our Chairman of the Board',
+    quote: 'Our greatest strength lies in our commitment to quality, innovation, worker empowerment, and enduring customer trust.',
+    paragraphs: [
+      'At ZM Printing & Design Ltd., we specialize in Screen Printing, Sublimation Printing, Silicon Badges, and PVC Badges, delivering creative and reliable solutions designed to meet the diverse needs of the global garment and fashion industry.',
+      'Our strategic governance ensures zero-defect quality standards, employee safety, maternal care facilities, and eco-certified green production across our 30,000 SQFT facility in Ashulia.',
+      'We believe sustainable manufacturing begins with valuing every artisan and engineer in our workforce while nurturing long-term partnerships with international fashion labels.'
+    ],
+    signature: 'Mst. Rojina',
+    phone: '+8801618724419',
+    email: 'zmprinting02@gmail.com'
+  }
+];
+
+const defaultDirectorsTier = [
+  {
+    id: 'dir-ops',
+    tag: 'DIRECTOR',
+    name: 'Jannatul Ferdous Jonaki',
+    role: 'DIRECTOR',
+    desc: 'Overseeing business operations, production quality, strategic planning, and product innovation across garment printing and customized accessories.',
+    img: '/images/team/chief-operating-officer.webp',
+    badge: 'Executive Director',
+    modalBadge: 'Operational Excellence',
+    heading: 'A Word From Our Director',
+    quote: 'Flawless manufacturing execution requires seamless synchronization between cutting-edge technology and passionate craftsmanship on every production floor.',
+    paragraphs: [
+      'Overseeing business operations, production quality, strategic planning, and product innovation across garment printing and customized accessories.',
+      'From our 534 linear feet of continuous screen printing tables to high-speed sublimation lines and ultrasonic welding floors, we maintain stringent AQL 1.5 inspection standards across all manufacturing batches.',
+      'Our mission is to guarantee rapid sampling, transparent order tracking, and consistent export-grade durability that international apparel brands rely on.'
+    ],
+    signature: 'Jannatul Ferdous Jonaki'
+  },
+  {
+    id: 'dir-tech',
+    tag: 'Director (FINANCE)',
+    name: 'Md.Mahmudul Hasan Minhaz',
+    role: 'Director of Finance',
+    desc: 'Overseeing financial planning, budgeting, cost control, and financial operations to support efficient production and sustainable business growth.',
+    img: '/images/team/md-mahmudul-hasan-minhaz.webp',
+    badge: 'Director of Finance',
+    modalBadge: 'Financial Stewardship',
+    heading: 'A Word From Our Director of Finance',
+    quote: 'Fiscal discipline and strategic capital allocation are the pillars that sustain our cutting-edge manufacturing infrastructure and global growth.',
+    paragraphs: [
+      'Overseeing financial planning, budgeting, cost control, and financial operations to support efficient production and sustainable business growth.',
+      'Through disciplined financial management, optimized supply chain procurement, and trusted partnerships with premier banking institutions like Trust Bank PLC and Woori Bank, we maintain strong financial stability.',
+      'We actively invest capital into green chemistry, energy-efficient automated machinery, and worker welfare amenities to create long-term shared value.'
+    ],
+    signature: 'Md. Mahmudul Hasan Minhaz'
+  }
+];
+
+const defaultGmProfile = {
+  id: 'gm',
+  tag: 'General Manager',
+  name: 'Md. Ainul Islam',
+  role: 'General Manager',
+  desc: 'Overseeing production excellence, quality control, and business operations for innovative printing solutions and premium garment accessories.',
+  img: '/images/about/ainul-islam.jpg',
+  badge: 'General Management',
+  modalBadge: 'Plant Leadership & Quality',
+  heading: 'A Word From Our General Manager',
+  quote: 'Every print, badge, and sonic-welded trim that leaves our factory gate reflects our relentless dedication to precision craftsmanship and zero-defect execution.',
+  paragraphs: [
+    'Overseeing production excellence, quality control, and business operations for innovative printing solutions and premium garment accessories.',
+    'Managing 300+ dedicated personnel across our 14 factory sections with rigorous shopfloor coordination, real-time hourly output tracking, and strict adherence to international safety and environmental guidelines.',
+    'Our focus is ensuring that every customer requirement is met with absolute precision, high wash-durability standards, and dependable on-time delivery.'
+  ],
+  signature: 'Md. Ainul Islam'
+};
+
+export default function ExecutiveTeamTree({ customData }) {
   const [selectedLeader, setSelectedLeader] = useState(null);
 
-  // 1st: MD and Chairman (2 Profiles - Top Center)
-  const topTier = [
-    {
-      id: 'md',
-      tag: 'Managing Director',
-      name: 'MD. ABDUL KADER ZILANI',
-      role: 'Managing Director',
-      desc: 'Leading overall business operations, strategic planning, production excellence, and sustainable growth in garment printing and customized accessories.',
-      img: '/images/team/md-abdul-kader-zilani.webp',
-      badge: 'Executive Leadership',
-      modalBadge: 'Leadership Vision',
-      heading: 'A Word From Our Managing Director',
-      quote: 'True craftsmanship in apparel branding and accessories manufacturing is not merely about machinery; it is about passion, ecological responsibility, and keeping promises to global fashion creators.',
-      paragraphs: [
-        'When we laid the foundation of ZM Printing & Design Ltd., our ambition was clear: to engineer world-class screen printing, sublimation, PVC and silicon badges, heat transfers, and specialized patches right here that surpass international standards in precision and durability.',
-        'We invest continuously in advanced technology, green chemistry, and most importantly, our people. Today, as a trusted partner to premier apparel brands across the globe, we remain committed to zero-defect quality and ethical sustainability every single day.',
-        'With our 30,000 SQFT eco-friendly manufacturing base in Ashulia, rigorous AQL inspection regimes, and a dedicated workforce of 300+ artisans and technicians, we guarantee reliable lead times, flawless print execution, and long-term value for every partner.'
-      ],
-      signature: 'Md. Abdul Kader Zilani',
-      phone: '+8801322-881470',
-      email: 'zilani@zmprintingbd.com'
-    },
-    {
-      id: 'chairman',
-      tag: 'Chairman of the Board',
-      name: 'MST. ROJINA',
-      role: 'Chairman of the Board',
-      desc: 'Providing strategic leadership and vision to drive business growth, manufacturing excellence, product innovation, and long-term success in garment printing and accessories.',
-      img: '/images/about/chairman-mst-rojina.jpg',
-      badge: 'Board Governance',
-      modalBadge: 'Board Governance & Vision',
-      heading: 'A Word From Our Chairman of the Board',
-      quote: 'Our greatest strength lies in our commitment to quality, innovation, worker empowerment, and enduring customer trust.',
-      paragraphs: [
-        'At ZM Printing & Design Ltd., we specialize in Screen Printing, Sublimation Printing, Silicon Badges, and PVC Badges, delivering creative and reliable solutions designed to meet the diverse needs of the global garment and fashion industry.',
-        'Our strategic governance ensures zero-defect quality standards, employee safety, maternal care facilities, and eco-certified green production across our 30,000 SQFT facility in Ashulia.',
-        'We believe sustainable manufacturing begins with valuing every artisan and engineer in our workforce while nurturing long-term partnerships with international fashion labels.'
-      ],
-      signature: 'Mst. Rojina',
-      phone: '+8801618724419',
-      email: 'zmprinting02@gmail.com'
-    }
-  ];
-
-  // 2nd: Directors (2 Profiles - Left Wing)
-  const directorsTier = [
-    {
-      id: 'dir-ops',
-      tag: 'DIRECTOR',
-      name: 'Jannatul Ferdous Jonaki',
-      role: 'DIRECTOR',
-      desc: 'Overseeing business operations, production quality, strategic planning, and product innovation across garment printing and customized accessories.',
-      img: '/images/team/chief-operating-officer.webp',
-      badge: 'Executive Director',
-      modalBadge: 'Operational Excellence',
-      heading: 'A Word From Our Director',
-      quote: 'Flawless manufacturing execution requires seamless synchronization between cutting-edge technology and passionate craftsmanship on every production floor.',
-      paragraphs: [
-        'Overseeing business operations, production quality, strategic planning, and product innovation across garment printing and customized accessories.',
-        'From our 534 linear feet of continuous screen printing tables to high-speed sublimation lines and ultrasonic welding floors, we maintain stringent AQL 1.5 inspection standards across all manufacturing batches.',
-        'Our mission is to guarantee rapid sampling, transparent order tracking, and consistent export-grade durability that international apparel brands rely on.'
-      ],
-      signature: 'Jannatul Ferdous Jonaki'
-    },
-    {
-      id: 'dir-tech',
-      tag: 'Director (FINANCE)',
-      name: 'Md.Mahmudul Hasan Minhaz',
-      role: 'Director of Finance',
-      desc: 'Overseeing financial planning, budgeting, cost control, and financial operations to support efficient production and sustainable business growth.',
-      img: '/images/team/md-mahmudul-hasan-minhaz.webp',
-      badge: 'Director of Finance',
-      modalBadge: 'Financial Stewardship',
-      heading: 'A Word From Our Director of Finance',
-      quote: 'Fiscal discipline and strategic capital allocation are the pillars that sustain our cutting-edge manufacturing infrastructure and global growth.',
-      paragraphs: [
-        'Overseeing financial planning, budgeting, cost control, and financial operations to support efficient production and sustainable business growth.',
-        'Through disciplined financial management, optimized supply chain procurement, and trusted partnerships with premier banking institutions like Trust Bank PLC and Woori Bank, we maintain strong financial stability.',
-        'We actively invest capital into green chemistry, energy-efficient automated machinery, and worker welfare amenities to create long-term shared value.'
-      ],
-      signature: 'Md. Mahmudul Hasan Minhaz'
-    }
-  ];
-
-  // 3rd: General Manager (1 Profile - Right Wing)
-  const gmProfile = {
-    id: 'gm',
-    tag: 'General Manager',
-    name: 'Md. Ainul Islam',
-    role: 'General Manager',
-    desc: 'Overseeing production excellence, quality control, and business operations for innovative printing solutions and premium garment accessories.',
-    img: '/images/about/ainul-islam.jpg',
-    badge: 'General Management',
-    modalBadge: 'Plant Leadership & Quality',
-    heading: 'A Word From Our General Manager',
-    quote: 'Every print, badge, and sonic-welded trim that leaves our factory gate reflects our relentless dedication to precision craftsmanship and zero-defect execution.',
-    paragraphs: [
-      'Overseeing production excellence, quality control, and business operations for innovative printing solutions and premium garment accessories.',
-      'Managing 300+ dedicated personnel across our 14 factory sections with rigorous shopfloor coordination, real-time hourly output tracking, and strict adherence to international safety and environmental guidelines.',
-      'Our focus is ensuring that every customer requirement is met with absolute precision, high wash-durability standards, and dependable on-time delivery.'
-    ],
-    signature: 'Md. Ainul Islam'
-  };
+  const topTier = customData?.topTier && customData.topTier.length > 0 ? customData.topTier : defaultTopTier;
+  const directorsTier = customData?.directorsTier && customData.directorsTier.length > 0 ? customData.directorsTier : defaultDirectorsTier;
+  const gmProfile = customData?.gmProfile && customData.gmProfile.name ? customData.gmProfile : defaultGmProfile;
 
   const allLeaders = [...topTier, ...directorsTier, gmProfile];
 
