@@ -15,6 +15,13 @@ require_once __DIR__ . '/db.php';
 
 header('Content-Type: text/html; charset=UTF-8');
 
+// Security Lockout: prevent unauthorized re-execution or credential exposure
+$lockFile = __DIR__ . '/setup.lock';
+if (file_exists($lockFile)) {
+    http_response_code(403);
+    die("<div style='font-family:system-ui,sans-serif;padding:40px;background:#0d1810;color:#e2e8f0;max-width:500px;margin:50px auto;border-radius:12px;border:1px solid #1f3624;'><h2 style='color:#ef4444;margin-top:0;'>403 Access Forbidden</h2><p>Database setup is permanently locked for security. To re-run, remove <code>api/setup.lock</code> via SSH or cPanel File Manager.</p></div>");
+}
+
 $db = null;
 try {
     $db = get_db();
@@ -165,15 +172,17 @@ if (file_exists(CONTENT_JSON_PATH)) {
         </div>
 
         <?php if ($adminCreated): ?>
-        <h3>Initial Master Admin Credentials:</h3>
-        <div class="info-box" style="border-color: #ecc94b; background: #2d2a13;">
-            <div class="info-row"><span class="label">Username:</span><span class="value"><?= htmlspecialchars($adminUser) ?></span></div>
-            <div class="info-row"><span class="label">Password:</span><span class="value"><?= htmlspecialchars($adminDefaultPass) ?></span></div>
-            <p style="margin: 8px 0 0; font-size: 13px; color: #ecc94b;">âš ï¸ Please login and change this password immediately from the admin panel.</p>
+        <div class="info-box" style="border-color: #10b981; background: #07190d;">
+            <p style="margin: 0; color: #6ee7b7; font-weight: 500;">Master administrator account initialized securely.</p>
         </div>
         <?php else: ?>
-        <p style="color: #9ae6b4;">âœ… Admin account already exists. Existing credentials preserved.</p>
+        <p style="color: #9ae6b4;">Admin account verified. Existing credentials preserved.</p>
         <?php endif; ?>
+
+        <?php
+        // Create permanent lockfile
+        @file_put_contents($lockFile, "Installed on " . date('Y-m-d H:i:s'));
+        ?>
 
         <a href="../zm-portal-admin" class="btn">Proceed to Admin Login &rarr;</a>
     </div>

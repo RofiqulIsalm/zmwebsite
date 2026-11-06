@@ -27,3 +27,6 @@ dist-ssr
 pdf_extracted_raw.txt
 scratch_pdf_text.txt
 *.zip
+*.lock
+scripts/.dev_auth.json
+.env

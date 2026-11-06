@@ -28,7 +28,17 @@ export default function AdminLogin({ onLoginSuccess }) {
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.error || 'Authentication failed. Please verify credentials.');
+        // Strict security sanitization: never leak credentials, usernames, or internal paths
+        let errorMsg = 'Invalid username or password. Access denied.';
+        if (data.error) {
+          const lower = data.error.toLowerCase();
+          if (lower.includes('lock') || lower.includes('attempt') || lower.includes('minute') || lower.includes('too many')) {
+            errorMsg = data.error;
+          } else if (!lower.includes('zmadmin') && !lower.includes('default') && !lower.includes('password:') && !lower.includes('#')) {
+            errorMsg = data.error;
+          }
+        }
+        throw new Error(errorMsg);
       }
 
       if (data.token) {
@@ -39,7 +49,8 @@ export default function AdminLogin({ onLoginSuccess }) {
         onLoginSuccess(data.user);
       }
     } catch (err) {
-      setError(err.message);
+      setPassword(''); // Clear password field on failed attempt for security
+      setError(err.message || 'Access denied.');
     } finally {
       setLoading(false);
     }

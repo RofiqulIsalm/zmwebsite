@@ -10,8 +10,7 @@ Allow: /images/
 Allow: /assets/
 Allow: /favicon.svg
 
-# Disallow Private Administrative Console & API
-Disallow: /zm-portal-admin/
+# Disallow Internal API
 Disallow: /api/
 
 # Sitemaps

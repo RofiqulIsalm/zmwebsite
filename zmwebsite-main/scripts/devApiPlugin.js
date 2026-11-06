@@ -9,6 +9,11 @@ import path from 'path';
  * 
  * In production (cPanel), Apache/LiteSpeed serves the native PHP scripts in public/api/
  */
+// In-memory rate limiting map for brute-force protection
+const loginAttempts = new Map();
+const MAX_ATTEMPTS = 5;
+const LOCKOUT_MS = 15 * 60 * 1000; // 15 minutes
+
 export function devApiPlugin() {
   return {
     name: 'vite-dev-api-plugin',
@@ -68,6 +73,28 @@ export function devApiPlugin() {
         }
 
         const contentJsonPath = path.resolve(process.cwd(), 'public/data/content.json');
+        const authConfigPath = path.resolve(process.cwd(), 'scripts/.dev_auth.json');
+
+        const getDevCredentials = () => {
+          try {
+            if (fs.existsSync(authConfigPath)) {
+              return JSON.parse(fs.readFileSync(authConfigPath, 'utf-8'));
+            }
+          } catch (e) {}
+          return {
+            username: 'zmadmin',
+            password: 'ZM_Admin#2026!'
+          };
+        };
+
+        const saveDevCredentials = (creds) => {
+          try {
+            fs.writeFileSync(authConfigPath, JSON.stringify(creds, null, 2), 'utf-8');
+          } catch (e) {
+            console.error('Failed to save dev auth config:', e);
+          }
+        };
+
         const readContent = () => {
           try {
             return JSON.parse(fs.readFileSync(contentJsonPath, 'utf-8'));
@@ -83,38 +110,65 @@ export function devApiPlugin() {
         // 1. AUTHENTICATION (auth.php)
         // ----------------------------------------------------------------------
         if (endpoint.includes('auth.php')) {
+          const clientIp = req.socket.remoteAddress || '127.0.0.1';
+
           if (action === 'login') {
             const { username, password } = body;
-            // Allow login with default admin credentials or any reasonable password
-            if (username === 'zmadmin' && (password === 'ZM_Admin#2026!' || password.length >= 6)) {
+            const now = Date.now();
+
+            // Check brute-force lockout
+            const attemptInfo = loginAttempts.get(clientIp) || { count: 0, lastFailed: 0 };
+            if (attemptInfo.count >= MAX_ATTEMPTS && (now - attemptInfo.lastFailed < LOCKOUT_MS)) {
+              const remainingMinutes = Math.ceil((LOCKOUT_MS - (now - attemptInfo.lastFailed)) / 60000);
+              res.statusCode = 429;
+              return res.end(JSON.stringify({
+                success: false,
+                error: `Too many failed login attempts. Access temporarily locked for ${remainingMinutes} minute(s).`
+              }));
+            }
+
+            // Anti-timing artificial delay (400ms)
+            await new Promise(r => setTimeout(r, 400));
+
+            const currentCreds = getDevCredentials();
+            const isValid = username === currentCreds.username && password === currentCreds.password;
+
+            if (isValid) {
+              loginAttempts.delete(clientIp);
               return res.end(JSON.stringify({
                 success: true,
-                token: 'zm-local-dev-token-2026',
+                token: 'zm-secure-token-' + Buffer.from(now + '-' + username).toString('base64'),
                 user: {
                   id: 1,
-                  username: 'zmadmin',
+                  username: currentCreds.username,
                   email: 'info@zmprintingbd.com',
-                  fullName: 'Site Administrator (Local Dev)',
+                  fullName: 'Site Administrator',
                   role: 'admin'
                 }
               }));
             } else {
+              // Record failed attempt
+              attemptInfo.count += 1;
+              attemptInfo.lastFailed = now;
+              loginAttempts.set(clientIp, attemptInfo);
+
               res.statusCode = 401;
               return res.end(JSON.stringify({
                 success: false,
-                error: 'Invalid credentials. Default username: zmadmin and password: ZM_Admin#2026!'
+                error: 'Invalid admin username or password. Access denied.'
               }));
             }
           }
 
           if (action === 'check') {
+            const currentCreds = getDevCredentials();
             return res.end(JSON.stringify({
               success: true,
               user: {
                 id: 1,
-                username: 'zmadmin',
+                username: currentCreds.username,
                 email: 'info@zmprintingbd.com',
-                fullName: 'Site Administrator (Local Dev)',
+                fullName: 'Site Administrator',
                 role: 'admin'
               }
             }));
@@ -125,7 +179,29 @@ export function devApiPlugin() {
           }
 
           if (action === 'change_password') {
-            return res.end(JSON.stringify({ success: true, message: 'Password updated successfully in local dev.' }));
+            const { oldPassword, newPassword } = body;
+            const currentCreds = getDevCredentials();
+
+            if (oldPassword !== currentCreds.password) {
+              res.statusCode = 400;
+              return res.end(JSON.stringify({
+                success: false,
+                error: 'Current master password is incorrect.'
+              }));
+            }
+
+            if (!newPassword || newPassword.length < 8) {
+              res.statusCode = 400;
+              return res.end(JSON.stringify({
+                success: false,
+                error: 'New password must be at least 8 characters long.'
+              }));
+            }
+
+            currentCreds.password = newPassword;
+            saveDevCredentials(currentCreds);
+
+            return res.end(JSON.stringify({ success: true, message: 'Master admin password updated securely.' }));
           }
         }
 

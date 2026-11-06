@@ -79,3 +79,12 @@
   Header set X-Frame-Options "SAMEORIGIN"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
+
+# Block Direct Access to Sensitive Database, Setup and System Files
+<FilesMatch "^(schema\.sql|setup\.lock|\.env|.*\.log|setup\.php|db\.php)$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# Prevent Directory Index Browsing
+Options -Indexes
