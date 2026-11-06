@@ -25,6 +25,7 @@ const SectionPage = lazy(() => import('./pages/SectionPage'));
 const SectionDetailPage = lazy(() => import('./pages/SectionDetailPage'));
 const PrivacyPolicyPage = lazy(() => import('./pages/LegalPages').then(m => ({ default: m.PrivacyPolicyPage })));
 const TermsPage = lazy(() => import('./pages/LegalPages').then(m => ({ default: m.TermsPage })));
+const AdminPortal = lazy(() => import('./pages/admin/AdminPortal'));
 
 function RouteLoadingFallback() {
   return (
@@ -173,6 +174,19 @@ export default function App() {
       </div>
     );
   };
+
+  // Dedicated layout for Private Admin Portal (no public header/footer)
+  const isAdminRoute = currentPath.startsWith('/zm-portal-admin');
+
+  if (isAdminRoute) {
+    return (
+      <div className="admin-root-wrapper">
+        <Suspense fallback={<RouteLoadingFallback />}>
+          <AdminPortal navigate={navigate} />
+        </Suspense>
+      </div>
+    );
+  }
 
   return (
     <div className="app-layout">

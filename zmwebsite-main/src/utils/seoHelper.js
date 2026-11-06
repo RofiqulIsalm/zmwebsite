@@ -24,6 +24,20 @@ export function getRouteMetadata(pathname) {
   let type = "website";
   let breadcrumbs = [{ name: "Home", url: `${DOMAIN}/` }];
   let specificSchema = null;
+  let isNoIndex = false;
+
+  if (cleanPath.startsWith('/zm-portal-admin')) {
+    return {
+      title: "Control Center | ZM Management Portal",
+      description: "Restricted administrative console.",
+      canonicalUrl: `${DOMAIN}/zm-portal-admin`,
+      image: DEFAULT_IMAGE,
+      type: "website",
+      breadcrumbs: [],
+      specificSchema: null,
+      isNoIndex: true
+    };
+  }
 
   if (cleanPath === '/') {
     title = "ZM Printing & Design Ltd. | Precision Apparel Trims & Textile Printing Bangladesh";
@@ -221,6 +235,13 @@ export function applySEO(pathname) {
   // 2. Primary Meta Description
   setMeta('name', 'description', meta.description);
   setMeta('name', 'title', meta.title);
+
+  // 2b. Robots Meta Tag (Enforce noindex for private admin portal)
+  if (meta.isNoIndex) {
+    setMeta('name', 'robots', 'noindex, nofollow, noarchive');
+  } else {
+    setMeta('name', 'robots', 'index, follow, max-image-preview:large');
+  }
 
   // 3. Canonical Link
   let canonicalEl = document.querySelector('link[rel="canonical"]');

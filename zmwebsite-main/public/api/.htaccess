@@ -1,0 +1,12 @@
+# ==============================================================================
+# ZM PRINTING CMS - API SECURITY DIRECTIVES
+# ==============================================================================
+
+# Deny direct access to configuration and SQL schemas
+<FilesMatch "^(config\.php|db_config\.local\.php|schema\.sql|\.env)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Prevent directory browsing
+Options -Indexes
